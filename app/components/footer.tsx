@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "@/app/images/desktop-logo.png";
+import logo from "@/app/images/dark-logo.png";
 import { BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { LiaLinkedin } from "react-icons/lia";
@@ -19,12 +19,12 @@ export const Footer = () => {
 
           <div className="hidden lg:block">
             <div className="pt-10 pb-6">
-              <p>Stay up to date with our latest stories</p>
+              <p className="pb-2">Stay up to date with our latest stories</p>
               <form className="flex py-4">
                 <input
                   type="email"
                   placeholder="Enter your email address"
-                  className="py-2 px-3 bg-gray-200 text-base text-[#525252] placeholder:text-[#525252]"
+                  className="py-2 px-3 bg-gray-300 text-base text-[#525252] placeholder:text-[#525252]"
                 />
                 <button type="submit" className="text-white p-2 bg-primaryBg">
                   Sign Up
@@ -71,11 +71,11 @@ export const Footer = () => {
         <div className="block lg:hidden">
           <div className="pt-10 pb-6">
             <p>Stay up to date with our latest stories</p>
-            <form className="flex">
+            <form className="flex py-3">
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="p-2 text-darkText placeholder:text-darkText"
+                className="p-2 bg-gray-200 text-darkText placeholder:text-darkText"
               />
               <button type="submit" className="bg-primaryBg text-white p-2">
                 Sign Up
@@ -94,10 +94,15 @@ export const Footer = () => {
       </div>
       <div className="text-darkText">
         <hr className="border w-full" />
-        <div className="flex justify-between py-3 text-sm">
+        <div className="flex md:flex-row flex-col-reverse justify-between py-3 text-sm">
           {" "}
-          <p>Copyright 2026 . SeraphéBeauty</p>
-          <p>Privacy Policy</p>
+          <p className="text-center md:text-left">
+            Copyright&#169;2026 . SeraphéBeauty
+          </p>
+          <div className="flex gap-4 justify-between py-2">
+            <p>Privacy Policy</p>
+            <p>Terms of use</p>
+          </div>
         </div>
       </div>
     </div>

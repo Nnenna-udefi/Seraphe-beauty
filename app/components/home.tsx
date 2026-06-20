@@ -6,7 +6,7 @@ import H1 from "./ui/heading";
 import { blogDummy, shopDummy } from "../lib/constants";
 const Home = () => {
   return (
-    <div className="py-10">
+    <div className="py-10 md:py-16">
       <div className="md:px-12 px-6 flex md:flex-row flex-col justify-between gap-6">
         <div>
           <div className=" ">
@@ -84,7 +84,7 @@ const Home = () => {
 
         <div className="flex md:flex-row gap-4 py-6 flex-col">
           {blogDummy.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="pt-6 md:pt-0">
               <div className=" ">
                 <Image
                   src={item.img}
@@ -112,7 +112,7 @@ const Home = () => {
 
         <div className="flex md:flex-row gap-4 py-6 flex-col">
           {blogDummy.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="pt-6 md:pt-0">
               <div className=" ">
                 <Image
                   src={item.img}
@@ -142,15 +142,15 @@ const Home = () => {
             src={flower}
             alt="flower girl"
             width={500}
-            height={500}
-            className="w-full"
+            height={300}
+            className="w-full h-75"
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-2">
           <h3 className="uppercase text-yellowText text-sm pt-2">
             Reader&apos;s Favourite
           </h3>
-          <h1 className="md:text-4xl text-2xl py-2 md:w-[80%] w-full">
+          <h1 className="md:text-4xl text-center text-2xl py-2 md:w-[80%] w-full">
             Top 3 Regina Daniels Beauty Secret that will leave your Skin Glowing
           </h1>
           <p className="uppercase text-darkText text-sm">
@@ -163,14 +163,14 @@ const Home = () => {
       <div className="md:px-12 px-6 py-10  md:py-16">
         <H1>Lifestyle</H1>
         <div className="py-6 flex md:flex-row flex-col justify-between ">
-          <div className="border border-red-800">
-            <div className="border border-blue-800 w-125">
+          <div>
+            <div className="">
               <Image
                 src={model}
                 alt="model"
-                width={500}
-                height={500}
-                className="w-full h-75 md:w-125 md:h-125"
+                width={300}
+                height={300}
+                className="w-75 h-75 md:w-125 md:h-125"
               />
             </div>
             <div>
@@ -185,7 +185,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 flex-col">
+          <div className="flex gap-4 flex-col pt-3 md:pt-0">
             {blogDummy.map((item) => (
               <div key={item.id} className="flex gap-2">
                 <div className=" ">
@@ -206,7 +206,7 @@ const Home = () => {
         </div>
       </div>
       {/* Join our community */}
-      <div className="flex flex-col py-10 justify-center items-center gap-4">
+      <div className="flex flex-col md:px-12 px-6 py-10 justify-center items-center gap-4">
         <H1 className="text-center">Join our Community</H1>
         <p className="md:text-base text-sm text-[#484646]">
           Stay up to date with our latest stories
@@ -231,9 +231,9 @@ const Home = () => {
           Shop editor-approved picks and great beauty sales.
         </p>
 
-        <div className="py-6 grid grid-cols-1 lg:grid-cols-4">
+        <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
           {shopDummy.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="pt-6 md:pt-0">
               <div className=" ">
                 <Image
                   src={item.img}

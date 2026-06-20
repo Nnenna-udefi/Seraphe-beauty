@@ -75,7 +75,7 @@ export const Nav = () => {
             <X />
           </div> */}
 
-          <ul className="flex flex-col gap-4 uppercase">
+          <ul className="flex flex-col font-medium gap-6 uppercase">
             {navItems.map((item) => {
               const isActive = pathname === item.link;
               return (
