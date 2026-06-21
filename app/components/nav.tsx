@@ -53,7 +53,9 @@ export const Nav = () => {
             const isActive = pathname === item.link;
             return (
               <Link href={item.link} key={item.id}>
-                <li className={`${isActive ? "" : ""} font-medium`}>
+                <li
+                  className={`${isActive ? "text-yellowText" : ""} font-medium`}
+                >
                   {item.text}
                 </li>
               </Link>

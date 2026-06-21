@@ -204,3 +204,41 @@ export const shopDummy = [
     author: "By Ogunmola Gbemisola",
   },
 ];
+
+export const lifestyleList = [
+  {
+    id: 1,
+    text: "All Lifestyle",
+    link: "/lifestyle",
+  },
+  {
+    id: 2,
+    text: "Make-up",
+    link: "/lifestyle/make-up",
+  },
+  {
+    id: 3,
+    text: "Fragrances",
+    link: "/lifestyle/fragrance",
+  },
+  {
+    id: 4,
+    text: "Wellness",
+    link: "/lifestyle/wellness",
+  },
+  {
+    id: 5,
+    text: "Seraphé women",
+    link: "/lifestyle/seraphe-women",
+  },
+  {
+    id: 6,
+    text: "Seraphé men",
+    link: "/lifestyle/seraphe-men",
+  },
+  {
+    id: 7,
+    text: "Gen Z Beauty",
+    link: "/lifestyle/Genz-beauty",
+  },
+];

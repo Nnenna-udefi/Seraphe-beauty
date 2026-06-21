@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import model from "@/app/images/model.jpeg";
 import flower from "@/app/images/flower-girl.jpeg";
 import H1 from "./ui/heading";
 import { blogDummy, shopDummy } from "../lib/constants";
+import Carousel from "./ui/carousel";
 const Home = () => {
   return (
     <div className="py-10 md:py-16">
@@ -79,35 +81,67 @@ const Home = () => {
 
       {/* beauty tips */}
 
-      <div className="md:px-12 px-6 py-10 md:py-16">
-        <H1>Beauty Tips</H1>
-
-        <div className="flex md:flex-row gap-4 py-6 flex-col">
-          {blogDummy.map((item) => (
-            <div key={item.id} className="pt-6 md:pt-0">
-              <div className=" ">
-                <Image
-                  src={item.img}
-                  alt="model"
-                  width={300}
-                  height={300}
-                  className="w-full h-75 md:w-75 md:h-75"
-                />
-              </div>
-              <div>
-                <h3 className="uppercase text-yellowText text-sm pt-2">
-                  {item.category}
-                </h3>
-                <h1 className="md:text-xl text-base py-2 ">{item.topic}</h1>
-                <p className="uppercase text-darkText text-sm">{item.author}</p>
-              </div>
+      <Carousel
+        title="Beauty Tips"
+        data={blogDummy}
+        renderItem={(item) => (
+          <div className="flex flex-col h-full">
+            <div className="overflow-hidden bg-gray-100">
+              <Image
+                src={item.img}
+                alt={item.topic}
+                width={300}
+                height={300}
+                className="w-full h-75 object-cover"
+              />
             </div>
-          ))}
-        </div>
-      </div>
+            <div className="flex flex-col grow">
+              <h3 className="uppercase text-yellowText text-sm pt-4">
+                {item.category}
+              </h3>
+              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+                {item.topic}
+              </h4>
+              <p className="uppercase text-darkText text-sm mt-auto">
+                {item.author}
+              </p>
+            </div>
+          </div>
+        )}
+      />
 
       {/* trends */}
-      <div className="bg-[#fdf3ed] md:px-12 px-6 py-10 md:py-16">
+
+      <Carousel
+        title="Latest Trends"
+        data={blogDummy}
+        className="bg-[#fdf3ed]"
+        renderItem={(item) => (
+          <div className="flex flex-col h-full">
+            <div className="overflow-hidden bg-gray-100">
+              <Image
+                src={item.img}
+                alt={item.topic}
+                width={300}
+                height={300}
+                className="w-full h-75 object-cover"
+              />
+            </div>
+            <div className="flex flex-col grow">
+              <h3 className="uppercase text-yellowText text-sm pt-4">
+                {item.category}
+              </h3>
+              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+                {item.topic}
+              </h4>
+              <p className="uppercase text-darkText text-sm mt-auto">
+                {item.author}
+              </p>
+            </div>
+          </div>
+        )}
+      />
+      {/* <div className="bg-[#fdf3ed] md:px-12 px-6 py-10 md:py-16">
         <H1>Latest Trends</H1>
 
         <div className="flex md:flex-row gap-4 py-6 flex-col">
@@ -132,7 +166,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* readers favourite */}
 
@@ -192,7 +226,7 @@ const Home = () => {
                   <Image src={item.img} alt="model" width={300} height={300} />
                 </div>
                 <div>
-                  <h3 className="uppercase text-yellowText text-sm pt-2">
+                  <h3 className="uppercase text-yellowText text-sm">
                     {item.category}
                   </h3>
                   <h1 className="md:text-xl text-base py-2 ">{item.topic}</h1>
@@ -256,7 +290,36 @@ const Home = () => {
       </div>
       {/* skincare */}
 
-      <div className="md:px-12 px-6 py-10 md:py-16">
+      <Carousel
+        title="Skincare"
+        data={blogDummy}
+        renderItem={(item) => (
+          <div className="flex flex-col h-full">
+            <div className="overflow-hidden bg-gray-100">
+              <Image
+                src={item.img}
+                alt={item.topic}
+                width={300}
+                height={300}
+                className="w-full h-75 object-cover"
+              />
+            </div>
+            <div className="flex flex-col grow">
+              <h3 className="uppercase text-yellowText text-sm pt-4">
+                {item.category}
+              </h3>
+              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+                {item.topic}
+              </h4>
+              <p className="uppercase text-darkText text-sm mt-auto">
+                {item.author}
+              </p>
+            </div>
+          </div>
+        )}
+      />
+
+      {/* <div className="md:px-12 px-6 py-10 md:py-16">
         <H1>Skincare</H1>
 
         <div className="flex md:flex-row gap-4 py-6 flex-col">
@@ -281,7 +344,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
