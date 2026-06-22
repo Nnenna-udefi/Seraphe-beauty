@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import model from "@/app/images/model.jpeg";
 import flower from "@/app/images/flower-girl.jpeg";
-import H1 from "./ui/heading";
+import { H1 } from "./ui/heading";
 import { blogDummy, shopDummy } from "../lib/constants";
 import Carousel from "./ui/carousel";
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
               src={model}
               alt="model"
               width={500}
-              height={500}
+              height={0}
               className="w-full h-75 md:w-125 md:h-125"
             />
           </div>
@@ -39,7 +39,7 @@ const Home = () => {
                 src={model}
                 alt="model"
                 width={500}
-                height={500}
+                height={0}
                 className="w-full h-75 md:object-cover object-fill"
               />
             </div>
@@ -61,7 +61,7 @@ const Home = () => {
                 src={model}
                 alt="model"
                 width={500}
-                height={500}
+                height={0}
                 className="w-full h-75  md:object-cover object-fill"
               />
             </div>
@@ -91,7 +91,7 @@ const Home = () => {
                 src={item.img}
                 alt={item.topic}
                 width={300}
-                height={300}
+                height={0}
                 className="w-full h-75 object-cover"
               />
             </div>
@@ -99,7 +99,7 @@ const Home = () => {
               <h3 className="uppercase text-yellowText text-sm pt-4">
                 {item.category}
               </h3>
-              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+              <h4 className="md:text-xl text-base py-2 font-normal text-black">
                 {item.topic}
               </h4>
               <p className="uppercase text-darkText text-sm mt-auto">
@@ -115,7 +115,7 @@ const Home = () => {
       <Carousel
         title="Latest Trends"
         data={blogDummy}
-        className="bg-[#fdf3ed]"
+        className="bg-boxBg"
         renderItem={(item) => (
           <div className="flex flex-col h-full">
             <div className="overflow-hidden bg-gray-100">
@@ -123,7 +123,7 @@ const Home = () => {
                 src={item.img}
                 alt={item.topic}
                 width={300}
-                height={300}
+                height={0}
                 className="w-full h-75 object-cover"
               />
             </div>
@@ -131,7 +131,7 @@ const Home = () => {
               <h3 className="uppercase text-yellowText text-sm pt-4">
                 {item.category}
               </h3>
-              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+              <h4 className="md:text-xl text-base py-2 font-normal text-black">
                 {item.topic}
               </h4>
               <p className="uppercase text-darkText text-sm mt-auto">
@@ -141,32 +141,6 @@ const Home = () => {
           </div>
         )}
       />
-      {/* <div className="bg-[#fdf3ed] md:px-12 px-6 py-10 md:py-16">
-        <H1>Latest Trends</H1>
-
-        <div className="flex md:flex-row gap-4 py-6 flex-col">
-          {blogDummy.map((item) => (
-            <div key={item.id} className="pt-6 md:pt-0">
-              <div className=" ">
-                <Image
-                  src={item.img}
-                  alt="model"
-                  width={300}
-                  height={300}
-                  className="w-full h-75 md:w-75 md:h-75"
-                />
-              </div>
-              <div>
-                <h3 className="uppercase text-yellowText text-sm pt-2">
-                  {item.category}
-                </h3>
-                <h1 className="md:text-xl text-base py-2 ">{item.topic}</h1>
-                <p className="uppercase text-darkText text-sm">{item.author}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       {/* readers favourite */}
 
@@ -176,7 +150,7 @@ const Home = () => {
             src={flower}
             alt="flower girl"
             width={500}
-            height={300}
+            height={0}
             className="w-full h-75"
           />
         </div>
@@ -203,7 +177,7 @@ const Home = () => {
                 src={model}
                 alt="model"
                 width={300}
-                height={300}
+                height={0}
                 className="w-75 h-75 md:w-125 md:h-125"
               />
             </div>
@@ -273,7 +247,7 @@ const Home = () => {
                   src={item.img}
                   alt="model"
                   width={300}
-                  height={300}
+                  height={0}
                   className="w-full h-75 md:w-75 md:h-75"
                 />
               </div>
@@ -300,7 +274,7 @@ const Home = () => {
                 src={item.img}
                 alt={item.topic}
                 width={300}
-                height={300}
+                height={0}
                 className="w-full h-75 object-cover"
               />
             </div>
@@ -308,7 +282,7 @@ const Home = () => {
               <h3 className="uppercase text-yellowText text-sm pt-4">
                 {item.category}
               </h3>
-              <h4 className="md:text-xl text-base py-2 font-normal text-black line-clamp-2">
+              <h4 className="md:text-xl text-base py-2 font-normal text-black">
                 {item.topic}
               </h4>
               <p className="uppercase text-darkText text-sm mt-auto">
@@ -318,33 +292,6 @@ const Home = () => {
           </div>
         )}
       />
-
-      {/* <div className="md:px-12 px-6 py-10 md:py-16">
-        <H1>Skincare</H1>
-
-        <div className="flex md:flex-row gap-4 py-6 flex-col">
-          {blogDummy.map((item) => (
-            <div key={item.id}>
-              <div className=" ">
-                <Image
-                  src={item.img}
-                  alt="model"
-                  width={300}
-                  height={300}
-                  className="w-full h-75 md:w-75 md:h-75"
-                />
-              </div>
-              <div>
-                <h3 className="uppercase text-yellowText text-sm pt-2">
-                  {item.category}
-                </h3>
-                <h1 className="md:text-xl text-base py-2 ">{item.topic}</h1>
-                <p className="uppercase text-darkText text-sm">{item.author}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
     </div>
   );
 };

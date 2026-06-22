@@ -5,7 +5,7 @@ import React from "react";
 import { blogDummy, lifestyleList, shopDummy } from "../lib/constants";
 import Image from "next/image";
 import model from "@/app/images/model.jpeg";
-import H1 from "./ui/heading";
+import { H1 } from "./ui/heading";
 
 export const Lifestyle = () => {
   const pathname = usePathname();
@@ -15,7 +15,7 @@ export const Lifestyle = () => {
         <h1 className="font-contataOne text-black md:text-5xl text-3xl font-normal">
           Lifestyle
         </h1>
-        <p className="md:text-base lg:w-[60%] w-full text-sm text-darkText">
+        <p className="md:text-base text-center lg:w-[60%] py-4 w-full text-sm text-darkText">
           Find everything you need to know about the best makeup tools and
           helpful application techniques straight from the pros. Read on for
           tips and tricks no matter your skill level.
@@ -49,7 +49,7 @@ export const Lifestyle = () => {
                   src={item.img}
                   alt="model"
                   width={300}
-                  height={300}
+                  height={0}
                   className="w-full h-75 md:w-75 md:h-75"
                 />
               </div>
@@ -74,7 +74,7 @@ export const Lifestyle = () => {
                 src={model}
                 alt="model"
                 width={300}
-                height={300}
+                height={0}
                 className="w-75 h-75 md:w-125 md:h-125"
               />
             </div>
@@ -120,7 +120,7 @@ export const Lifestyle = () => {
                   src={item.img}
                   alt="model"
                   width={300}
-                  height={300}
+                  height={0}
                   className="w-full h-75 md:w-75 md:h-75"
                 />
               </div>
