@@ -242,3 +242,30 @@ export const lifestyleList = [
     link: "/lifestyle/Genz-beauty",
   },
 ];
+
+export const teamDummy = [
+  {
+    id: 1,
+    img: model,
+    name: "Jane Doe",
+    role: "Managing Director",
+  },
+  {
+    id: 2,
+    img: model,
+    name: "Jane Doe",
+    role: "Managing Director",
+  },
+  {
+    id: 3,
+    img: model,
+    name: "Jane Doe",
+    role: "Managing Director",
+  },
+  {
+    id: 4,
+    img: model,
+    name: "Jane Doe",
+    role: "Managing Director",
+  },
+];

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "@/app/images/dark-logo.png";
+import logo from "@/app/images/logo-dark.png";
 import { BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { LiaLinkedin } from "react-icons/lia";

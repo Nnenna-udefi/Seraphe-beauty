@@ -6,6 +6,7 @@ import flower from "@/app/images/flower-girl.jpeg";
 import { H1 } from "./ui/heading";
 import { blogDummy, shopDummy } from "../lib/constants";
 import Carousel from "./ui/carousel";
+
 const Home = () => {
   return (
     <div className="py-10 md:py-16">
