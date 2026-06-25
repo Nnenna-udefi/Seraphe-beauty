@@ -159,7 +159,7 @@ const About = () => {
 
           <div className="py-10">
             <H3 className="text-primaryBg ">Project Leadership</H3>
-            <div className="flex gap-4 md:flex-row flex-col pt-3 md:pt-0">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 md:pt-0">
               {teamDummy.map((item) => (
                 <div key={item.id} className="">
                   <div className=" ">

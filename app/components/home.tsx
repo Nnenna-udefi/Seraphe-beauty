@@ -24,7 +24,7 @@ const Home = () => {
           </div>
           <div>
             <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-            <h1 className="md:text-4xl text-2xl py-2 ">
+            <h1 className="md:text-3xl text-xl py-2 ">
               Top 3 Regina Daniels Beauty Secret that will leave your Skin
               Glowing
             </h1>
@@ -47,7 +47,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-              <h1 className="md:text-4xl text-2xl py-2">
+              <h1 className="md:text-3xl text-xl py-2">
                 Top 3 Regina Daniels Beauty Secret that will leave your Skin
                 Glowing
               </h1>
@@ -69,7 +69,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-              <h1 className="md:text-4xl text-2xl py-2">
+              <h1 className="md:text-3xl text-2xl py-2">
                 Top 3 Regina Daniels Beauty Secret that will leave your Skin
                 Glowing
               </h1>
@@ -174,7 +174,7 @@ const Home = () => {
       <div className="md:px-12 px-6 py-10  md:py-16">
         <H1>Lifestyle</H1>
         <div className="py-6 flex md:flex-row flex-col justify-between ">
-          <div>
+          <div className="pb-6">
             <div className="">
               <Image
                 src={model}
@@ -186,7 +186,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-              <h1 className="md:text-4xl text-2xl py-2 md:w-[80%] w-full">
+              <h1 className="md:text-3xl text-xl py-2 md:w-[80%] w-full">
                 Top 3 Regina Daniels Beauty Secret that will leave your Skin
                 Glowing
               </h1>
