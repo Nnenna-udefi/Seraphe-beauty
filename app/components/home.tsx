@@ -196,7 +196,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 flex-col pt-3 md:pt-0">
+          <div className="flex gap-4 flex-col py-6 md:py-0">
             {blogDummy.map((item) => (
               <div key={item.id} className="flex gap-2">
                 <div className=" ">

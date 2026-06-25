@@ -78,7 +78,7 @@ export const navItems = [
   {
     id: 3,
     text: "Seraphé Models",
-    link: "/models",
+    link: "/seraphe-models",
   },
   {
     id: 4,
@@ -98,7 +98,7 @@ export const navItems = [
   {
     id: 7,
     text: "Join Our Community",
-    link: "/community",
+    link: "/join-community",
   },
 ];
 
