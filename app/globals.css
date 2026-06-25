@@ -6,7 +6,7 @@
   --secondaryBg: #011325;
   --secondaryText: #ccd2d7;
   --primaryBg: #4c0000;
-  --primaryText: #282828;
+  --primaryText: #802626;
   --darkText: #737373;
   --yellowText: #c69824;
   --boxBg: #fdf3ed;
@@ -32,8 +32,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #faf9f9;
+    --foreground: #171717;
   }
 }
 

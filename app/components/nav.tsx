@@ -32,14 +32,15 @@ export const Nav = () => {
   return (
     <nav className="bg-secondary text-secondaryText text-sm md:text-base p-3 relative">
       <div className="py-2 md:px-10 px-3 flex justify-between items-center">
-        <Image
-          src={logo}
-          alt="logo"
-          width={190}
-          height={0}
-          className="w-40 md:w-47.5"
-        />
-
+        <Link href="/">
+          <Image
+            src={logo}
+            alt="logo"
+            width={190}
+            height={0}
+            className="w-40 md:w-47.5"
+          />
+        </Link>
         <div>
           <div
             onClick={() => setIsSearchOpen(true)}
@@ -154,9 +155,12 @@ export const Nav = () => {
                 onClick={closeMobileMenu}
                 className="flex flex-col py-6 px-3 font-medium gap-6 uppercase"
               >
-                <li>
+                <li onClick={(e) => e.stopPropagation()}>
                   <button
-                    onClick={handleShopMenu}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShopMenu();
+                    }}
                     className="flex justify-between items-center w-full text-left font-medium uppercase tracking-wider text-secondaryText"
                   >
                     <span>Shop Seraphé</span>
