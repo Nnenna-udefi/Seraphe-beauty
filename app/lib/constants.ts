@@ -54,7 +54,7 @@ export const skincareList = [
   },
   {
     id: 5,
-    text: "wellness",
+    text: "Wellness",
     link: "/wellness",
   },
   {

@@ -41,7 +41,7 @@ const About = () => {
 
           <div className="py-4">
             <H3>Our Portfolio</H3>
-            <p className="text-black py-3 md:py-6 md:text-base text-sm">
+            <p className="text-black py-4 md:py-6 md:text-base text-sm">
               Our product and service portfolio cuts across skincare formula
               advice, beauty products marketing and beauty modeling. Seraphé is
               developing unique skincare formulas tailored for the African skin.
@@ -53,7 +53,7 @@ const About = () => {
 
           <div className="py-4">
             <H3>Join Our teeming communities across Africa</H3>
-            <p className="text-black py-3 md:py-6 md:text-base text-sm">
+            <p className="text-black py-4 md:py-6 md:text-base text-sm">
               Are you a beauty enthusiast? Do you want to contribute your
               perspective on how Seraphé is innovating skincare?
             </p>
@@ -62,7 +62,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 py-6">
           <H3>Popular Stories</H3>
 
           <div className="flex gap-4 flex-col pt-6 md:pt-0">
@@ -86,9 +86,9 @@ const About = () => {
         </div>
       </div>
 
-      <div className="py-4 flex flex-col justify content items-center text-center">
+      <div className="pt-10 md:pt-16 flex flex-col md:px-12 px-6 justify content items-center text-center">
         <H1>Beauty Writing Internships</H1>
-        <p className="text-black py-3 md:py-6 md:w-[80%] w-full text-center pb-6 md:text-base text-sm">
+        <p className="text-black py-6 md:w-[80%] w-full text-center pb-6 md:text-base text-sm">
           Are you a medical writer or beauty enthusiast? Do you want to
           contribute your perspective to the largest advancements in beauty
           science? During your internship, you will receive beauty science and
@@ -98,7 +98,7 @@ const About = () => {
 
         <Button>Apply Here</Button>
 
-        <div>
+        <div className="py-4">
           <Image src={Hero} alt="model" width={300} height={300} />
         </div>
       </div>
@@ -109,7 +109,7 @@ const About = () => {
         <div>
           <div className="border-y border-[#c6c6c6] py-6">
             <H3 className="text-primaryBg py-6">Beauty Science Team</H3>
-            <div className="flex gap-4 flex-col  md:flex-row pt-3 md:pt-0">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 md:pt-0">
               {teamDummy.map((item) => (
                 <div key={item.id}>
                   <div className=" ">
@@ -131,9 +131,9 @@ const About = () => {
             </div>
           </div>
 
-          <div className="border-b border-[#c6c6c6] py-6">
+          <div className="border-b border-[#c6c6c6] py-10">
             <H3 className="text-primaryBg py-6">Technical Team</H3>
-            <div className="flex gap-4 flex-col  md:flex-row pt-3 md:pt-0">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 md:pt-0">
               {teamDummy.map((item) => (
                 <div key={item.id}>
                   <div className=" ">
@@ -145,7 +145,9 @@ const About = () => {
                     />
                   </div>
                   <div>
-                    <h1 className="md:text-xl text-base py-2 ">{item.name}</h1>
+                    <h1 className="md:text-xl text-base pt-2 pb-1 ">
+                      {item.name}
+                    </h1>
                     <p className="uppercase text-darkText text-sm">
                       {item.role}
                     </p>
@@ -155,8 +157,8 @@ const About = () => {
             </div>
           </div>
 
-          <div>
-            <H3 className="text-primaryBg py-6">Project Leadership</H3>
+          <div className="py-10">
+            <H3 className="text-primaryBg ">Project Leadership</H3>
             <div className="flex gap-4 md:flex-row flex-col pt-3 md:pt-0">
               {teamDummy.map((item) => (
                 <div key={item.id} className="">
@@ -169,7 +171,9 @@ const About = () => {
                     />
                   </div>
                   <div>
-                    <h1 className="md:text-xl text-base py-2 ">{item.name}</h1>
+                    <h1 className="md:text-xl text-base pt-2 pb-1 ">
+                      {item.name}
+                    </h1>
                     <p className="uppercase text-darkText text-sm">
                       {item.role}
                     </p>
