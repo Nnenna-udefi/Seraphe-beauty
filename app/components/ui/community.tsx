@@ -13,7 +13,7 @@ const Community = () => {
         <input
           type="email"
           placeholder="Enter your email address"
-          className="py-2 px-3 bg-gray-200 w-full text-base text-[#525252] placeholder:text-[#525252]"
+          className="py-2 px-3 bg-gray-200 w-full text-sm md:text-base text-[#525252] placeholder:text-[#525252]"
         />
         <button type="submit" className="w-25 text-white p-2 bg-primaryBg">
           Sign Up
