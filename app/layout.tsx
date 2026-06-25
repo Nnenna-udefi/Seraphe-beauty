@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${figTree.variable} ${cantataOne.variable} ${redHat.variable} h-full antialiased`}
+      className={`${figTree.variable} ${cantataOne.variable} ${redHat.variable} bg-[#faf9f9] h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Nav />
