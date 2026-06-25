@@ -1,8 +1,8 @@
 export const footerList = [
   {
     id: 1,
-    text: "Seraphé Skincare",
-    link: "/skincare",
+    text: "Shop Seraphé",
+    link: "/shop",
   },
   {
     id: 2,
@@ -65,11 +65,11 @@ export const skincareList = [
 ];
 
 export const navItems = [
-  {
-    id: 1,
-    text: "Seraphé Skincare",
-    link: "/skincare",
-  },
+  // {
+  //   id: 1,
+  //   text: "Seraphé Skincare",
+  //   link: "/skincare",
+  // },
   {
     id: 2,
     text: "Lifestyle",
@@ -267,5 +267,76 @@ export const teamDummy = [
     img: model,
     name: "Jane Doe",
     role: "Managing Director",
+  },
+];
+
+export const shopItems = [
+  {
+    id: 1,
+    text: "Skincare",
+    link: "/shop/skincare",
+  },
+  {
+    id: 2,
+    text: "Hair Care",
+    link: "/shop/hair-care",
+  },
+  {
+    id: 3,
+    text: "Face Care",
+    link: "/shop/face-care",
+  },
+  {
+    id: 4,
+    text: "Beauty Supplements",
+    link: "/shop/beauty-supplements",
+  },
+  {
+    id: 5,
+    text: "Skin Treatments",
+    link: "/shop/skin-treatments",
+  },
+  {
+    id: 6,
+    text: "Personal Care",
+    link: "/skin/personal-care",
+  },
+  {
+    id: 7,
+    text: "Sun Care",
+    link: "/skin/sun-care",
+  },
+  {
+    id: 8,
+    text: "Nail Care",
+    link: "/skin/nail-care",
+  },
+  {
+    id: 9,
+    text: "Lip Care",
+    link: "/lip/sun-care",
+  },
+];
+
+export const serapheDatabase = [
+  {
+    id: 1,
+    title: "Bob Era Wig",
+    subtitle: "5 products",
+    img: model,
+    category: "collections",
+  },
+  {
+    id: 2,
+    title: "Classic Pixie Cut",
+    subtitle: "$120.00",
+    img: model,
+    category: "products",
+  },
+  {
+    id: 3,
+    title: "How to maintain raw hair textures",
+    subtitle: "By Admin",
+    category: "blogs",
   },
 ];

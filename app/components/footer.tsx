@@ -15,7 +15,7 @@ export const Footer = () => {
       <hr className="border w-full text-darkText" />
       <div className="flex flex-col justify-between  md:flex-row gap-12  py-6 md:py-12">
         <div className="w-full">
-          <Image src={logo} alt="logo" width={190} height={60} />
+          <Image src={logo} alt="logo" width={190} height={0} />
 
           <div className="hidden lg:block">
             <div className="pt-10 pb-6">

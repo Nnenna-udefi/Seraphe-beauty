@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div>
       <div className="flex flex-col gap-6 bg-boxBg py-10 md:py-16 md:px-12 px-6">
-        <H1>About Seraphe</H1>
+        <H1>About Seraphé</H1>
         <p className="md:text-base lg:w-[60%]  w-full text-sm text-darkText">
           Find everything you need to know about the best makeup tools and
           helpful application techniques straight from the pros. Read on for
@@ -33,7 +33,7 @@ const About = () => {
           <div className="py-4">
             <H3>Our Vision</H3>
             <p className="text-black py-3 md:py-6 md:text-base text-sm">
-              Seraphe will become Africa&apos;s largest beauty science brand,
+              Seraphé will become Africa&apos;s largest beauty science brand,
               reinventing technologies, market trends adn products that inspire
               the world to appreciate beauty from the African perspective.
             </p>
@@ -43,7 +43,7 @@ const About = () => {
             <H3>Our Portfolio</H3>
             <p className="text-black py-3 md:py-6 md:text-base text-sm">
               Our product and service portfolio cuts across skincare formula
-              advice, beauty products marketing and beauty modeling. Seraphe is
+              advice, beauty products marketing and beauty modeling. Seraphé is
               developing unique skincare formulas tailored for the African skin.
               Be a part of our journey to achieve this.
             </p>
@@ -55,7 +55,7 @@ const About = () => {
             <H3>Join Our teeming communities across Africa</H3>
             <p className="text-black py-3 md:py-6 md:text-base text-sm">
               Are you a beauty enthusiast? Do you want to contribute your
-              perspective on how Seraphe is innovating skincare?
+              perspective on how Seraphé is innovating skincare?
             </p>
 
             <Button>Join Us</Button>
@@ -93,7 +93,7 @@ const About = () => {
           contribute your perspective to the largest advancements in beauty
           science? During your internship, you will receive beauty science and
           medical writer mentorship, and a certificate of experience in Beauty
-          Science Communication from Seraphe
+          Science Communication from Seraphé
         </p>
 
         <Button>Apply Here</Button>
@@ -105,7 +105,7 @@ const About = () => {
 
       {/* team */}
       <div className="py-10 md:py-16 md:px-12 px-6 ">
-        <H1 className="py-6">Meet the Seraphe Team</H1>
+        <H1 className="py-6">Meet the Seraphé Team</H1>
         <div>
           <div className="border-y border-[#c6c6c6] py-6">
             <H3 className="text-primaryBg py-6">Beauty Science Team</H3>

@@ -14,7 +14,7 @@ const ProductCard = () => {
             alt="model"
             width={300}
             height={0}
-            className="w-full  "
+            className="max-w-full  "
           />
         </div>
         <div>
