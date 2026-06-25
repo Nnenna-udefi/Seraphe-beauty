@@ -113,7 +113,7 @@ export default function JoinCommunity() {
 
           {/* Right Column: Curated Visual Social Hub Grid */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex justify-between items-end border-b border-gray-100 pb-3">
+            <div className="flex md:flex-row flex-col justify-between items-end border-b border-gray-100 pb-3">
               <div>
                 <p className="text-xs uppercase tracking-wider text-gray-400 font-medium">
                   Follow Us
