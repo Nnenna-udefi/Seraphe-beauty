@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { blogDummy, lifestyleList, shopDummy } from "./lib/constants";
 import Image from "next/image";
-import model from "@/app/images/model.jpeg";
+import model from "@/components/images/model.jpeg";
 import Community from "./ui/community";
 
 export const Lifestyle = () => {
