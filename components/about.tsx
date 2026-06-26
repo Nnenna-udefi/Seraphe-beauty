@@ -4,7 +4,7 @@ import { H1, H3 } from "./ui/heading";
 import { Button } from "./ui/button";
 import { blogDummy, teamDummy } from "./lib/constants";
 import Image from "next/image";
-import Hero from "@/component/images/hero1.jpeg";
+import Hero from "@/components/images/hero1.jpeg";
 
 const About = () => {
   return (
