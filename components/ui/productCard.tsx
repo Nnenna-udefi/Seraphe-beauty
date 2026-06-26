@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import model from "@/app/images/model.jpeg";
+import model from "@/components/images/model.jpeg";
 import { Button } from "./button";
 import { H3 } from "./heading";
 
