@@ -102,7 +102,7 @@ export const navItems = [
   },
 ];
 
-import model from "@/app/images/model.jpeg";
+import model from "@/components/images/model.jpeg";
 export const blogDummy = [
   {
     id: 1,
