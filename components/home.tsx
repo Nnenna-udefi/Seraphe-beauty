@@ -4,7 +4,7 @@ import Image from "next/image";
 import model from "@/app/images/model.jpeg";
 import flower from "@/app/images/flower-girl.jpeg";
 import { H1 } from "./ui/heading";
-import { blogDummy, shopDummy } from "../lib/constants";
+import { blogDummy, shopDummy } from "./lib/constants";
 import Carousel from "./ui/carousel";
 import Community from "./ui/community";
 
@@ -69,7 +69,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-              <h1 className="md:text-3xl text-2xl py-2">
+              <h1 className="md:text-3xl text-xl py-2">
                 Top 3 Regina Daniels Beauty Secret that will leave your Skin
                 Glowing
               </h1>
@@ -161,7 +161,7 @@ const Home = () => {
           <h3 className="uppercase text-yellowText text-sm pt-2">
             Reader&apos;s Favourite
           </h3>
-          <h1 className="md:text-4xl text-center text-2xl py-2 md:w-[80%] w-full">
+          <h1 className="md:text-4xl text-center text-xl py-2 md:w-[80%] w-full">
             Top 3 Regina Daniels Beauty Secret that will leave your Skin Glowing
           </h1>
           <p className="uppercase text-darkText text-sm">

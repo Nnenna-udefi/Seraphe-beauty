@@ -1,4 +1,4 @@
-import JoinCommunity from "../components/joinCommunity";
+import JoinCommunity from "../../components/joinCommunity";
 
 export default function JoinCommunityPage() {
   return (

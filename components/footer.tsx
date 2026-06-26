@@ -4,7 +4,7 @@ import logo from "@/app/images/logo-dark.png";
 import { BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { LiaLinkedin } from "react-icons/lia";
-import { footerList, skincareList } from "../lib/constants";
+import { footerList, skincareList } from "./lib/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 

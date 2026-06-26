@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Hero from "@/app/images/hero2.jpeg";
 import { H1, H3 } from "./ui/heading";
-import { blogDummy } from "../lib/constants";
+import { blogDummy } from "./lib/constants";
 import Community from "./ui/community";
 import Carousel from "./ui/carousel";
 import ProductCard from "./ui/productCard";

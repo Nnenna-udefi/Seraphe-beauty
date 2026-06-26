@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Figtree, Red_Hat_Display, Cantata_One } from "next/font/google";
 import "./globals.css";
-import { Nav } from "./components/nav";
-import { Footer } from "./components/footer";
+import { Nav } from "../components/nav";
+import { Footer } from "../components/footer";
 
 const figTree = Figtree({
   variable: "--font-figTree",

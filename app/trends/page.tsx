@@ -1,4 +1,4 @@
-import Trends from "../components/trends";
+import Trends from "../../components/trends";
 
 export default function TrendPage() {
   return (

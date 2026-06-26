@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { navItems, serapheDatabase, shopItems } from "../lib/constants";
+import { navItems, serapheDatabase, shopItems } from "./lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import PredictiveSearch, { SearchItem } from "./search";
 

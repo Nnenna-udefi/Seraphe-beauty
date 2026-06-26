@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { blogDummy, lifestyleList, shopDummy } from "../lib/constants";
+import { blogDummy, lifestyleList, shopDummy } from "./lib/constants";
 import Image from "next/image";
 import model from "@/app/images/model.jpeg";
 import Community from "./ui/community";
