@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import model from "@/app/images/model.jpeg";
-import flower from "@/app/images/flower-girl.jpeg";
+import model from "@/components/images/model.jpeg";
+import flower from "@/components/images/flower-girl.jpeg";
 import { H1 } from "./ui/heading";
 import { blogDummy, shopDummy } from "./lib/constants";
 import Carousel from "./ui/carousel";
