@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "@/app/images/logo-white.png";
+import logo from "@/components/images/logo-white.png";
 import Link from "next/link";
 import { Menu, ArrowLeft } from "lucide-react";
 import { useState } from "react";
