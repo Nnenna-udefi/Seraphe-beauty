@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { H1 } from "./ui/heading";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const TRENDS = [
   {
@@ -37,18 +38,7 @@ const TRENDS = [
   },
 ];
 
-const categoriesData = {
-  "Beauty Trends": [
-    "Melanin Diaries",
-    "Beauty Trends",
-    "Fashion News",
-    "African Beauty",
-    "Afro Beauty Actives",
-    "Celebrity Gossip",
-    "Global Beauty Trends",
-  ],
-};
-
+// Regional African Hashtags
 const africanBeautyHashtags = [
   "#Nigerianbeauty",
   "#Cameroonbeauty",
@@ -64,16 +54,26 @@ const africanBeautyHashtags = [
   "#AfroAsian",
 ];
 
-export default function Trends() {
-  const [activeSection, setActiveSection] = useState<"Beauty Trends">();
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+interface BeautyTrendsProps {
+  tags: string[];
+  selectedTag: string | null;
+  onTagSelect: (tag: string | null) => void;
+}
+
+export default function Trends({
+  tags,
+  selectedTag,
+  onTagSelect,
+}: BeautyTrendsProps) {
   const [africanBeautyOpen, setAfricanBeautyOpen] = useState(false);
 
   const handleTagClick = (tag: string) => {
     if (tag === "African Beauty") {
-      setAfricanBeautyOpen(!africanBeautyOpen);
+      setAfricanBeautyOpen((prev) => !prev);
+    } else {
+      setAfricanBeautyOpen(false);
     }
-    setSelectedTag(selectedTag === tag ? null : tag);
+    onTagSelect(selectedTag === tag ? null : tag);
   };
   return (
     <main className="min-h-screen  text-foreground py-12 px-4 sm:px-6 lg:px-8">
@@ -89,6 +89,63 @@ export default function Trends() {
             A look into the future of clean beauty, ingredient biotechnology,
             and cultural shifts in skin wellness.
           </p>
+        </div>
+
+        <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-stone-100 mb-12">
+          <p className="text-xs font-bold tracking-widest text-stone-400 uppercase mb-4">
+            Filter content by focus area:
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            {tags.map((tag) => {
+              const isSelected = selectedTag === tag;
+              return (
+                <button
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
+                    isSelected
+                      ? "bg-[#2E0F0A] border-[#2E0F0A] text-[#E6C687]"
+                      : "border-stone-300 text-stone-800 hover:border-black"
+                  }`}
+                >
+                  {tag}
+                  {tag === "African Beauty" && (
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${africanBeautyOpen ? "rotate-180" : ""}`}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Sub-drawer for African Beauty Regional Hashtags */}
+          <AnimatePresence>
+            {africanBeautyOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-6 pt-6 border-t border-stone-100 overflow-hidden"
+              >
+                <p className="text-xs font-bold uppercase text-[#A37B43] tracking-widest mb-3">
+                  Regional Spotlights
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {africanBeautyHashtags.map((hashtag) => (
+                    <span
+                      key={hashtag}
+                      className="px-3 py-1.5 bg-stone-50 border border-stone-200 text-stone-600 text-xs rounded-sm hover:border-[#2E0F0A] cursor-pointer transition-colors"
+                    >
+                      {hashtag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Editorial Feed */}
@@ -107,31 +164,6 @@ export default function Trends() {
                   {trend.status}
                 </span>
               </div>
-
-              <AnimatePresence>
-                {activeSection === "Beauty Trends" && africanBeautyOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-6 pt-6 border-t border-stone-100 overflow-hidden"
-                  >
-                    <p className="text-xs font-bold uppercase text-[#A37B43] tracking-widest mb-3">
-                      Regional Spotlights
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {africanBeautyHashtags.map((hashtag) => (
-                        <span
-                          key={hashtag}
-                          className="px-3 py-1.5 bg-stone-50 border border-stone-200 text-stone-600 text-xs rounded-sm hover:border-[#2E0F0A] cursor-pointer transition-colors"
-                        >
-                          {hashtag}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
               {/* Main visual & descriptive column */}
               <div className="md:col-span-9">
