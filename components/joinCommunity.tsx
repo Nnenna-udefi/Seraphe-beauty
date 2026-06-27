@@ -3,14 +3,31 @@ import Link from "next/link";
 import { MessageSquare, ArrowUpRight } from "lucide-react";
 import { BsInstagram } from "react-icons/bs";
 import Community from "./ui/community";
+import Image from "next/image";
 
 // Mock data for the social hub grid (Replace images with your actual model/product assets)
-// const communityGallery = [
-//   { id: 1, img: "https://images.unsplash.com/photo-1608748010899-18f300247112?q=80&w=600&auto=format&fit=crop", alt: "Community feature 1" },
-//   { id: 2, img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=600&auto=format&fit=crop", alt: "Community feature 2" },
-//   { id: 3, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop", alt: "Community feature 3" },
-//   { id: 4, img: "https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=600&auto=format&fit=crop", alt: "Community feature 4" },
-// ];
+const communityGallery = [
+  {
+    id: 1,
+    img: "https://images.unsplash.com/photo-1608748010899-18f300247112?q=80&w=600&auto=format&fit=crop",
+    alt: "Community feature 1",
+  },
+  {
+    id: 2,
+    img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=600&auto=format&fit=crop",
+    alt: "Community feature 2",
+  },
+  {
+    id: 3,
+    img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop",
+    alt: "Community feature 3",
+  },
+  {
+    id: 4,
+    img: "https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=600&auto=format&fit=crop",
+    alt: "Community feature 4",
+  },
+];
 
 export default function JoinCommunity() {
   return (
@@ -130,24 +147,24 @@ export default function JoinCommunity() {
             </div>
 
             {/* Visual Mosaic Grid */}
-            {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
               {communityGallery.map((item) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   className="relative aspect-square w-full bg-boxBg overflow-hidden group shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <Image 
-                    src={item.img} 
+                  <Image
+                    src={item.img}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                   {/* Subtle hover overlay to tie into community sharing concept */}
-            {/* <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               ))}
-            </div>  */}
+            </div>
 
             <p className="text-center sm:text-right text-xs italic text-gray-400 pt-1">
               Tag{" "}

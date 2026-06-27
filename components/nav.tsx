@@ -30,7 +30,7 @@ export const Nav = () => {
   };
 
   return (
-    <nav className="bg-secondary text-secondaryText text-sm md:text-base p-3 relative">
+    <nav className="bg-secondary sticky text-secondaryText text-sm md:text-base p-3 ">
       <div className="py-2 md:px-10 px-3 flex justify-between items-center">
         <Link href="/">
           <Image

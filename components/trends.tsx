@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { H1 } from "./ui/heading";
+import { AnimatePresence, motion } from "framer-motion";
 
 const TRENDS = [
   {
@@ -36,7 +37,44 @@ const TRENDS = [
   },
 ];
 
+const categoriesData = {
+  "Beauty Trends": [
+    "Melanin Diaries",
+    "Beauty Trends",
+    "Fashion News",
+    "African Beauty",
+    "Afro Beauty Actives",
+    "Celebrity Gossip",
+    "Global Beauty Trends",
+  ],
+};
+
+const africanBeautyHashtags = [
+  "#Nigerianbeauty",
+  "#Cameroonbeauty",
+  "#Egyptianbeauty",
+  "#Ethiopianbeauty",
+  "#SouthAfrican",
+  "#Kenyanbeauty",
+  "#Senegalese",
+  "#Ghanabeauty",
+  "#Moroccobeauty",
+  "#Cotedivoire",
+  "#AfroAmerican",
+  "#AfroAsian",
+];
+
 export default function Trends() {
+  const [activeSection, setActiveSection] = useState<"Beauty Trends">();
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [africanBeautyOpen, setAfricanBeautyOpen] = useState(false);
+
+  const handleTagClick = (tag: string) => {
+    if (tag === "African Beauty") {
+      setAfricanBeautyOpen(!africanBeautyOpen);
+    }
+    setSelectedTag(selectedTag === tag ? null : tag);
+  };
   return (
     <main className="min-h-screen  text-foreground py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
@@ -69,6 +107,31 @@ export default function Trends() {
                   {trend.status}
                 </span>
               </div>
+
+              <AnimatePresence>
+                {activeSection === "Beauty Trends" && africanBeautyOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-6 pt-6 border-t border-stone-100 overflow-hidden"
+                  >
+                    <p className="text-xs font-bold uppercase text-[#A37B43] tracking-widest mb-3">
+                      Regional Spotlights
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {africanBeautyHashtags.map((hashtag) => (
+                        <span
+                          key={hashtag}
+                          className="px-3 py-1.5 bg-stone-50 border border-stone-200 text-stone-600 text-xs rounded-sm hover:border-[#2E0F0A] cursor-pointer transition-colors"
+                        >
+                          {hashtag}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Main visual & descriptive column */}
               <div className="md:col-span-9">

@@ -39,7 +39,7 @@ export default function Carousel<T extends { id: string | number }>({
   };
 
   return (
-    <div className={`md:px-12 px-6 py-16 ${className}`}>
+    <div className={` px-6 py-16 ${className}`}>
       <div className="flex justify-between items-center mb-6">
         <H1>{title}</H1>
 

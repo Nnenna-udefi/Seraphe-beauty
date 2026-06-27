@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-5xl mx-auto">
-        <div className="px-6 flex md:flex-row flex-col justify-between gap-6">
+        <div className="px-6 flex md:flex-row flex-col justify-between gap-6 md:gap-10">
           <div>
             <div className=" ">
               <Image
@@ -233,7 +233,7 @@ const Home = () => {
             Shop editor-approved picks and great beauty sales.
           </p>
 
-          <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
+          <div className="py-6 grid grid-cols-1 gap-x-4 gap-y-6 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
                 <div className=" ">
