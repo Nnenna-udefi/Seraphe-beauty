@@ -12,7 +12,7 @@ const BlogDetails = () => {
   return (
     <div className="py-10 min-h-screen md:py-16 ">
       <div className="max-w-5xl mx-auto">
-        <div className="md:px-12 px-6">
+        <div className="px-6">
           <h3 className="uppercase text-yellowText text-sm py-2">Skin</h3>
           <H1 className="py-3">
             The Silent Skin Saboteur: Why Your Dirty Makeup Brushes Are Ruining
@@ -29,7 +29,7 @@ const BlogDetails = () => {
           </div>
         </div>
 
-        <div className="py-10 md:py-16 md:px-12 px-6 flex md:flex-row flex-col gap-6">
+        <div className="py-10 md:py-16 px-6 flex md:flex-row flex-col gap-6">
           <div>
             <div className="text-black flex flex-col md:text-base text-sm">
               <p>

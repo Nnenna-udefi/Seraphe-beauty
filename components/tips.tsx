@@ -59,7 +59,7 @@ export default function Tips() {
       : SKINCARE_TIPS.filter((tip) => tip.category === activeCategory);
 
   return (
-    <main className="min-h-screen text-black py-10 md:py-16 md:px-12 px-6">
+    <main className="min-h-screen text-black py-10 md:py-16 px-6">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

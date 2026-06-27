@@ -41,7 +41,7 @@ export const Lifestyle = () => {
         </div>
 
         {/* first section */}
-        <div className="md:px-12 px-6 py-10 md:py-16">
+        <div className="px-6 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
@@ -51,7 +51,7 @@ export const Lifestyle = () => {
                     alt="model"
                     width={300}
                     height={0}
-                    className="w-full h-75 md:w-75 md:h-75"
+                    className="w-full md:w-75"
                   />
                 </div>
                 <div>
@@ -69,8 +69,8 @@ export const Lifestyle = () => {
         </div>
 
         {/* second section */}
-        <div className="md:px-12 px-6 py-10  md:py-16">
-          <div className="py-6 flex md:flex-row flex-col justify-between ">
+        <div className="px-6 py-10  md:py-16">
+          <div className="py-6 flex md:flex-row gap-3 flex-col justify-between ">
             <div>
               <div className="">
                 <Image
@@ -78,7 +78,7 @@ export const Lifestyle = () => {
                   alt="model"
                   width={300}
                   height={0}
-                  className="w-75 h-75 md:w-125 md:h-125"
+                  className="w-75 h-75 md:w-100 md:h-100"
                 />
               </div>
               <div>
@@ -119,7 +119,7 @@ export const Lifestyle = () => {
           </div>
         </div>
         {/* third section */}
-        <div className="md:px-12 px-6 py-10 md:py-16">
+        <div className="px-6 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
