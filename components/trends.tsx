@@ -43,7 +43,7 @@ export default function Trends() {
         {/* Header */}
         <div className="border-b border-slate-200 pb-8 mb-12">
           <span className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-            Seraphie Editorial
+            Seraphé Editorial
           </span>
           <H1>Skincare Movements & Trends</H1>
 

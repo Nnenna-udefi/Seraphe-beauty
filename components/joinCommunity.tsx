@@ -1,6 +1,4 @@
 "use client";
-import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { MessageSquare, ArrowUpRight } from "lucide-react";
 import { BsInstagram } from "react-icons/bs";

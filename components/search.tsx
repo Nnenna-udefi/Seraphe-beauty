@@ -142,7 +142,7 @@ export default function PredictiveSearch({
         <div className="py-6 min-h-37.5">
           {query.trim() === "" ? (
             <p className="text-gray-400 text-sm">
-              Start typing to search Seraphie...
+              Start typing to search Seraphé...
             </p>
           ) : filteredResults.length > 0 ? (
             <div className="space-y-4">
