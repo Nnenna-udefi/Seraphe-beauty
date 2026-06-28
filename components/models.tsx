@@ -182,7 +182,7 @@ export default function Models() {
                   <span className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider">
                     {model.motherAgency}
                   </span>
-                  <button className="text-xs font-bold uppercase tracking-widest text-neutral-950 hover:text-neutral-500 transition-colors duration-200">
+                  <button className="text-xs font-bold uppercase tracking-widest text-white p-2 bg-primaryBg hover:text-neutral-500 transition-colors duration-200">
                     View Portfolio &rarr;
                   </button>
                 </div>
