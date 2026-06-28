@@ -1,14 +1,20 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import Trends from "../../components/trends";
 
 export default function TrendPage() {
-  const [selectedTag, setSelectedTag] = useState<string | null>('All');
-  const availableTags = ['Skincare', 'Makeup', 'Haircare', 'Wellness'];
+  const [selectedTag, setSelectedTag] = useState<string | null>("All");
+  const availableTags = [
+    "Skincare",
+    "Makeup",
+    "Haircare",
+    "Wellness",
+    "African Beauty",
+  ];
 
   return (
     <div>
-      <Trends 
+      <Trends
         tags={availableTags}
         selectedTag={selectedTag}
         onTagSelect={setSelectedTag}

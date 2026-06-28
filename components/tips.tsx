@@ -78,7 +78,7 @@ export default function Tips() {
               onClick={() => setActiveCategory(category)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
                 activeCategory === category
-                  ? "bg-darkText text-white border-black shadow-sm"
+                  ? "bg-boxBg text-white border-black shadow-sm"
                   : "bg-white text-darkText border-slate-200 hover:border-slate-400"
               }`}
             >
@@ -114,7 +114,7 @@ export default function Tips() {
                 <span className="text-xs text-darkText font-medium">
                   {tip.readTime}
                 </span>
-                <button className="text-sm font-medium text-black hover:underline">
+                <button className="text-sm bg-primaryBg p-2 font-medium text-white hover:underline">
                   Read Guide &rarr;
                 </button>
               </div>

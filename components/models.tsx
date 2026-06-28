@@ -13,7 +13,7 @@ const DIRECTORY_CATEGORIES = [
   "Runway Elite",
 ];
 
-const SERAPHE_MODELS = [
+const Seraphé_MODELS = [
   {
     id: 1,
     name: "Amina Bello",
@@ -25,8 +25,8 @@ const SERAPHE_MODELS = [
       waist: "60 cm",
       hips: "88 cm",
     },
-    motherAgency: "Seraphe Elite (Lagos)",
-    featuredIn: "Vogue, Chanel, Seraphe Editorial Autumn",
+    motherAgency: "Seraphé Elite (Lagos)",
+    featuredIn: "Vogue, Chanel, Seraphé Editorial Autumn",
     imagePlaceholder:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600&h=800",
   },
@@ -41,7 +41,7 @@ const SERAPHE_MODELS = [
       waist: "59 cm",
       hips: "89 cm",
     },
-    motherAgency: "Seraphe Milan",
+    motherAgency: "Seraphé Milan",
     featuredIn: "Prada, Dior, Harper's Bazaar Cover",
     imagePlaceholder:
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=600&h=800",
@@ -57,7 +57,7 @@ const SERAPHE_MODELS = [
       waist: "76 cm",
       collar: "38 cm",
     },
-    motherAgency: "Seraphe Elite (Lagos)",
+    motherAgency: "Seraphé Elite (Lagos)",
     featuredIn: "Louis Vuitton, Balenciaga, Paris Fashion Week",
     imagePlaceholder:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=800",
@@ -73,8 +73,8 @@ const SERAPHE_MODELS = [
       waist: "58 cm",
       hips: "86 cm",
     },
-    motherAgency: "Seraphe Tokyo",
-    featuredIn: "Seraphe Cruise 2026, Dazed Magazine",
+    motherAgency: "Seraphé Tokyo",
+    featuredIn: "Seraphé Cruise 2026, Dazed Magazine",
     imagePlaceholder:
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=600&h=800",
   },
@@ -85,18 +85,18 @@ export default function Models() {
 
   const filteredModels =
     activeCategory === "All"
-      ? SERAPHE_MODELS
-      : SERAPHE_MODELS.filter((model) => model.category === activeCategory);
+      ? Seraphé_MODELS
+      : Seraphé_MODELS.filter((model) => model.category === activeCategory);
 
   return (
-    <main className="min-h-screen bg-neutral-50 text-neutral-900 py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen text-black py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         {/* Editorial Brand Header */}
         <div className="text-center mb-16 border-b border-neutral-200 pb-12">
-          <span className="text-xs uppercase tracking-widest text-neutral-400 font-semibold">
-            Seraphe Collective
+          <span className="text-xs uppercase tracking-widest text-yellowText font-semibold">
+            Seraphé Collective
           </span>
-          <H1>Seraphe Models</H1>
+          <H1>Seraphé Models</H1>
           <p className="mt-4 text-md font-light text-neutral-500 max-w-xl mx-auto uppercase tracking-wide">
             Curating global breakthroughs and generation-defining faces.
           </p>

@@ -80,7 +80,7 @@ export default function Trends({
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="border-b border-slate-200 pb-8 mb-12">
-          <span className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
+          <span className="text-xs font-semibold tracking-widest text-yellowText uppercase">
             Seraphé Editorial
           </span>
           <H1>Skincare Movements & Trends</H1>
@@ -157,7 +157,7 @@ export default function Trends({
             >
               {/* Metainfo column */}
               <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-2">
-                <span className="text-sm font-medium text-slate-400">
+                <span className="text-sm font-medium text-yellowText">
                   {trend.date}
                 </span>
                 <span className="text-xs font-bold text-foreground tracking-wider uppercase md:mt-1">
@@ -170,16 +170,16 @@ export default function Trends({
                 <div
                   className={`w-full h-48 rounded-2xl bg-linear-to-r ${trend.gradient} mb-6 transition-transform duration-300 group-hover:scale-[1.01]`}
                 />
-                <h2 className="text-2xl font-bold text-foreground tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
+                <h2 className="text-2xl font-bold text-black tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
                   {trend.title}
                 </h2>
-                <h3 className="text-sm font-medium text-slate-500 italic mb-3">
+                <h3 className="text-sm font-medium text-foreground italic mb-3">
                   {trend.subtitle}
                 </h3>
                 <p className="text-darkText leading-relaxed max-w-3xl mb-4">
                   {trend.description}
                 </p>
-                <button className="text-sm font-semibold text-foreground hover:text-darkText flex items-center gap-1">
+                <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
                   Explore Analysis
                   <span className="transform transition-transform group-hover:translate-x-1">
                     &rarr;
