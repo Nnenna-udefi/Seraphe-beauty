@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { H1 } from "./ui/heading";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const TRENDS = [
   {
@@ -14,6 +15,8 @@ const TRENDS = [
       "Explore how topicals formulated to address skin-stress responses are changing the high-end beauty industry.",
     date: "June 2026",
     status: "Trending Now",
+    imgLink:
+      "https://unsplash.com/photos/a-woman-with-a-towel-on-her-head-eFh8wfZ1E_c",
     gradient: "from-amber-50 to-orange-50",
   },
   {
@@ -24,6 +27,8 @@ const TRENDS = [
       "From bio-fermented extracts to plant-based growth factors, discover the pure molecular compounds outperforming traditional botanicals.",
     date: "May 2026",
     status: "Rising Breakthrough",
+    imgLink:
+      "https://unsplash.com/photos/a-pink-table-with-makeup-and-other-items-on-it-uYURVNf1L60",
     gradient: "from-blue-50 to-indigo-50",
   },
   {
@@ -34,6 +39,8 @@ const TRENDS = [
       "Moving past 10-step systems. Consumers are condensing routines down to 3-4 highly effective, multi-functional items.",
     date: "April 2026",
     status: "Macro Trend",
+    imgLink:
+      "https://unsplash.com/photos/a-hand-holding-a-small-bottle-of-liquid-OeU6dAE5Y4E",
     gradient: "from-rose-50 to-purple-50",
   },
 ];
@@ -105,7 +112,7 @@ export default function Trends({
                   onClick={() => handleTagClick(tag)}
                   className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
                     isSelected
-                      ? "bg-[#2E0F0A] border-[#2E0F0A] text-[#E6C687]"
+                      ? "bg-[#2E0F0A] border-[#2E0F0A] text-white"
                       : "border-stone-300 text-stone-800 hover:border-black"
                   }`}
                 >
@@ -167,9 +174,12 @@ export default function Trends({
 
               {/* Main visual & descriptive column */}
               <div className="md:col-span-9">
-                <div
+                {/* <div
                   className={`w-full h-48 rounded-2xl bg-linear-to-r ${trend.gradient} mb-6 transition-transform duration-300 group-hover:scale-[1.01]`}
-                />
+                /> */}
+                <div className="w-full h-48 rounded-2xl mb-6">
+                  <Image src={trend.imgLink} alt="" width={500} height={0} />
+                </div>
                 <h2 className="text-2xl font-bold text-black tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
                   {trend.title}
                 </h2>
