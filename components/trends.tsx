@@ -16,7 +16,7 @@ const TRENDS = [
     date: "June 2026",
     status: "Trending Now",
     imgLink:
-      "https://unsplash.com/photos/a-woman-with-a-towel-on-her-head-eFh8wfZ1E_c",
+      "https://plus.unsplash.com/premium_photo-1679750866883-b1c549f65da9?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     gradient: "from-amber-50 to-orange-50",
   },
   {
@@ -28,7 +28,7 @@ const TRENDS = [
     date: "May 2026",
     status: "Rising Breakthrough",
     imgLink:
-      "https://unsplash.com/photos/a-pink-table-with-makeup-and-other-items-on-it-uYURVNf1L60",
+      "https://plus.unsplash.com/premium_photo-1684407616442-8d5a1b7c978e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     gradient: "from-blue-50 to-indigo-50",
   },
   {
@@ -40,7 +40,7 @@ const TRENDS = [
     date: "April 2026",
     status: "Macro Trend",
     imgLink:
-      "https://unsplash.com/photos/a-hand-holding-a-small-bottle-of-liquid-OeU6dAE5Y4E",
+      "https://plus.unsplash.com/premium_photo-1674739375749-7efe56fc8bbb?q=80&w=386&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     gradient: "from-rose-50 to-purple-50",
   },
 ];
@@ -178,7 +178,13 @@ export default function Trends({
                   className={`w-full h-48 rounded-2xl bg-linear-to-r ${trend.gradient} mb-6 transition-transform duration-300 group-hover:scale-[1.01]`}
                 /> */}
                 <div className="w-full h-48 rounded-2xl mb-6">
-                  <Image src={trend.imgLink} alt="" width={500} height={0} />
+                  <Image
+                    fill
+                    src={trend.imgLink}
+                    alt=""
+                    width={500}
+                    height={0}
+                  />
                 </div>
                 <h2 className="text-2xl font-bold text-black tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
                   {trend.title}
