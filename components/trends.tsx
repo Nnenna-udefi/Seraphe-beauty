@@ -178,13 +178,7 @@ export default function Trends({
                   className={`w-full h-48 rounded-2xl bg-linear-to-r ${trend.gradient} mb-6 transition-transform duration-300 group-hover:scale-[1.01]`}
                 /> */}
                 <div className="w-full h-48 rounded-2xl mb-6">
-                  <Image
-                    fill
-                    src={trend.imgLink}
-                    alt=""
-                    width={500}
-                    height={0}
-                  />
+                  <Image src={trend.imgLink} alt="" width={500} height={0} />
                 </div>
                 <h2 className="text-2xl font-bold text-black tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
                   {trend.title}
