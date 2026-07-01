@@ -183,7 +183,7 @@ export default function Trends({
                     alt=""
                     width={500}
                     height={0}
-                    className="h-75"
+                    className="h-75 object-cover"
                   />
                 </div>
                 <h2 className="text-2xl font-bold text-black tracking-tight mb-1 group-hover:text-slate-700 cursor-pointer">
