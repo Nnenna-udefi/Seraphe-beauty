@@ -89,7 +89,7 @@ export default function Models() {
       : Seraphé_MODELS.filter((model) => model.category === activeCategory);
 
   return (
-    <main className="min-h-screen text-black py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen text-black py-16 px-4  md:px-12 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Editorial Brand Header */}
         <div className="text-center mb-16 border-b border-neutral-200 pb-12">

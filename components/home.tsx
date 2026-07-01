@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="px-6 flex md:flex-row flex-col justify-between gap-6 md:gap-10">
+        <div className="px-6  md:px-12 flex md:flex-row flex-col justify-between gap-6 md:gap-10">
           <div>
             <div className=" ">
               <Image
@@ -148,7 +148,7 @@ const Home = () => {
 
         {/* readers favourite */}
 
-        <div className="px-6 py-10  md:py-16">
+        <div className="px-6  md:px-12 py-10  md:py-16">
           <div>
             <Image
               src={flower}
@@ -173,7 +173,7 @@ const Home = () => {
         </div>
         {/* md:w-125 md:h-125 */}
         {/* lifestyle */}
-        <div className="px-6 py-10  md:py-16">
+        <div className="px-6  md:px-12 py-10  md:py-16">
           <H1>Lifestyle</H1>
           <div className="py-6 flex md:flex-row flex-col gap-3 justify-between ">
             <div className="pb-6">
@@ -227,7 +227,7 @@ const Home = () => {
         <Community />
 
         {/* sellers */}
-        <div className="px-6 py-10 md:py-16">
+        <div className="px-6  md:px-12 py-10 md:py-16">
           <H1>Best Sellers for a reason</H1>
           <p className="md:text-base text-sm py-3">
             Shop editor-approved picks and great beauty sales.

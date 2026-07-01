@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col gap-6 bg-boxBg py-10 md:py-16 px-6">
+        <div className="flex flex-col gap-6 bg-boxBg py-10 md:py-16 md:px-12 px-6">
           <H1>About Seraphé</H1>
           <p className="md:text-base lg:w-[60%]  w-full text-sm text-darkText">
             Find everything you need to know about the best makeup tools and
@@ -20,7 +20,7 @@ const About = () => {
         </div>
 
         {/* mission */}
-        <div className="py-10 md:py-16 px-6 flex md:flex-row flex-col gap-6">
+        <div className="py-10 md:px-12 md:py-16 px-6 flex md:flex-row flex-col gap-6">
           <div>
             <div className="py-4">
               <H3>Our Mission</H3>
@@ -93,7 +93,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="pt-10 md:pt-16 flex flex-col px-6 justify content items-center text-center">
+        <div className="pt-10 md:px-12 md:pt-16 flex flex-col px-6 justify content items-center text-center">
           <H1>Beauty Writing Internships</H1>
           <p className="text-black py-6 md:w-[80%] w-full text-center pb-6 md:text-base text-sm">
             Are you a medical writer or beauty enthusiast? Do you want to
@@ -117,7 +117,7 @@ const About = () => {
         </div>
 
         {/* team */}
-        <div className="py-10 md:py-16 px-6 ">
+        <div className="py-10  md:px-12 md:py-16 px-6 ">
           <H1 className="py-6">Meet the Seraphé Team</H1>
           <div>
             <div className="border-y border-[#c6c6c6] py-6">

@@ -23,7 +23,7 @@ export const Lifestyle = () => {
           </p>
         </div>
 
-        <div className="py-4 px-10 border-y border-[#DBDBDB] text-[#484646] md:text-base text-sm">
+        <div className="py-4 px-10 md:px-12 border-y border-[#DBDBDB] text-[#484646] md:text-base text-sm">
           <ul className="flex overflow-y-auto justify-center gap-6 uppercase">
             {lifestyleList.map((item) => {
               const isActive = pathname === item.link;
@@ -41,7 +41,7 @@ export const Lifestyle = () => {
         </div>
 
         {/* first section */}
-        <div className="px-6 py-10 md:py-16">
+        <div className="px-6 md:px-12 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
@@ -69,7 +69,7 @@ export const Lifestyle = () => {
         </div>
 
         {/* second section */}
-        <div className="px-6 py-10  md:py-16">
+        <div className="px-6 md:px-12 py-10  md:py-16">
           <div className="py-6 flex md:flex-row gap-3 flex-col justify-between ">
             <div>
               <div className="">
@@ -119,7 +119,7 @@ export const Lifestyle = () => {
           </div>
         </div>
         {/* third section */}
-        <div className="px-6 py-10 md:py-16">
+        <div className="px-6 md:px-12 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">

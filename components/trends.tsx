@@ -83,7 +83,7 @@ export default function Trends({
     onTagSelect(selectedTag === tag ? null : tag);
   };
   return (
-    <main className="min-h-screen  text-foreground py-12 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen  text-foreground py-12 px-4 md:px-12 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="border-b border-slate-200 pb-8 mb-12">
