@@ -47,7 +47,7 @@ export default function JoinCommunity() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Card 1 */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-            <div className="w-12 h-12 rounded-full bg-boxBg flex items-center justify-center text-primaryBgg text-lg font-medium">
+            <div className="w-12 h-12 rounded-full bg-boxBg flex items-center justify-center text-primaryBg text-lg font-medium">
               01
             </div>
             <h3 className="text-lg md:text-xl font-normal text-black font-cantataOne">

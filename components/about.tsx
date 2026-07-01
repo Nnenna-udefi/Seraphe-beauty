@@ -106,7 +106,13 @@ const About = () => {
           <Button>Apply Here</Button>
 
           <div className="py-4">
-            <Image src={Hero} alt="model" width={300} height={300} />
+            <Image
+              src={Hero}
+              alt="model"
+              width={300}
+              height={0}
+              className="w-full"
+            />
           </div>
         </div>
 
