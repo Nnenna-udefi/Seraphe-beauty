@@ -11,7 +11,7 @@ import Community from "./ui/community";
 const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="px-6 flex md:flex-row flex-col justify-between gap-6 md:gap-10">
           <div>
             <div className=" ">
