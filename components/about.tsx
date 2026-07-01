@@ -9,7 +9,7 @@ import Hero from "@/components/images/hero1.jpeg";
 const About = () => {
   return (
     <div className="min-h-screen">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col gap-6 bg-boxBg py-10 md:py-16 px-6">
           <H1>About Seraphé</H1>
           <p className="md:text-base lg:w-[60%]  w-full text-sm text-darkText">

@@ -90,7 +90,7 @@ export default function Models() {
 
   return (
     <main className="min-h-screen text-black py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Editorial Brand Header */}
         <div className="text-center mb-16 border-b border-neutral-200 pb-12">
           <span className="text-xs uppercase tracking-widest text-yellowText font-semibold">

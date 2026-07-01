@@ -60,7 +60,7 @@ export default function Tips() {
 
   return (
     <main className="min-h-screen text-black py-10 md:py-16 px-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <H1>Beauty Tips & Guide</H1>
