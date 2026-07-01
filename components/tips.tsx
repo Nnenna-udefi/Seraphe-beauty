@@ -78,7 +78,7 @@ export default function Tips() {
               onClick={() => setActiveCategory(category)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
                 activeCategory === category
-                  ? "bg-boxBg text-white border-black shadow-sm"
+                  ? "bg-boxBg text-black border-darkText shadow-sm"
                   : "bg-white text-darkText border-slate-200 hover:border-slate-400"
               }`}
             >
