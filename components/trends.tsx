@@ -177,7 +177,7 @@ export default function Trends({
                 {/* <div
                   className={`w-full h-48 rounded-2xl bg-linear-to-r ${trend.gradient} mb-6 transition-transform duration-300 group-hover:scale-[1.01]`}
                 /> */}
-                <div className="w-full h-48 rounded-2xl mb-6">
+                <div className="w-full rounded-2xl mb-6">
                   <Image
                     src={trend.imgLink}
                     alt=""
