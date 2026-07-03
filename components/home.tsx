@@ -14,49 +14,59 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index: number) => {
             const isFirst = index === 0;
+
             return (
               <div
                 key={index}
-                className={`flex flex-col ${
+                className={`${
                   isFirst
-                    ? "md:col-span-2 md:row-span-2"
-                    : "md:col-span-1 md:flex-row gap-6 items-center md:pb-0 pb-6"
+                    ? "md:col-span-1 md:row-span-2 flex flex-col"
+                    : "md:col-span-2 border-b border-gray-100 md:border-b-0 pb-6 md:pb-0"
                 }`}
               >
-                <Link href={`/blog/${blog.slug}`}>
+                <Link
+                  href={`/blog/${blog.slug}`}
+                  className={`flex flex-col h-full w-full ${
+                    isFirst ? "" : "md:flex-row md:items-start gap-6"
+                  }`}
+                >
+                  {/* Image Wrapper Container */}
                   <div
-                    className={`overflow-hidden relative ${
-                      isFirst
-                        ? "h-80 md:h-125 w-full md:w-125 "
-                        : "h-48 w-full md:w-100 md:h-60 "
+                    className={`overflow-hidden relative w-full shrink-0 ${
+                      isFirst ? "h-80 md:h-[450px]" : "h-48 md:w-2/5 md:h-44"
                     }`}
                   >
                     <Image
                       src={blog.img}
                       alt={blog.title}
                       fill
-                      className="object-cover w-full"
+                      className="object-cover"
                     />
                   </div>
-                  <h3 className="text-yellowText md:text-sm text-xs uppercase mt-2">
-                    {blog.category}
-                  </h3>
 
-                  <h2
-                    className={`my-2 ${
-                      isFirst
-                        ? "md:text-3xl  w-full md:w-125 text-xl"
-                        : "md:text-2xl text-xl"
-                    }`}
+                  {/* Text Content Area */}
+                  <div
+                    className={`flex flex-col ${isFirst ? "pt-4" : "flex-1 md:pt-0"}`}
                   >
-                    {blog.title}
-                  </h2>
-                  <p className="uppercase text-darkText text-sm">
-                    {blog.author}
-                  </p>
+                    <h3 className="text-yellowText md:text-sm text-xs uppercase tracking-wider font-medium">
+                      {blog.category}
+                    </h3>
+
+                    <h2
+                      className={`my-2 font-serif text-black leading-tight ${
+                        isFirst ? "md:text-3xl text-xl" : "md:text-xl text-lg"
+                      }`}
+                    >
+                      {blog.title}
+                    </h2>
+
+                    <p className="uppercase text-darkText text-xs tracking-wide">
+                      BY {blog.author}
+                    </p>
+                  </div>
                 </Link>
               </div>
             );
