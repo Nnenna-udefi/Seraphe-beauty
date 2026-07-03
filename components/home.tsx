@@ -37,8 +37,9 @@ const Home = () => {
                     <Image
                       src={blog.img}
                       alt={blog.title}
-                      fill
-                      className="object-cover"
+                      width={500}
+                      height={0}
+                      className="object-cover w-full"
                     />
                   </div>
                   <h3 className="text-yellowText md:text-sm text-xs uppercase mt-2">

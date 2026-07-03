@@ -8,18 +8,25 @@ import ProductCard from "@/components/ui/productCard";
 import { BlogDetailsBlock, blogDummy } from "@/components/lib/constants";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-const BlogDetailsPage = ({ params }: Props) => {
-  const { slug } = params;
+const BlogDetailsPage = async ({ params }: Props) => {
+  // 3. Await the params object
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
 
-  // 2. Find the SPECIFIC blog instead of mapping an array
-  // (Assuming your data objects have a 'slug' or unique identifier)
-  const blog =
-    BlogDetailsBlock.find((b) => b.slug === slug) || BlogDetailsBlock[0];
+  // 4. Find the blog
+  const blog = BlogDetailsBlock.find((b) => b.slug === slug);
 
-  if (!blog) return <div>Post not found</div>;
+  // 5. Fallback check: If the slug doesn't match anything, don't let it crash
+  if (!blog) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Article not found.</p>
+      </div>
+    );
+  }
 
   // 3. Filter out the current post from the related sidebar / carousel lists
   const relatedStories = blogDummy.filter((item) => item.slug !== slug);
