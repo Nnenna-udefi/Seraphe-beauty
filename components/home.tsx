@@ -105,7 +105,7 @@ const Home = () => {
                     className={`overflow-hidden relative w-full ${
                       isFirst
                         ? "h-100 md:h-125"
-                        : "h-48 md:w-2/5 md:h-40 shrink-0"
+                        : "h-48 md:w-3/5 md:h-40 shrink-0"
                     }`}
                   >
                     <Image
@@ -119,7 +119,13 @@ const Home = () => {
                     {blog.category}
                   </h3>
 
-                  <h2 className="md:text-3xl text-xl my-2">{blog.title}</h2>
+                  <h2
+                    className={`my-2 ${
+                      isFirst ? "md:text-3xl text-xl" : "md:text-2xl text-xl"
+                    }`}
+                  >
+                    {blog.title}
+                  </h2>
                   <p className="uppercase text-darkText text-sm">
                     {blog.author}
                   </p>
