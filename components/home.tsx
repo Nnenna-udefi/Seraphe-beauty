@@ -22,13 +22,13 @@ const Home = () => {
                 key={index}
                 className={`flex flex-col ${
                   isFirst
-                    ? "md:col-span-1 md:row-span-2"
-                    : "md:col-span-2 md:flex-row gap-6 items-center md:pb-0 pb-6"
+                    ? "md:col-span-2 md:row-span-2"
+                    : "md:col-span-1 md:flex-row gap-6 items-center md:pb-0 pb-6"
                 }`}
               >
                 <Link href={`/blog/${blog.slug}`}>
                   <div
-                    className={` w-full border border-black ${
+                    className={`overflow-hidden relative w-full border border-black ${
                       isFirst
                         ? "h-80 md:h-125 w-full md:w-125 border border-blue-500"
                         : "h-48 w-full md:w-100 md:h-60 border border-red-500"
