@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { use } from "react";
 import Image from "next/image";
 import { H1, H3 } from "@/components/ui/heading";
 
@@ -11,10 +12,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-const BlogDetailsPage = async ({ params }: Props) => {
-  // 3. Await the params object
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
+const BlogDetailsPage = ({ params }: Props) => {
+  const { slug } = use(params);
 
   // 4. Find the blog
   const blog = BlogDetailsBlock.find((b) => b.slug === slug);

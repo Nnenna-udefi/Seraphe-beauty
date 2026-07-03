@@ -28,10 +28,10 @@ const Home = () => {
               >
                 <Link href={`/blog/${blog.slug}`}>
                   <div
-                    className={`overflow-hidden relative w-full ${
+                    className={` w-full border border-black ${
                       isFirst
-                        ? "h-80 md:h-125 w-full md:w-125"
-                        : "h-48 w-full md:w-100 md:h-60"
+                        ? "h-80 md:h-125 w-full md:w-125 border border-blue-500"
+                        : "h-48 w-full md:w-100 md:h-60 border border-red-500"
                     }`}
                   >
                     <Image
