@@ -23,20 +23,22 @@ const Home = () => {
                 key={index}
                 className={`${
                   isFirst
-                    ? "md:col-span-1 md:row-span-2 flex flex-col"
-                    : "md:col-span-2 border-b border-gray-100 md:border-b-0 pb-6 md:pb-0"
+                    ? "md:col-span-2 md:row-span-2 flex flex-col"
+                    : "md:col-span-1 border-b border-gray-100 md:border-b-0 pb-6 md:pb-0"
                 }`}
               >
                 <Link
                   href={`/blog/${blog.slug}`}
                   className={`flex flex-col h-full w-full ${
-                    isFirst ? "" : "md:flex-row md:items-start gap-6"
+                    isFirst ? "" : "md:flex-col md:items-start gap-6"
                   }`}
                 >
                   {/* Image Wrapper Container */}
                   <div
                     className={`overflow-hidden relative w-full shrink-0 ${
-                      isFirst ? "h-80 md:h-[450px]" : "h-48 md:w-2/5 md:h-44"
+                      isFirst
+                        ? "h-80 md:h-112.5 md:w-3/5"
+                        : "h-48 md:w-2/5 md:h-44"
                     }`}
                   >
                     <Image
