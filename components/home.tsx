@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="px-6 md:px-12 grid grid-cols-1 max-w-full md:grid-cols-3 gap-8">
+        <div className="px-6 md:px-12 py-10 grid grid-cols-1 max-w-full md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index: number) => {
             const isFirst = index === 0;
             return (
@@ -30,15 +30,14 @@ const Home = () => {
                   <div
                     className={`overflow-hidden relative w-full ${
                       isFirst
-                        ? "h-80 md:h-125 w-full"
-                        : "h-48 md:w-2/5 md:h-60 shrink-0"
+                        ? "h-80 md:h-125 w-full md:w-125"
+                        : "h-48 w-full md:h-60"
                     }`}
                   >
                     <Image
                       src={blog.img}
                       alt={blog.title}
-                      width={500}
-                      height={0}
+                      fill
                       className="object-cover w-full"
                     />
                   </div>
