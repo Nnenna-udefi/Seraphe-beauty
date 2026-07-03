@@ -6,7 +6,7 @@ import { H3 } from "./heading";
 
 const ProductCard = () => {
   return (
-    <div className="">
+    <div className="max-w-full">
       <div className="flex flex-col gap-1">
         <div className=" pt-2">
           <Image
@@ -23,7 +23,7 @@ const ProductCard = () => {
           <p className=" text-darkText text-sm py-2">
             Mystic Woods: Leafy Feathers/Butterfly Won
           </p>
-          <Button className="w-full">N60,000 Amazon</Button>
+          <Button className="">N60,000 Amazon</Button>
         </div>
       </div>
     </div>
