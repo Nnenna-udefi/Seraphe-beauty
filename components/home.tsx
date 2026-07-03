@@ -28,7 +28,7 @@ const Home = () => {
               >
                 <Link href={`/blog/${blog.slug}`}>
                   <div
-                    className={`overflow-hidden relative w-full ${
+                    className={`overflow-hidden relative ${
                       isFirst
                         ? "h-80 md:h-125 w-full md:w-125 "
                         : "h-48 w-full md:w-100 md:h-60 "
