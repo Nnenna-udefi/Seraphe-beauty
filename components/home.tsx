@@ -88,40 +88,41 @@ const Home = () => {
           </div>
         </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index: number) => {
             const isFirst = index === 0;
             return (
               <div
                 key={index}
-                className={`flex flex-col justify-between ${
-                  isFirst ? "lg:col-span-1 lg:row-span-2" : ""
+                className={`flex flex-col ${
+                  isFirst
+                    ? "md:col-span-1 md:row-span-2"
+                    : "md:col-span-2 md:flex-row gap-6 items-center md:pb-0 pb-6"
                 }`}
               >
                 <Link href={`/blog/${blog.slug}`}>
-                  <div className="flex flex-col grow">
-                    <div
-                      className={`overflow-hidden rounded relative w-full ${
-                        isFirst ? "h-64 md:h-96" : "h-48"
-                      }`}
-                    >
-                      <Image
-                        src={blog.img}
-                        alt={blog.title}
-                        width={400}
-                        height={250}
-                        className="object-cover"
-                      />
-                    </div>
-                    <h3 className="text-yellowText md:text-sm text-xs uppercase mt-2">
-                      {blog.category}
-                    </h3>
-
-                    <h2 className="md:text-3xl text-xl my-2">{blog.title}</h2>
-                    <p className="uppercase text-darkText text-sm">
-                      {blog.author}
-                    </p>
+                  <div
+                    className={`overflow-hidden relative w-full ${
+                      isFirst
+                        ? "h-100 md:h-125"
+                        : "h-48 md:w-2/5 md:h-40 shrink-0"
+                    }`}
+                  >
+                    <Image
+                      src={blog.img}
+                      alt={blog.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
+                  <h3 className="text-yellowText md:text-sm text-xs uppercase mt-2">
+                    {blog.category}
+                  </h3>
+
+                  <h2 className="md:text-3xl text-xl my-2">{blog.title}</h2>
+                  <p className="uppercase text-darkText text-sm">
+                    {blog.author}
+                  </p>
                 </Link>
               </div>
             );
