@@ -37,8 +37,8 @@ const Home = () => {
                   <div
                     className={`overflow-hidden relative w-full shrink-0 ${
                       isFirst
-                        ? "h-80 md:h-112.5 md:w-3/5"
-                        : "h-48 md:w-2/5 md:h-44"
+                        ? "h-80 md:h-112.5 md:w-full"
+                        : "h-48 md:w-3/5 md:h-44"
                     }`}
                   >
                     <Image

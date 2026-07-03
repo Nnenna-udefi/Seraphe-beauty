@@ -6,7 +6,7 @@ import { H3 } from "./heading";
 
 const ProductCard = () => {
   return (
-    <div className="max-w-full w-full md:w-125">
+    <div className="max-w-full w-full md:w-100">
       <div className="flex flex-col gap-1">
         <div className=" pt-2">
           <Image
