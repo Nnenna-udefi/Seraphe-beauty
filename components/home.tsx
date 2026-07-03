@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="px-6 md:px-12 py-10 grid grid-cols-1 max-w-full md:grid-cols-3 gap-8">
+        <div className="px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           {featuredBlogs.map((blog, index: number) => {
             const isFirst = index === 0;
             return (
