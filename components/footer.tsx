@@ -13,7 +13,7 @@ export const Footer = () => {
   return (
     <div className="md:px-12 px-6 md:text-lg text-base text-primaryText">
       <hr className="border w-full text-darkText" />
-      <div className="flex flex-col justify-between  md:flex-row gap-12  py-6 md:py-12">
+      <div className="flex flex-col justify-between  lg:flex-row gap-12  py-6 md:py-12">
         <div className="w-full">
           <Image src={logo} alt="logo" width={190} height={0} />
 
@@ -37,7 +37,9 @@ export const Footer = () => {
               <FaFacebook />
               <LiaLinkedin />
               <BsTwitterX />
-              <BsInstagram />
+              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
+                <BsInstagram />
+              </Link>
             </div>
           </div>
         </div>
@@ -75,7 +77,7 @@ export const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="p-2 bg-gray-200 text-darkText placeholder:text-darkText"
+                className="py-2 px-3 bg-gray-300 text-sm md:text-base text-darkText placeholder:text-darkText"
               />
               <button type="submit" className="bg-primaryBg text-white p-2">
                 Sign Up
@@ -88,7 +90,9 @@ export const Footer = () => {
             <FaFacebook fontSize={24} />
             <LiaLinkedin fontSize={24} />
             <BsTwitterX fontSize={24} />
-            <BsInstagram fontSize={24} />
+            <Link href="https://instagram.com/seraphe_beauty" target="_blank">
+              <BsInstagram />
+            </Link>
           </div>
         </div>
       </div>

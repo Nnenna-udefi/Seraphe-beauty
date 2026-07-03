@@ -4,36 +4,42 @@ import Image from "next/image";
 import model from "@/components/images/model.jpeg";
 import flower from "@/components/images/flower-girl.jpeg";
 import { H1 } from "./ui/heading";
-import { blogDummy, shopDummy } from "./lib/constants";
+import { BlogDetailsBlock, blogDummy, shopDummy } from "./lib/constants";
 import Carousel from "./ui/carousel";
 import Community from "./ui/community";
+import Link from "next/link";
 
+const featuredBlogs = BlogDetailsBlock.slice(0, 3);
 const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="px-6  md:px-12 flex md:flex-row flex-col justify-between gap-6 md:gap-10">
-          <div>
-            <div className=" ">
-              <Image
-                src={model}
-                alt="model"
-                width={500}
-                height={0}
-                className="w-full h-75 md:w-125 md:h-125"
-              />
+        {/* <div>
+          {BlogDetailsBlock.map((blog, index: number) => (
+            <div
+              key={index}
+              className="px-6 md:px-12 flex md:flex-row flex-col justify-between gap-6 md:gap-10"
+            >
+              <div className=" ">
+                <Image
+                  src={blog.img}
+                  alt="model"
+                  width={500}
+                  height={0}
+                  className="w-full h-75 md:w-125 md:h-125"
+                />
+              </div>
+              <div>
+                <h3 className="uppercase text-yellowText text-sm pt-2">
+                  {blog.category}
+                </h3>
+                <h1 className="md:text-3xl text-xl py-2 ">{blog.title}</h1>
+                <p className="uppercase text-darkText text-sm">{blog.author}</p>
+              </div>
             </div>
-            <div>
-              <h3 className="uppercase text-yellowText text-sm pt-2">Skin</h3>
-              <h1 className="md:text-3xl text-xl py-2 ">
-                Top 3 Regina Daniels Beauty Secret that will leave your Skin
-                Glowing
-              </h1>
-              <p className="uppercase text-darkText text-sm">
-                By Ogunmola Gbemisola
-              </p>
-            </div>
-          </div>
+          ))}
+
+          <div></div>
 
           <div>
             <div>
@@ -80,6 +86,46 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div> */}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredBlogs.map((blog, index: number) => {
+            const isFirst = index === 0;
+            return (
+              <div
+                key={index}
+                className={`border p-4 rounded flex flex-col justify-between ${
+                  isFirst ? "md:col-span-1 md:row-span-2 bg-neutral-50" : ""
+                }`}
+              >
+                <Link href={`/blog/${blog.slug}`}>
+                  <div className="flex flex-col grow">
+                    <div
+                      className={`overflow-hidden rounded relative w-full ${
+                        isFirst ? "h-64 md:h-96" : "h-48"
+                      }`}
+                    >
+                      <Image
+                        src={blog.img}
+                        alt={blog.title}
+                        width={400}
+                        height={250}
+                        className="object-cover"
+                      />
+                    </div>
+                    <h3 className="text-yellowText md:text-sm text-xs uppercase mt-2">
+                      {blog.category}
+                    </h3>
+
+                    <h2 className="md:text-3xl text-xl my-2">{blog.title}</h2>
+                    <p className="uppercase text-darkText text-sm">
+                      {blog.author}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
         {/* beauty tips */}

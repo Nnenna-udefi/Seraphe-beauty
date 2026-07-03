@@ -138,7 +138,7 @@ export default function JoinCommunity() {
                 </h4>
               </div>
               <Link
-                href="https://instagram.com/seraphe"
+                href="https://instagram.com/seraphe_beauty"
                 target="_blank"
                 className="text-primaryBg hover:opacity-70 transition-opacity flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold"
               >
