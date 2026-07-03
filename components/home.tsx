@@ -28,10 +28,10 @@ const Home = () => {
               >
                 <Link href={`/blog/${blog.slug}`}>
                   <div
-                    className={`overflow-hidden relative w-full border border-black ${
+                    className={`overflow-hidden relative w-full ${
                       isFirst
-                        ? "h-80 md:h-125 w-full md:w-125 border border-blue-500"
-                        : "h-48 w-full md:w-100 md:h-60 border border-red-500"
+                        ? "h-80 md:h-125 w-full md:w-125 "
+                        : "h-48 w-full md:w-100 md:h-60 "
                     }`}
                   >
                     <Image
@@ -47,7 +47,9 @@ const Home = () => {
 
                   <h2
                     className={`my-2 ${
-                      isFirst ? "md:text-3xl text-xl" : "md:text-2xl text-xl"
+                      isFirst
+                        ? "md:text-3xl  w-full md:w-125 text-xl"
+                        : "md:text-2xl text-xl"
                     }`}
                   >
                     {blog.title}
