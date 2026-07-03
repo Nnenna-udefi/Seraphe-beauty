@@ -31,7 +31,7 @@ const Home = () => {
                     className={`overflow-hidden relative w-full ${
                       isFirst
                         ? "h-80 md:h-125 w-full md:w-125"
-                        : "h-48 w-full md:h-60"
+                        : "h-48 w-full md:w-100 md:h-60"
                     }`}
                   >
                     <Image
