@@ -94,8 +94,8 @@ const Home = () => {
             return (
               <div
                 key={index}
-                className={`border p-4 rounded flex flex-col justify-between ${
-                  isFirst ? "md:col-span-1 md:row-span-2 bg-neutral-50" : ""
+                className={`flex flex-col justify-between ${
+                  isFirst ? "lg:col-span-1 lg:row-span-2" : ""
                 }`}
               >
                 <Link href={`/blog/${blog.slug}`}>
