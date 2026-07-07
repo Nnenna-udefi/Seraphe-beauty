@@ -65,11 +65,11 @@ export const skincareList = [
 ];
 
 export const navItems = [
-  // {
-  //   id: 1,
-  //   text: "Seraphé Skincare",
-  //   link: "/skincare",
-  // },
+  {
+    id: 1,
+    text: "Shop Seraphé",
+    link: "/shop",
+  },
   {
     id: 2,
     text: "Lifestyle",
@@ -471,5 +471,18 @@ export const BlogDetailsBlock = [
     heading4: "Be Honest... When last did you wash your makeup brushes?",
     para8:
       "Now that you have the knowledge, it&apos;s time to take action! Grab your tools, head to the sink, and give your skin the clean slate it deserves. If you found this guide helpful, make sure to share it with a friend who might be sitting at the &quot;dirty brush table&quot; and needs a gentle reminder!",
+  },
+];
+
+export const productCardBlock = [
+  {
+    img: model,
+    id: 1,
+    name: "Victoria secret Brush Set",
+    descSum: "Mystic Woods: Leafy Feathers/Butterfly Won",
+    description:
+      "Mystic Woods: Leafy Feathers/Butterfly Won  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis reprehenderit quam laudantium eius praesentium facere velit debitis molestiae aspernatur, nulla explicabo animi minus nisi numquam est enim tempora id sit dolorum ipsa ducimus dolorem quos magni! Quo hic consectetur inventore natus, qui perferendis aut ducimus deserunt aspernatur ea accusamus sapiente?",
+    price: "N60,000 Amazon",
+    category: "skin",
   },
 ];

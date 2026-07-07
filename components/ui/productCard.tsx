@@ -23,7 +23,7 @@ const ProductCard = () => {
           <p className=" text-darkText text-sm py-2">
             Mystic Woods: Leafy Feathers/Butterfly Won
           </p>
-          <Button className="w-full">N60,000 Amazon</Button>
+          <Button className="max-w-full">N60,000 Amazon</Button>
         </div>
       </div>
     </div>
