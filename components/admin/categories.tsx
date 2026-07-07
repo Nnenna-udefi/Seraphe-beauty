@@ -8,12 +8,7 @@ export default function AdminCategories() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold">
-            Store Taxonomy Categories
-          </h1>
-          <p className="text-sm text-gray-500">
-            Configure global platform categorization structures.
-          </p>
+          <h1 className="text-3xl font-serif font-bold">Categories</h1>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}

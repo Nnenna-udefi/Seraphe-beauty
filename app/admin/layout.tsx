@@ -23,7 +23,7 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen text-black ">
       {/* Side Navigation Bar */}
-      <aside className="w-64 bg-boxBg flex flex-col shrink-0 border-r border-darkText">
+      <aside className="md:w-64 w-12 bg-gray-100 flex flex-col shrink-0 border-r border-darkText">
         <div className="p-6 border-b border-darkText">
           <h2 className="text-xl font-bold tracking-wide text-yellowText">
             Seraphé Beauty
@@ -43,12 +43,12 @@ export default function AdminLayout({
                 href={item.link}
                 className={`flex items-center gap-3 px-4 py-3 rounded text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-yellowText text-black font-semibold"
+                    ? "bg-secondary text-secondaryText font-semibold"
                     : "text-primaryText hover:bg-darkText hover:text-white"
                 }`}
               >
                 {Icon && <Icon className="text-base shrink-0" />}
-                <span>{item.text}</span>
+                <span className="hidden md:block">{item.text}</span>
               </Link>
             );
           })}

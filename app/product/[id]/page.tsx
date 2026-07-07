@@ -35,7 +35,7 @@ const ProductDetailsPage = ({ params }: Props) => {
               alt={product.name}
               width={500}
               height={0}
-              className="w-full  "
+              className="w-full "
             />
           </div>
           <div className="flex flex-col gap-2">
