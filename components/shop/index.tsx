@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { H1, H3 } from "../ui/heading";
 import { productCardBlock, shopItems } from "../lib/constants";
