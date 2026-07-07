@@ -24,7 +24,7 @@ export default function AdminLayout({
     <div className="flex min-h-screen text-black ">
       {/* Side Navigation Bar */}
       <aside className="md:w-64 w-12 bg-gray-100 flex flex-col shrink-0 border-r border-darkText">
-        <div className="p-6 border-b border-darkText">
+        <div className="p-6 border-b border-darkText hidden md:block">
           <h2 className="text-xl font-bold tracking-wide text-yellowText">
             Seraphé Beauty
           </h2>
@@ -41,7 +41,7 @@ export default function AdminLayout({
               <Link
                 key={item.text}
                 href={item.link}
-                className={`flex items-center gap-3 px-4 py-3 rounded text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 px-2 md:px-4 py-3 rounded text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-secondary text-secondaryText font-semibold"
                     : "text-primaryText hover:bg-darkText hover:text-white"
