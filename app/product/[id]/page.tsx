@@ -29,7 +29,7 @@ const ProductDetailsPage = ({ params }: Props) => {
     <div className="py-10 md:px-12 min-h-screen md:py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-6">
-          <div className="">
+          <div className="w-full">
             <Image
               src={product.img}
               alt={product.name}
