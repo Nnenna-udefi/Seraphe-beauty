@@ -10,14 +10,14 @@ import { Button } from "../ui/button";
 const ShopSeraphe = () => {
   const pathname = usePathname();
   return (
-    <main className="min-h-screen  py-12 px-4 md:px-12 sm:px-6 lg:px-8">
+    <main className="min-h-screen  py-12 md:px-12 px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <H1>Shop</H1>
         <div>
           <h3 className="font-cantataOne py-4 text-lg md:text-lg">
             Shop by category:
           </h3>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 pb-10">
             {shopItems.map((item) => {
               const isActive = pathname === item.link;
               return (
@@ -38,7 +38,7 @@ const ShopSeraphe = () => {
         </div>
 
         <div className="space-y-12">
-          <h2 className="font-cantataOne text-xl pb-4 md:text-3xl text-black font-normal">
+          <h2 className="font-cantataOne text-xl py-4 md:text-3xl text-black font-normal">
             Featured Products
           </h2>
           <div className="max-w-full w-full md:w-100">
@@ -61,7 +61,9 @@ const ShopSeraphe = () => {
                   <p className=" text-darkText text-sm py-2">
                     {product.descSum}
                   </p>
-                  <Button className="max-w-full">{product.price}</Button>
+                  <Link href={`product/${product.id}`}>
+                    <Button className="w-full">{product.price}</Button>
+                  </Link>
                 </div>
               </div>
             ))}

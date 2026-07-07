@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { shopItems } from "../lib/constants";
 
 // Mock collections to represent data loaded from a database or constants file
 const PRODUCT_CATALOG = [
@@ -8,8 +9,6 @@ const PRODUCT_CATALOG = [
   { id: "p3", name: "Sulfate-Free Balancing Shampoo", category: "Hair Care" },
   { id: "p4", name: "Vitamin C Brightening Cream", category: "Skincare" },
 ];
-
-const BLOG_CATEGORIES = ["Skin", "Lifestyle", "Beauty Tips", "Trends"];
 
 export default function AdminDashboard() {
   // Form State
@@ -70,9 +69,6 @@ export default function AdminDashboard() {
             <h1 className="text-3xl font-serif font-bold text-gray-900 tracking-tight">
               Seraphé Workspace
             </h1>
-            <p className="text-sm text-gray-500">
-              Content Management & Product Association Engine
-            </p>
           </div>
           <span className="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">
             Admin Mode
@@ -140,9 +136,9 @@ export default function AdminDashboard() {
                   className="border border-gray-300 rounded p-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 bg-white"
                 >
                   <option value="">Choose Category Selection...</option>
-                  {BLOG_CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
+                  {shopItems.map((cat) => (
+                    <option key={cat.text} value={cat.text}>
+                      {cat.text}
                     </option>
                   ))}
                 </select>

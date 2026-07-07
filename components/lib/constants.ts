@@ -103,6 +103,8 @@ export const navItems = [
 ];
 
 import model from "@/components/images/model.jpeg";
+import brush from "@/components/images/brush.png";
+
 export const blogDummy = [
   {
     id: 1,
@@ -478,6 +480,26 @@ export const productCardBlock = [
   {
     img: model,
     id: 1,
+    name: "Victoria secret Brush Set",
+    descSum: "Mystic Woods: Leafy Feathers/Butterfly Won",
+    description:
+      "Mystic Woods: Leafy Feathers/Butterfly Won  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis reprehenderit quam laudantium eius praesentium facere velit debitis molestiae aspernatur, nulla explicabo animi minus nisi numquam est enim tempora id sit dolorum ipsa ducimus dolorem quos magni! Quo hic consectetur inventore natus, qui perferendis aut ducimus deserunt aspernatur ea accusamus sapiente?",
+    price: "N60,000 Amazon",
+    category: "skin",
+  },
+  {
+    img: Makeup,
+    id: 2,
+    name: "Victoria secret Brush Set",
+    descSum: "Mystic Woods: Leafy Feathers/Butterfly Won",
+    description:
+      "Mystic Woods: Leafy Feathers/Butterfly Won  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis reprehenderit quam laudantium eius praesentium facere velit debitis molestiae aspernatur, nulla explicabo animi minus nisi numquam est enim tempora id sit dolorum ipsa ducimus dolorem quos magni! Quo hic consectetur inventore natus, qui perferendis aut ducimus deserunt aspernatur ea accusamus sapiente?",
+    price: "N60,000 Amazon",
+    category: "skin",
+  },
+  {
+    img: brush,
+    id: 3,
     name: "Victoria secret Brush Set",
     descSum: "Mystic Woods: Leafy Feathers/Butterfly Won",
     description:
