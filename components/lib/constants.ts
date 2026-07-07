@@ -349,6 +349,8 @@ export const serapheDatabase = [
 
 import Hero from "@/components/images/hero2.jpeg";
 import Makeup from "@/components/images/makeup.png";
+import { GrBlog, GrDashboard } from "react-icons/gr";
+import { BiCategory } from "react-icons/bi";
 
 export const BlogDetailsBlock = [
   {
@@ -506,5 +508,27 @@ export const productCardBlock = [
       "Mystic Woods: Leafy Feathers/Butterfly Won  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis reprehenderit quam laudantium eius praesentium facere velit debitis molestiae aspernatur, nulla explicabo animi minus nisi numquam est enim tempora id sit dolorum ipsa ducimus dolorem quos magni! Quo hic consectetur inventore natus, qui perferendis aut ducimus deserunt aspernatur ea accusamus sapiente?",
     price: "N60,000 Amazon",
     category: "skin",
+  },
+];
+
+export const AdminNavItems = [
+  {
+    icon: GrDashboard,
+    text: "Dashboard",
+    link: "/admin/",
+  },
+  {
+    icon: GrBlog,
+    text: "Blog",
+    link: "/admin/blog",
+  },
+  {
+    icon: BiCategory,
+    text: "Categories",
+    link: "/admin/categories",
+  },
+  {
+    text: "Reviews",
+    link: "/admin/reviews",
   },
 ];

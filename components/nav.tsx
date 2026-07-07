@@ -2,7 +2,7 @@
 import Image from "next/image";
 import logo from "@/components/images/logo-white.png";
 import Link from "next/link";
-import { Menu, ArrowLeft } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { navItems, serapheDatabase, shopItems } from "./lib/constants";
@@ -76,7 +76,7 @@ export const Nav = () => {
       {/* Desktop Navigation Links Container */}
       <div className="py-4 px-3 md:px-10">
         <ul className="md:flex hidden justify-center gap-6 uppercase">
-          <li>
+          {/* <li>
             <button
               onClick={handleShopMenu}
               className={`${
@@ -87,7 +87,7 @@ export const Nav = () => {
             >
               Shop Seraphé
             </button>
-          </li>
+          </li> */}
           {navItems.map((item) => {
             const isActive = pathname === item.link;
             return (
@@ -146,16 +146,14 @@ export const Nav = () => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden block overflow-hidden bg-secondary w-full z-40 border-t border-gray-800"
           >
-            {/* If the sub-shop menu state is closed, print basic parent links */}
-            {!shop ? (
-              <motion.ul
-                key="main-mobile-nav"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                onClick={closeMobileMenu}
-                className="flex flex-col py-6 px-3 font-medium gap-6 uppercase"
-              >
-                <li onClick={(e) => e.stopPropagation()}>
+            <motion.ul
+              key="main-mobile-nav"
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              onClick={closeMobileMenu}
+              className="flex flex-col py-6 px-3 font-medium gap-6 uppercase"
+            >
+              {/* <li onClick={(e) => e.stopPropagation()}>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -166,54 +164,18 @@ export const Nav = () => {
                     <span>Shop Seraphé</span>
                     <span className="text-xs text-gray-400">→</span>
                   </button>
-                </li>
-                {navItems.map((item) => {
-                  const isActive = pathname === item.link;
-                  return (
-                    <Link href={item.link} key={item.id}>
-                      <li className={`${isActive ? "text-yellowText" : ""}`}>
-                        {item.text}
-                      </li>
-                    </Link>
-                  );
-                })}
-              </motion.ul>
-            ) : (
-              /* If sub-shop menu state is active, render shop layers directly on top */
-              <motion.div
-                key="shop-mobile-nav"
-                initial={{ x: 20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                className="py-6 px-3"
-              >
-                {/* Back Button to leave shop items view */}
-                <button
-                  onClick={() => showShop(false)}
-                  className="flex items-center gap-2 text-xs uppercase tracking-widest text-gray-400 mb-6 font-semibold"
-                >
-                  <ArrowLeft size={14} /> Back to main menu
-                </button>
-
-                <h3 className="text-xs uppercase text-yellowText tracking-widest border-b border-gray-800 pb-2 mb-4 font-bold">
-                  Shop Collections
-                </h3>
-
-                <ul className="grid grid-cols-1 gap-5 uppercase font-medium">
-                  {shopItems.map((item) => {
-                    const isActive = pathname === item.link;
-                    return (
-                      <Link href={item.link} key={item.id}>
-                        <li
-                          className={`${isActive ? "text-yellowText" : "text-secondaryText"} active:text-yellowText`}
-                        >
-                          {item.text}
-                        </li>
-                      </Link>
-                    );
-                  })}
-                </ul>
-              </motion.div>
-            )}
+                </li> */}
+              {navItems.map((item) => {
+                const isActive = pathname === item.link;
+                return (
+                  <Link href={item.link} key={item.id}>
+                    <li className={`${isActive ? "text-yellowText" : ""}`}>
+                      {item.text}
+                    </li>
+                  </Link>
+                );
+              })}
+            </motion.ul>
           </motion.div>
         )}
       </AnimatePresence>

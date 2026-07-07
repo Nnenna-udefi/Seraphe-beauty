@@ -14,7 +14,7 @@ const ProductDetailsPage = ({ params }: Props) => {
   const { id } = use(params);
 
   // 4. Find the product
-  const product = productCardBlock.find((p) => p.id === id);
+  const product = productCardBlock.find((p) => p.id === Number(id));
 
   // 5. Fallback check: If the id doesn't match anything, don't let it crash
   if (!product) {

@@ -41,7 +41,7 @@ const ShopSeraphe = () => {
           <h2 className="font-cantataOne text-xl py-4 md:text-3xl text-black font-normal">
             Featured Products
           </h2>
-          <div className="max-w-full w-full md:w-100">
+          <div className="flex flex-wrap gap-3">
             {productCardBlock.map((product) => (
               <div key={product.id} className="flex flex-col gap-1">
                 <div className=" pt-2">
@@ -50,7 +50,7 @@ const ShopSeraphe = () => {
                     alt="model"
                     width={300}
                     height={0}
-                    className="max-w-full  "
+                    className="w-full  "
                   />
                 </div>
                 <div>
