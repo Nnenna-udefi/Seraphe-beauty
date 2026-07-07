@@ -15,10 +15,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-serif font-bold">Workspace Overview</h1>
-        <p className="text-sm text-gray-500">
-          Live operation snapshot indicators.
-        </p>
+        <h1 className="text-3xl font-serif font-bold">Dashboard</h1>
       </div>
 
       {/* Metric Badges */}

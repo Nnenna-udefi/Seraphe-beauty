@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Button } from "../ui/button";
 
 export default function AdminBlog() {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -42,12 +43,18 @@ export default function AdminBlog() {
               className="border p-2 text-sm rounded bg-white file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-amber-100 file:text-amber-800 cursor-pointer"
             />
           </div>
-          <button
-            type="button"
-            className="bg-amber-500 text-black px-6 py-2.5 rounded text-xs font-bold uppercase tracking-wider"
-          >
-            Publish Post
-          </button>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs uppercase font-semibold text-gray-500">
+              Posts
+            </label>
+            <textarea
+              cols={4}
+              rows={7}
+              className="border p-2.5 rounded text-sm bg-white"
+              placeholder="Enter text"
+            />
+          </div>
+          <Button>Publish Post</Button>
         </form>
       ) : (
         /* ARTICLES FEED MANAGER TABLE */
