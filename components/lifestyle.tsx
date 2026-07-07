@@ -42,7 +42,7 @@ export const Lifestyle = () => {
 
         {/* first section */}
         <div className="px-6 md:px-12 py-10 md:py-16">
-          <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
+          <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
                 <div className=" ">
@@ -120,7 +120,7 @@ export const Lifestyle = () => {
         </div>
         {/* third section */}
         <div className="px-6 md:px-12 py-10 md:py-16">
-          <div className="py-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
+          <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
                 <div className=" ">
