@@ -49,8 +49,8 @@ const AdminPage = () => {
   const currentAdmin = authManager.getAdminUser();
 
   return (
-    <div className="min-h-screen  p-6">
-      <header className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm mb-6">
+    <div className="min-h-screen  px-6">
+      <header className="flex justify-between items-center bg-white p-4 shadow-sm mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800">
             Seraphé Workspace Dashboard

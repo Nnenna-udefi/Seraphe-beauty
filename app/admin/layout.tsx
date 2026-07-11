@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GrDashboard } from "react-icons/gr";
@@ -21,8 +21,13 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [showNav, setShowNav] = useState(false);
 
-  const showNav = useMemo(() => authManager.isAuthenticated(), []);
+  // Automatically recalculate layout access privileges whenever the pathname route shifts
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShowNav(authManager.isAuthenticated());
+  }, []);
 
   return (
     <div className="flex min-h-screen text-black ">
@@ -37,14 +42,14 @@ export default function AdminLayout({
                 <Link
                   key={item.text}
                   href={item.link}
-                  className={`flex items-center gap-3 px-2 md:px-4 py-3 rounded text-sm font-medium transition-colors ${
+                  className={`flex md:flex-row flex-col items-center gap-3 px-2 md:px-4 py-3 rounded text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-secondary text-secondaryText font-semibold"
                       : "text-primaryText hover:bg-darkText hover:text-white"
                   }`}
                 >
-                  {Icon && <Icon className="text-base shrink-0" />}
-                  <span className="hidden md:block">{item.text}</span>
+                  {Icon && <Icon className="text-base " />}
+                  <span>{item.text}</span>
                 </Link>
               );
             })}

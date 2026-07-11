@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Category, Product } from "../types/api";
 import { api } from "../lib/api";
+import { supabase } from "../lib/supabase";
+import Image from "next/image";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,6 +31,7 @@ export default function AdminProducts() {
   const [sku, setSku] = useState("");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isActive, setIsActive] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   // 1. READ: Fetch products and category listings together cleanly on mount
   useEffect(() => {
@@ -181,6 +184,44 @@ export default function AdminProducts() {
     return found ? found.name : "Unassigned";
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+    setUploading(true);
+
+    try {
+      const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
+      const filePath = `products/${fileName}`;
+
+      const { error } = await supabase.storage
+        .from("products")
+        .upload(filePath, file);
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Maximum image size is 5MB");
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        alert("Please upload an image.");
+        return;
+      }
+
+      if (error) throw error;
+
+      const { data } = supabase.storage.from("products").getPublicUrl(fileName);
+
+      setImages(data.publicUrl);
+
+      alert("Image uploaded successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Image upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -313,22 +354,34 @@ export default function AdminProducts() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Image Asset Endpoint URL
+                Image
               </label>
-              <input
+              {/* <input
                 type="text"
                 required
                 value={images}
                 onChange={(e) => setImages(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="https://cdn.com/product.jpg"
+              /> */}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
               />
             </div>
+            {images && (
+              <Image
+                src={images}
+                alt="Preview"
+                className="w-32 h-32 object-cover rounded border"
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
-              Short Summary Snippet
+              Short Description
             </label>
             <input
               type="text"
@@ -342,7 +395,7 @@ export default function AdminProducts() {
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
-              Full Description Markdown
+              Full Description
             </label>
             <textarea
               rows={4}
@@ -360,7 +413,7 @@ export default function AdminProducts() {
                 type="checkbox"
                 checked={isFeatured}
                 onChange={(e) => setIsFeatured(e.target.checked)}
-                className="rounded border-gray-300 accent-amber-500"
+                className="rounded border-gray-300 accent-primaryText"
               />
               Feature item on homepage
             </label>
@@ -369,7 +422,7 @@ export default function AdminProducts() {
                 type="checkbox"
                 checked={isActive}
                 onChange={(e) => setIsActive(e.target.checked)}
-                className="rounded border-gray-300 accent-amber-500"
+                className="rounded border-gray-300 accent-primaryText"
               />
               Item is visible and active
             </label>
@@ -377,14 +430,16 @@ export default function AdminProducts() {
 
           <button
             type="submit"
-            disabled={submitting}
-            className="bg-amber-500 text-black px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-amber-600 transition disabled:opacity-50"
+            disabled={submitting || uploading}
+            className="bg-primaryText text-black px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-amber-600 transition disabled:opacity-50"
           >
             {submitting
-              ? "Processing..."
-              : editingId
-                ? "Update Variant Data"
-                : "Catalog Product"}
+              ? "Saving..."
+              : uploading
+                ? "Uploading image..."
+                : editingId
+                  ? "Update Product"
+                  : "Create Product"}
           </button>
         </form>
       )}

@@ -137,7 +137,7 @@ export default function AdminCategories() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border p-2.5 rounded text-sm bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              className="border p-2.5 rounded text-sm bg-white focus:ring-2 focus:ring-primaryText focus:outline-none"
               placeholder="e.g., Lip Care"
               disabled={submitting}
             />
@@ -145,7 +145,7 @@ export default function AdminCategories() {
           <button
             type="submit"
             disabled={submitting}
-            className="bg-amber-500 text-black px-4 py-2 rounded text-xs font-bold uppercase tracking-wider hover:bg-amber-600 transition disabled:opacity-50"
+            className="bg-primaryText text-black px-4 py-2 rounded text-xs font-bold uppercase tracking-wider hover:bg-primaryBg transition disabled:opacity-50"
           >
             {submitting
               ? "Processing..."
