@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GrDashboard } from "react-icons/gr";
@@ -21,13 +21,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [showNav, setShowNav] = useState(false);
-
-  // Automatically recalculate layout access privileges whenever the pathname route shifts
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setShowNav(authManager.isAuthenticated());
-  }, []);
+  const showNav = authManager.isAuthenticated();
 
   return (
     <div className="flex min-h-screen text-black ">
