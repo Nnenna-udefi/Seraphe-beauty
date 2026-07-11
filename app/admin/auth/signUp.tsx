@@ -71,7 +71,7 @@ export default function AdminSignUp({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryText"
             />
           </div>
           <div>
@@ -83,7 +83,7 @@ export default function AdminSignUp({
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryText"
             />
           </div>
           <button
@@ -99,7 +99,7 @@ export default function AdminSignUp({
           Already have access?{" "}
           <button
             onClick={onSwitchToSignIn}
-            className="text-purple-600 hover:underline font-semibold"
+            className="text-primaryText hover:underline font-semibold"
           >
             Sign In
           </button>

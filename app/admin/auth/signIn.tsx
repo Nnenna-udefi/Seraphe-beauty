@@ -58,7 +58,7 @@ export default function AdminSignIn({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryText"
             />
           </div>
           <div>
@@ -70,13 +70,13 @@ export default function AdminSignIn({
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryText"
             />
           </div>
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-purple-600 text-white py-2 rounded-md font-semibold hover:bg-purple-700 transition disabled:opacity-50"
+            className="w-full bg-primaryBg text-white py-2 rounded-md font-semibold hover:bg-primaryText transition disabled:opacity-50"
           >
             {submitting ? "Verifying..." : "Sign In"}
           </button>
@@ -86,7 +86,7 @@ export default function AdminSignIn({
           Need a profile setup?{" "}
           <button
             onClick={onSwitchToSignUp}
-            className="text-purple-600 hover:underline font-semibold"
+            className="text-primaryBg hover:underline font-semibold"
           >
             Register Admin
           </button>
