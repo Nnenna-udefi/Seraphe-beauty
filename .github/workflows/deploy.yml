@@ -1,0 +1,37 @@
+name: Deploy to DigitalOcean Droplet
+
+on:
+  push:
+    branches:
+      - main # Assumes your primary deployment branch is 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Execute Remote SSH Commands to Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            # 1. Navigate into your exact repository directory on the droplet
+            cd /var/www/Seraphe-beauty
+
+            # 2. Pull down the newest changes from your main branch
+            git pull origin main
+
+            # 3. Perform a clean production package installation
+            npm ci
+
+            # 4. Compile the Next.js production build files
+            npm run build
+
+            # 5. Reload your specific PM2 process instance with zero downtime
+            pm2 restart seraphebeauty-frontend || pm2 start npm --name "seraphebeauty-frontend" -- start
