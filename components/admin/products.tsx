@@ -1,12 +1,14 @@
-// components/admin/AdminProducts.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { Category, Product } from "../types/api";
 import { api } from "../lib/api";
 import { supabase } from "../lib/supabase";
 import Image from "next/image";
+import { authManager } from "../lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function AdminProducts() {
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -35,6 +37,10 @@ export default function AdminProducts() {
 
   // 1. READ: Fetch products and category listings together cleanly on mount
   useEffect(() => {
+    if (!authManager.isAuthenticated()) {
+      router.push("/admin"); // Redirect cleanly to login if missing credentials
+      return;
+    }
     let isMounted = true;
 
     const initData = async () => {
@@ -61,16 +67,12 @@ export default function AdminProducts() {
       }
     };
 
-    // Pushes execution out of synchronous mounting thread block
-    const timer = setTimeout(() => {
-      initData();
-    }, 0);
+    initData();
 
     return () => {
       isMounted = false;
-      clearTimeout(timer);
     };
-  }, []);
+  }, [router]);
 
   // Auto-generate helper to build url slugs as you type out the product name
   const handleNameChange = (val: string) => {
