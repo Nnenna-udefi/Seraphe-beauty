@@ -20,6 +20,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
+          debug: true
           script: |
             # 1. Navigate into your exact repository directory on the droplet
             cd /var/www/Seraphe-beauty
