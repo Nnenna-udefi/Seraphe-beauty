@@ -10,6 +10,11 @@ import Link from "next/link";
 
 export const Footer = () => {
   const pathname = usePathname();
+
+  const isAdminRoute = pathname?.startsWith("/admin");
+
+  if (isAdminRoute) return null;
+
   return (
     <div className="md:px-12 px-6 md:text-lg text-base text-primaryText">
       <hr className="border w-full text-darkText" />
