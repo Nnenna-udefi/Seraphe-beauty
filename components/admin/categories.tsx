@@ -2,8 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Category } from "../types/api";
 import { api } from "../lib/api";
+import { authManager } from "../lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function AdminCategories() {
+  const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -13,6 +16,11 @@ export default function AdminCategories() {
   const [editId, setEditId] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log("Authenticated:", authManager.isAuthenticated());
+    if (!authManager.isAuthenticated()) {
+      router.push("/admin"); // Redirect cleanly to login if missing credentials
+      return;
+    }
     let isMounted = true;
 
     const fetchCategories = async () => {
@@ -34,16 +42,12 @@ export default function AdminCategories() {
       }
     };
 
-    // Use a zero-delay timeout to push the execution out of the synchronous mounting execution thread
-    const timer = setTimeout(() => {
-      fetchCategories();
-    }, 0);
+    fetchCategories();
 
     return () => {
       isMounted = false;
-      clearTimeout(timer);
     };
-  }, []);
+  }, [router]);
 
   // 2. CREATE & UPDATE Handler
   const handleSaveCategory = async (e: React.FormEvent) => {
