@@ -1,14 +1,13 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function apiRequest<T = any>(
+export async function apiRequest<T = unknown>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint}`;
 
-  // Automatically fetch admin token if it exists in local storage
-  let token = null;
+  let token: string | null = null;
+
   if (typeof window !== "undefined") {
     token = localStorage.getItem("seraphe_admin_token");
   }
@@ -24,10 +23,12 @@ export async function apiRequest<T = any>(
     headers,
   });
 
+  const json = await response.json();
+
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `API error: ${response.status}`);
+    throw new Error(json.message || `API error: ${response.status}`);
   }
 
-  return response.json();
+  // Return the payload instead of the wrapper
+  return ("data" in json ? json.data : json) as T;
 }

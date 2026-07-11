@@ -62,7 +62,7 @@ export default function AdminCategories() {
           name,
         });
         setCategories((prev) =>
-          prev.map((cat) => (cat.id === editId ? updatedCategory : cat)),
+          prev.map((cat) => (cat._id === editId ? updatedCategory : cat)),
         );
         alert("Category updated successfully!");
       } else {
@@ -86,7 +86,7 @@ export default function AdminCategories() {
 
     try {
       await api.adminShop.deleteCategory(id);
-      setCategories((prev) => prev.filter((cat) => cat.id !== id));
+      setCategories((prev) => prev.filter((cat) => cat._id !== id));
       alert("Category deleted successfully.");
 
       // If we are currently edit the deleted category, clear the form panels
@@ -99,7 +99,7 @@ export default function AdminCategories() {
 
   // Helper to open edit interface panel
   const startEdit = (category: Category) => {
-    setEditId(category.id);
+    setEditId(category._id);
     setName(category.name);
     setShowForm(true);
   };
@@ -180,7 +180,10 @@ export default function AdminCategories() {
             </thead>
             <tbody className="divide-y">
               {categories.map((cat) => (
-                <tr key={cat.id} className="hover:bg-gray-50 transition-colors">
+                <tr
+                  key={cat._id}
+                  className="hover:bg-gray-50 transition-colors"
+                >
                   <td className="p-4 font-medium text-gray-800">{cat.name}</td>
                   <td className="p-4 text-right space-x-2">
                     <button
@@ -190,7 +193,7 @@ export default function AdminCategories() {
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDeleteCategory(cat.id)}
+                      onClick={() => handleDeleteCategory(cat._id)}
                       className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
                     >
                       Delete

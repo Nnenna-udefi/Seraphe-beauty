@@ -82,7 +82,7 @@ export const api = {
       id: string | number,
       data: Partial<ProductPayload>,
     ): Promise<Product> =>
-      apiRequest<Product>(`/admin/shop/product/${id}`, {
+      apiRequest<Product>(`/admin/shop/products/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -91,7 +91,7 @@ export const api = {
       id: string | number,
     ): Promise<{ success: boolean; message: string }> =>
       apiRequest<{ success: boolean; message: string }>(
-        `/admin/shop/product/${id}`,
+        `/admin/shop/products/${id}`,
         { method: "DELETE" },
       ),
   },

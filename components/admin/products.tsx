@@ -112,7 +112,7 @@ export default function AdminProducts() {
       if (editingId) {
         const updated = await api.adminShop.updateProduct(editingId, payload);
         setProducts((prev) =>
-          prev.map((p) => (p.id === editingId ? updated : p)),
+          prev.map((p) => (p._id === editingId ? updated : p)),
         );
         alert("Product record updated successfully!");
       } else {
@@ -136,7 +136,7 @@ export default function AdminProducts() {
 
     try {
       await api.adminShop.deleteProduct(id);
-      setProducts((prev) => prev.filter((p) => p.id !== id));
+      setProducts((prev) => prev.filter((p) => p._id !== id));
       alert("Product dropped from inventory.");
       if (editingId === id) resetForm();
     } catch (error: unknown) {
@@ -147,7 +147,7 @@ export default function AdminProducts() {
   };
 
   const startEdit = (product: Product) => {
-    setEditingId(product.id);
+    setEditingId(product._id);
     setName(product.name);
     setSlug(product.slug);
     setPrice(product.price);
@@ -182,7 +182,7 @@ export default function AdminProducts() {
 
   // Quick helper to match and render raw Category ID values into plain text labels
   const getCategoryName = (catId: string) => {
-    const found = categories.find((c) => c.id === catId);
+    const found = categories.find((c) => c._id === catId);
     return found ? found.name : "Unassigned";
   };
 
@@ -289,7 +289,7 @@ export default function AdminProducts() {
               >
                 <option value="">-- Choose Category --</option>
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
+                  <option key={cat._id} value={cat._id}>
                     {cat.name}
                   </option>
                 ))}
@@ -471,7 +471,7 @@ export default function AdminProducts() {
               <tbody className="divide-y">
                 {products.map((prod) => (
                   <tr
-                    key={prod.id}
+                    key={prod._id}
                     className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="p-4 flex items-center gap-3">
@@ -533,7 +533,7 @@ export default function AdminProducts() {
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDeleteProduct(prod.id)}
+                        onClick={() => handleDeleteProduct(prod._id)}
                         className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
                       >
                         Delete

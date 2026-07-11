@@ -1,5 +1,5 @@
 export interface Category {
-  id: string;
+  _id: string;
   name: string;
   slug?: string;
   description?: string;
@@ -9,7 +9,7 @@ export interface Category {
 }
 
 export interface Product {
-  id: string;
+  _id: string;
   name: string;
   slug: string;
   price: number;
@@ -54,7 +54,7 @@ export interface ProductPayload {
 export interface AuthResponse {
   accessToken: string;
   admin: {
-    id: string;
+    _id: string;
     email: string;
     name: string;
   };
