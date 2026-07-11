@@ -1,3 +1,4 @@
+"use client";
 import type { Metadata } from "next";
 import { Figtree, Red_Hat_Display, Cantata_One } from "next/font/google";
 import "./globals.css";
