@@ -1,7 +1,7 @@
 "use client";
 import AdminDashboard from "@/components/admin";
 import { authManager } from "@/components/lib/auth";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AdminSignIn from "./auth/signIn";
 import AdminSignUp from "./auth/signUp";
 import { Loader } from "lucide-react";
@@ -11,14 +11,10 @@ const AdminPage = () => {
     if (typeof window !== "undefined") {
       return authManager.isAuthenticated() ? "dashboard" : "signin";
     }
-    return "signin"; // Fallback for the initial server render pass
+    return "signin";
   });
-  const [loading, setLoading] = useState<boolean>(true);
+  const loading = false;
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLoading(false);
-  }, []);
   const handleLogout = () => {
     authManager.clearSession();
     setView("signin");
@@ -50,8 +46,8 @@ const AdminPage = () => {
     );
   }
 
-  // --- PROTECTED ADMIN DASHBOARD LIVE VIEW ---
   const currentAdmin = authManager.getAdminUser();
+
   return (
     <div className="min-h-screen  p-6">
       <header className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm mb-6">

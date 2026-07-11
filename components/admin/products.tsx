@@ -401,7 +401,7 @@ export default function AdminProducts() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+            <table className="w-full text-left border-collapse min-w-175">
               <thead>
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                   <th className="p-4">Item Details</th>
