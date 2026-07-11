@@ -3,7 +3,6 @@ import { Figtree, Red_Hat_Display, Cantata_One } from "next/font/google";
 import "./globals.css";
 import { Nav } from "../components/nav";
 import { Footer } from "../components/footer";
-import { usePathname } from "next/navigation";
 
 const figTree = Figtree({
   variable: "--font-figTree",
@@ -31,8 +30,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isAdminRoute = pathname.startsWith("/admin");
   return (
     <html
       lang="en"
@@ -41,8 +38,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Nav />
         {children}
-
-        {!isAdminRoute && <Footer />}
+        <Footer />
       </body>
     </html>
   );
