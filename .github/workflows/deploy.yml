@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean Droplet
 on:
   push:
     branches:
-      - main # Assumes your primary deployment branch is 'main'
+      - main
 
 jobs:
   deploy:
