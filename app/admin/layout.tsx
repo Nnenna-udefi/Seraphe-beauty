@@ -40,7 +40,7 @@ export default function AdminLayout({
                   className={`flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 rounded-lg px-2 md:px-4 py-3 transition-colors ${
                     isActive
                       ? "bg-secondary text-secondaryText font-semibold"
-                      : "text-white hover:bg-darkText hover:text-white"
+                      : "text-black hover:bg-darkText hover:text-white"
                   }`}
                 >
                   {Icon && <Icon className="text-xl shrink-0" />}
