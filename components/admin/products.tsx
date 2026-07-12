@@ -6,6 +6,7 @@ import { supabase } from "../lib/supabase";
 import Image from "next/image";
 import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function AdminProducts() {
   const router = useRouter();
@@ -450,12 +451,12 @@ export default function AdminProducts() {
       {/* Main Catalog Rendering Table */}
       <div className="bg-white border rounded-lg overflow-hidden text-sm shadow-sm w-full">
         {loading ? (
-          <div className="p-8 text-center text-gray-500 font-medium">
-            Reading product catalog indices...
+          <div className="flex items-center justify-center h-64">
+            <Loader2 className="h-10 w-10 animate-spin text-black" />
           </div>
         ) : products.length === 0 ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            No items matched inside your server data directory.
+            No items yet.
           </div>
         ) : (
           <div className="overflow-x-auto">

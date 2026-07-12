@@ -4,7 +4,7 @@ import { Category } from "../types/api";
 import { api } from "../lib/api";
 import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function AdminCategories() {
   const router = useRouter();
@@ -163,12 +163,12 @@ export default function AdminCategories() {
       {/* Categories Data Display Table */}
       <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
         {loading ? (
-          <div className="p-8 text-center text-gray-500 font-medium">
-            <Loader />
+          <div className="flex items-center justify-center h-64">
+            <Loader2 className="h-10 w-10 animate-spin text-black" />
           </div>
         ) : categories.length === 0 ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            No product yet.
+            No categories yet.
           </div>
         ) : (
           <table className="w-full text-left border-collapse">
