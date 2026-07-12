@@ -7,6 +7,8 @@ import Image from "next/image";
 import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import DeleteModal from "./deleteModal";
 
 export default function AdminProducts() {
   const router = useRouter();
@@ -35,6 +37,11 @@ export default function AdminProducts() {
   const [isFeatured, setIsFeatured] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null,
+  );
+  const [deleting, setDeleting] = useState(false);
 
   // 1. READ: Fetch products and category listings together cleanly on mount
   useEffect(() => {
@@ -59,7 +66,7 @@ export default function AdminProducts() {
         if (isMounted) {
           const errMsg =
             error instanceof Error ? error.message : "Data fetch error";
-          alert(`Failed to load store inventory: ${errMsg}`);
+          toast.error(`Failed to load store products: ${errMsg}`);
         }
       } finally {
         if (isMounted) {
@@ -91,7 +98,7 @@ export default function AdminProducts() {
   // 2. CREATE & UPDATE Handler
   const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return alert("Please select a target category.");
+    if (!category) return toast.message("Please select a target category.");
 
     setSubmitting(true);
     const payload = {
@@ -115,35 +122,41 @@ export default function AdminProducts() {
         setProducts((prev) =>
           prev.map((p) => (p._id === editingId ? updated : p)),
         );
-        alert("Product record updated successfully!");
+        toast.success("Product record updated successfully!");
       } else {
         const created = await api.adminShop.createProduct(payload);
         setProducts((prev) => [...prev, created]);
-        alert("New product cataloged successfully!");
+        toast.success("New product cataloged successfully!");
       }
       resetForm();
     } catch (error: unknown) {
       const errMsg = error instanceof Error ? error.message : "Save failure";
-      alert(`Operation failed: ${errMsg}`);
+      toast.error(`Operation failed: ${errMsg}`);
     } finally {
       setSubmitting(false);
     }
   };
 
   // 3. DELETE Handler
-  const handleDeleteProduct = async (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this product?"))
-      return;
+  const handleDeleteProduct = async () => {
+    if (!selectedProductId) return;
 
     try {
-      await api.adminShop.deleteProduct(id);
-      setProducts((prev) => prev.filter((p) => p._id !== id));
-      alert("Product dropped from inventory.");
-      if (editingId === id) resetForm();
-    } catch (error: unknown) {
-      const errMsg =
-        error instanceof Error ? error.message : "Deletion failure";
-      alert(`Could not drop item: ${errMsg}`);
+      setDeleting(true);
+
+      await api.adminShop.deleteProduct(selectedProductId);
+
+      setProducts((prev) => prev.filter((p) => p._id !== selectedProductId));
+
+      toast.success("Product deleted successfully.");
+    } catch (error) {
+      const errMsg = error instanceof Error ? error.message : "Deletion failed";
+
+      toast.error(errMsg);
+    } finally {
+      setDeleting(false);
+      setDeleteModalOpen(false);
+      setSelectedProductId(null);
     }
   };
 
@@ -202,12 +215,12 @@ export default function AdminProducts() {
         .upload(filePath, file);
 
       if (file.size > 5 * 1024 * 1024) {
-        alert("Maximum image size is 5MB");
+        toast.warning("Maximum image size is 5MB");
         return;
       }
 
       if (!file.type.startsWith("image/")) {
-        alert("Please upload an image.");
+        toast.warning("Please upload an image.");
         return;
       }
 
@@ -216,11 +229,12 @@ export default function AdminProducts() {
       const { data } = supabase.storage.from("products").getPublicUrl(fileName);
 
       setImages(data.publicUrl);
+      console.log(images);
 
-      alert("Image uploaded successfully!");
+      toast.success("Image uploaded successfully!");
     } catch (err) {
       console.error(err);
-      alert("Image upload failed");
+      toast.error("Image upload failed");
     } finally {
       setUploading(false);
     }
@@ -378,7 +392,9 @@ export default function AdminProducts() {
               <Image
                 src={images}
                 alt="Preview"
-                className="w-32 h-32 object-cover rounded border"
+                width={128}
+                height={128}
+                className="object-cover rounded border"
               />
             )}
           </div>
@@ -535,7 +551,10 @@ export default function AdminProducts() {
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDeleteProduct(prod._id)}
+                        onClick={() => {
+                          setSelectedProductId(prod._id);
+                          setDeleteModalOpen(true);
+                        }}
                         className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
                       >
                         Delete
@@ -548,6 +567,17 @@ export default function AdminProducts() {
           </div>
         )}
       </div>
+      <DeleteModal
+        isOpen={deleteModalOpen}
+        loading={deleting}
+        title="Delete Product"
+        message="Are you sure you want to permanently delete this product? This action cannot be undone."
+        onCancel={() => {
+          setDeleteModalOpen(false);
+          setSelectedProductId(null);
+        }}
+        onConfirm={handleDeleteProduct}
+      />
     </div>
   );
 }

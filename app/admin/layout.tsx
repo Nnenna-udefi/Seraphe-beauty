@@ -6,6 +6,7 @@ import { GrDashboard } from "react-icons/gr";
 import { BiCategory, BiShoppingBag } from "react-icons/bi";
 import { FaBookOpen, FaRegCommentDots } from "react-icons/fa";
 import { authManager } from "@/components/lib/auth";
+import { Toaster } from "sonner";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
@@ -56,6 +57,7 @@ export default function AdminLayout({
       {/* Main Content Pane */}
       <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen">
         {children}
+        <Toaster richColors position="top-right" />
       </main>
     </div>
   );

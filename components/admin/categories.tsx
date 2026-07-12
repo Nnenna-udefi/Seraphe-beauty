@@ -5,6 +5,8 @@ import { api } from "../lib/api";
 import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import DeleteModal from "./deleteModal";
 
 export default function AdminCategories() {
   const router = useRouter();
@@ -12,7 +14,11 @@ export default function AdminCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null,
+  );
+  const [deleting, setDeleting] = useState(false);
   const [name, setName] = useState("");
   const [editId, setEditId] = useState<string | null>(null);
 
@@ -33,7 +39,7 @@ export default function AdminCategories() {
         if (isMounted) {
           const errMsg =
             error instanceof Error ? error.message : "An error occurred";
-          alert(`Failed to load categories: ${errMsg}`);
+          toast.error(`Failed to load categories: ${errMsg}`);
         }
       } finally {
         if (isMounted) {
@@ -64,36 +70,43 @@ export default function AdminCategories() {
         setCategories((prev) =>
           prev.map((cat) => (cat._id === editId ? updatedCategory : cat)),
         );
-        alert("Category updated successfully!");
+        toast.success("Category updated successfully!");
       } else {
         // Add Mode: Create Brand New Category
         const newCategory = await api.adminShop.createCategory({ name });
         setCategories((prev) => [...prev, newCategory]);
-        alert("Category created successfully!");
+        toast.success("Category created successfully!");
       }
       resetForm();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      alert(`Save operation failed: ${error.message}`);
+      toast.error(`Save operation failed: ${error.message}`);
     } finally {
       setSubmitting(false);
     }
   };
 
   // 3. DELETE Handler
-  const handleDeleteCategory = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this category?")) return;
+  const handleDeleteCategory = async () => {
+    if (!selectedCategoryId) return;
 
     try {
-      await api.adminShop.deleteCategory(id);
-      setCategories((prev) => prev.filter((cat) => cat._id !== id));
-      alert("Category deleted successfully.");
+      setDeleting(true);
+      await api.adminShop.deleteCategory(selectedCategoryId);
+      setCategories((prev) =>
+        prev.filter((cat) => cat._id !== selectedCategoryId),
+      );
+      toast.success("Category deleted successfully.");
 
       // If we are currently edit the deleted category, clear the form panels
-      if (editId === id) resetForm();
+      if (editId === selectedCategoryId) resetForm();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      alert(`Deletion failed: ${error.message}`);
+      toast.error(`Deletion failed: ${error.message}`);
+    } finally {
+      setDeleting(false);
+      setDeleteModalOpen(false);
+      setSelectedCategoryId(null);
     }
   };
 
@@ -193,7 +206,10 @@ export default function AdminCategories() {
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDeleteCategory(cat._id)}
+                      onClick={() => {
+                        setSelectedCategoryId(cat._id);
+                        setDeleteModalOpen(true);
+                      }}
                       className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
                     >
                       Delete
@@ -205,6 +221,17 @@ export default function AdminCategories() {
           </table>
         )}
       </div>
+      <DeleteModal
+        isOpen={deleteModalOpen}
+        loading={deleting}
+        title="Delete Category"
+        message="Are you sure you want to permanently delete this category? This action cannot be undone."
+        onCancel={() => {
+          setDeleteModalOpen(false);
+          setSelectedCategoryId(null);
+        }}
+        onConfirm={handleDeleteCategory}
+      />
     </div>
   );
 }
