@@ -208,11 +208,10 @@ export default function AdminProducts() {
 
     try {
       const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
-      const filePath = `products/${fileName}`;
 
       const { error } = await supabase.storage
         .from("products")
-        .upload(filePath, file);
+        .upload(fileName, file);
 
       if (file.size > 5 * 1024 * 1024) {
         toast.warning("Maximum image size is 5MB");
