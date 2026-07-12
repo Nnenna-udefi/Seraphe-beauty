@@ -358,18 +358,19 @@ export default function AdminProducts() {
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Image
               </label>
-              {/* <input
+              <input
                 type="text"
                 required
                 value={images}
                 onChange={(e) => setImages(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="https://cdn.com/product.jpg"
-              /> */}
+              />
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
+                className="border rounded-md p-1"
               />
             </div>
             {images && (

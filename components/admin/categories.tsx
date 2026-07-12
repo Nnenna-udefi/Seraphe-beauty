@@ -4,6 +4,7 @@ import { Category } from "../types/api";
 import { api } from "../lib/api";
 import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 export default function AdminCategories() {
   const router = useRouter();
@@ -16,7 +17,6 @@ export default function AdminCategories() {
   const [editId, setEditId] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("Authenticated:", authManager.isAuthenticated());
     if (!authManager.isAuthenticated()) {
       router.push("/admin"); // Redirect cleanly to login if missing credentials
       return;
@@ -164,11 +164,11 @@ export default function AdminCategories() {
       <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
         {loading ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            Fetching category index...
+            <Loader />
           </div>
         ) : categories.length === 0 ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            No product categories registered yet.
+            No product yet.
           </div>
         ) : (
           <table className="w-full text-left border-collapse">
