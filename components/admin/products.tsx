@@ -433,7 +433,7 @@ export default function AdminProducts() {
           <button
             type="submit"
             disabled={submitting || uploading}
-            className="bg-primaryText text-black px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-amber-600 transition disabled:opacity-50"
+            className="bg-primaryText text-white px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-amber-600 transition disabled:opacity-50"
           >
             {submitting
               ? "Saving..."

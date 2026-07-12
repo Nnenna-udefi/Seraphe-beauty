@@ -27,23 +27,25 @@ export default function AdminLayout({
     <div className="flex min-h-screen text-black ">
       {/* Side Navigation Bar */}
       {showNav && (
-        <aside className="md:w-64 w-12 bg-gray-100 flex flex-col shrink-0 border-r border-darkText">
-          <nav className="flex-1 p-4 space-y-1.5">
+        <aside className="w-16 md:w-64 bg-gray-100 border-r border-darkText shrink-0">
+          <nav className="flex flex-col gap-2 p-2 md:p-4">
             {AdminNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.link;
+
               return (
                 <Link
                   key={item.text}
                   href={item.link}
-                  className={`flex md:flex-row flex-col items-center gap-3 px-2 md:px-4 py-3 rounded text-sm font-medium transition-colors ${
+                  className={`flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 rounded-lg px-2 md:px-4 py-3 transition-colors ${
                     isActive
                       ? "bg-secondary text-secondaryText font-semibold"
-                      : "text-primaryText hover:bg-darkText hover:text-white"
+                      : "text-white hover:bg-darkText hover:text-white"
                   }`}
                 >
-                  {Icon && <Icon className="text-base " />}
-                  <span>{item.text}</span>
+                  {Icon && <Icon className="text-xl shrink-0" />}
+
+                  <span className="hidden md:inline text-sm">{item.text}</span>
                 </Link>
               );
             })}

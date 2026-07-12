@@ -149,7 +149,7 @@ export default function AdminCategories() {
           <button
             type="submit"
             disabled={submitting}
-            className="bg-primaryText text-black px-4 py-2 rounded text-xs font-bold uppercase tracking-wider hover:bg-primaryBg transition disabled:opacity-50"
+            className="bg-primaryText text-white px-4 py-2 rounded text-xs font-bold uppercase tracking-wider hover:bg-primaryBg transition disabled:opacity-50"
           >
             {submitting
               ? "Processing..."
