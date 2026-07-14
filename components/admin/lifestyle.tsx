@@ -1,47 +1,45 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { Category, Product } from "../types/api";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Category, Lifestyle } from "../types/api";
+import { authManager } from "../lib/auth";
+import { toast } from "sonner";
 import { api } from "../lib/api";
 import { supabase } from "../lib/supabase";
-import Image from "next/image";
-import { authManager } from "../lib/auth";
-import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
 import DeleteModal from "./deleteModal";
+import Image from "next/image";
+import { Loader2 } from "lucide-react";
+import Tiptap from "../ui/tiptap";
 
-export default function AdminProducts() {
+export default function AdminLifestyle() {
   const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [articles, setArticles] = useState<Lifestyle[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [category, setCategory] = useState("");
+  const [categorySlug, setCategorySlug] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [content, setContent] = useState("");
+  const [author, setAuthor] = useState("");
+  const [readTimeMinutes, setReadTimeMinutes] = useState(5);
+  const [images, setImages] = useState("");
+  const [tags, setTags] = useState("");
+  const [isFeatured, setIsFeatured] = useState(false);
+  const [order, setOrder] = useState(1);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
-  const [price, setPrice] = useState<number>(0);
-  const [category, setCategory] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
-  const [images, setImages] = useState<string[]>([]);
-
-  const [stock, setStock] = useState<number>(0);
-  const [discountPrice, setDiscountPrice] = useState<number | undefined>(
-    undefined,
-  );
-  const [sku, setSku] = useState("");
-  const [isFeatured, setIsFeatured] = useState(false);
-  const [isActive, setIsActive] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+  const [selectedLifestyleId, setSelectedLifestyleId] = useState<string | null>(
     null,
   );
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  // READ: Fetch products and category listings together cleanly on mount
+  // READ: Fetch articles and category listings together cleanly on mount
   useEffect(() => {
     if (!authManager.isAuthenticated()) {
       router.push("/admin");
@@ -51,20 +49,20 @@ export default function AdminProducts() {
 
     const initData = async () => {
       try {
-        const [prodData, catData] = await Promise.all([
-          api.adminShop.getProducts(),
+        const [lifestyleData, catData] = await Promise.all([
+          api.adminShop.getLifestyle(),
           api.adminShop.getCategories(),
         ]);
 
         if (isMounted) {
-          setProducts(prodData);
+          setArticles(lifestyleData);
           setCategories(catData);
         }
       } catch (error: unknown) {
         if (isMounted) {
           const errMsg =
             error instanceof Error ? error.message : "Data fetch error";
-          toast.error(`Failed to load store products: ${errMsg}`);
+          toast.error(`Failed to load store lifestyle: ${errMsg}`);
         }
       } finally {
         if (isMounted) {
@@ -80,57 +78,41 @@ export default function AdminProducts() {
     };
   }, [router]);
 
-  // Auto-generate helper to build url slugs as you type out the product name
-  const handleNameChange = (val: string) => {
-    setName(val);
-    if (!editingId) {
-      setSlug(
-        val
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
-  };
-
   // 2. CREATE & UPDATE Handler
-  const handleSaveProduct = async (e: React.FormEvent) => {
+  const handleSaveLifestyle = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return toast.error("Please select a target category.");
+    if (!category) return toast.error("Please select a target lifestyle.");
 
     setSubmitting(true);
-    const payload = {
-      name,
-      slug,
-      price: Number(price),
-      category,
-      shortDescription,
-      description,
-      images,
-      stock: Number(stock),
-      sku: sku || undefined,
-      discountPrice: discountPrice ? Number(discountPrice) : undefined,
-      isFeatured,
-      tags: tags
-        ? tags
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter(Boolean)
-        : [],
-      isActive,
-    };
 
+    const payload = {
+      title,
+      slug,
+      category,
+      categorySlug,
+      excerpt,
+      content,
+      author,
+      readTimeMinutes,
+      images,
+      tags: tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+      isFeatured,
+      order,
+    };
     try {
       if (editingId) {
-        const updated = await api.adminShop.updateProduct(editingId, payload);
-        setProducts((prev) =>
+        const updated = await api.adminShop.updateLifestyle(editingId, payload);
+        setArticles((prev) =>
           prev.map((p) => (p._id === editingId ? updated : p)),
         );
-        toast.success("Product record updated successfully!");
+        toast.success("Lifestyle record updated successfully!");
       } else {
-        const created = await api.adminShop.createProduct(payload);
-        setProducts((prev) => [...prev, created]);
-        toast.success("New product cataloged successfully!");
+        const created = await api.adminShop.createLifestyle(payload);
+        setArticles((prev) => [...prev, created]);
+        toast.success("New lifestyle cataloged successfully!");
       }
       resetForm();
     } catch (error: unknown) {
@@ -142,71 +124,60 @@ export default function AdminProducts() {
   };
 
   // 3. DELETE Handler
-  const handleDeleteProduct = async () => {
-    if (!selectedProductId) return;
+  const handleDeleteLifestyle = async () => {
+    if (!selectedLifestyleId) return;
 
     try {
       setDeleting(true);
-      await api.adminShop.deleteProduct(selectedProductId);
-      setProducts((prev) => prev.filter((p) => p._id !== selectedProductId));
-      toast.success("Product deleted successfully.");
+      await api.adminShop.deleteLifestyle(selectedLifestyleId);
+      setArticles((prev) => prev.filter((p) => p._id !== selectedLifestyleId));
+      toast.success("Lifestyle deleted successfully.");
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : "Deletion failed";
       toast.error(errMsg);
     } finally {
       setDeleting(false);
       setDeleteModalOpen(false);
-      setSelectedProductId(null);
+      setSelectedLifestyleId(null);
     }
   };
 
-  const startEdit = (product: Product) => {
-    setEditingId(product._id);
-    setName(product.name);
-    setSlug(product.slug);
-    setPrice(product.price);
-    setCategory(product.category);
-    setShortDescription(product.shortDescription);
-    setDescription(product.description);
-
-    // FIXED: Support both single string formats or array formats if legacy data exists
-    const existingImages = Array.isArray(product.images)
-      ? product.images
-      : product.images
-        ? [product.images]
-        : [];
-    setImages(existingImages);
-
-    setStock(product.stock);
-    setDiscountPrice(product.discountPrice);
-    setSku(product.sku || "");
-    setIsFeatured(!!product.isFeatured);
-    setIsActive(!!product.isActive);
-    setTags(Array.isArray(product.tags) ? product.tags.join(", ") : "");
+  const startEdit = (article: Lifestyle) => {
+    setEditingId(article._id);
+    setTitle(article.title);
+    setSlug(article.slug);
+    setCategory(article.category);
+    setCategorySlug(article.categorySlug);
+    setExcerpt(article.excerpt);
+    setContent(article.content);
+    setAuthor(article.author);
+    setReadTimeMinutes(article.readTimeMinutes);
+    setImages(article.images);
+    setTags(article.tags.join(", "));
+    setIsFeatured(article.isFeatured);
+    setOrder(article.order);
     setShowForm(true);
   };
 
   const resetForm = () => {
     setEditingId(null);
-    setName("");
+    setTitle("");
     setSlug("");
-    setPrice(0);
     setCategory("");
-    setShortDescription("");
-    setDescription("");
-    setImages([]); // Correct clean state reset
-    setStock(0);
-    setDiscountPrice(undefined);
-    setSku("");
-    setIsFeatured(false);
-    setIsActive(true);
+    setCategorySlug("");
+    setExcerpt("");
+    setContent("");
+    setAuthor("");
+    setReadTimeMinutes(5);
+    setImages("");
     setTags("");
+    setIsFeatured(false);
+    setOrder(1);
     setShowForm(false);
   };
 
-  const getCategoryName = (categoryId: string, categories: Category[]) => {
+  const getCategoryName = (categoryId: string) => {
     const match = categories.find((c) => c._id === categoryId);
-
     return match?.name ?? "Unassigned";
   };
 
@@ -231,15 +202,16 @@ export default function AdminProducts() {
       const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
 
       const { error } = await supabase.storage
-        .from("products")
+        .from("lifestyle")
         .upload(fileName, file);
 
       if (error) throw error;
 
-      const { data } = supabase.storage.from("products").getPublicUrl(fileName);
+      const { data } = supabase.storage
+        .from("lifestyle")
+        .getPublicUrl(fileName);
 
-      // FIXED: Append the new image URL to our tracking array state safely
-      setImages((prev) => [...prev, data.publicUrl]);
+      setImages(data.publicUrl);
       toast.success("Image uploaded successfully!");
     } catch (err) {
       console.error(err);
@@ -249,40 +221,51 @@ export default function AdminProducts() {
     }
   };
 
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+
+    if (!editingId) {
+      setSlug(
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, ""),
+      );
+    }
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold">Products</h1>
+          <h1 className="text-3xl font-serif font-bold">Lifestyle Articles</h1>
         </div>
         <button
           onClick={() => (showForm ? resetForm() : setShowForm(true))}
           className="bg-black text-white px-5 py-2.5 rounded text-xs uppercase font-semibold tracking-wider hover:bg-neutral-800 transition-colors"
         >
-          {showForm ? "Cancel" : "Add New Product"}
+          {showForm ? "Cancel" : "Add New Lifestyle"}
         </button>
       </div>
 
-      {/* Structural Form Overlay / Display Panel */}
       {showForm && (
         <form
-          onSubmit={handleSaveProduct}
+          onSubmit={handleSaveLifestyle}
           className="bg-white border rounded-lg p-6 space-y-4 shadow-sm max-w-2xl"
         >
           <h3 className="text-sm font-bold uppercase tracking-wider text-gray-700">
-            {editingId ? "Modify Product Specifics" : "Register Catalog Item"}
+            {editingId ? "Modify Lifestyle" : "Register Lifestyle"}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Product Title
+                Lifestyle Title
               </label>
               <input
                 type="text"
                 required
-                value={name}
-                onChange={(e) => handleNameChange(e.target.value)}
+                value={title}
+                onChange={(e) => handleTitleChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="e.g., Hydrating Serum"
               />
@@ -323,62 +306,42 @@ export default function AdminProducts() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                SKU Code
+                Except
               </label>
               <input
                 type="text"
-                value={sku}
-                onChange={(e) => setSku(e.target.value)}
+                value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="SR-HD-01"
+                placeholder="excerpt"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Price ($)
+                Author
               </label>
               <input
-                type="number"
-                step="0.01"
+                type="text"
                 required
-                value={price || ""}
-                onChange={(e) => setPrice(Number(e.target.value))}
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Discount Break Price ($)
+                Read Time Minutes
               </label>
               <input
-                type="number"
-                step="0.01"
-                value={discountPrice || ""}
-                onChange={(e) =>
-                  setDiscountPrice(
-                    e.target.value ? Number(e.target.value) : undefined,
-                  )
-                }
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="Optional"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs uppercase font-semibold text-gray-500">
-                Stock Count
-              </label>
-              <input
-                type="number"
+                type="text"
                 required
-                value={stock || ""}
-                onChange={(e) => setStock(Number(e.target.value))}
+                value={readTimeMinutes}
+                onChange={(e) => setReadTimeMinutes(Number(e.target.value))}
                 className="border p-2 rounded text-sm bg-white"
               />
             </div>
-
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Image URL (First)
@@ -386,12 +349,8 @@ export default function AdminProducts() {
               <input
                 type="text"
                 required
-                value={images[0] || ""}
-                onChange={(e) => {
-                  const updated = [...images];
-                  updated[0] = e.target.value;
-                  setImages(updated.filter(Boolean));
-                }}
+                value={images}
+                onChange={(e) => setImages(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="https://cdn.com/product.jpg"
               />
@@ -404,61 +363,23 @@ export default function AdminProducts() {
             </div>
           </div>
 
-          {/* Render image previews if they exist */}
-          {images.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-1">
-              {images.map((url, index) => (
-                <div key={index} className="relative group w-20 h-20">
-                  <Image
-                    src={url}
-                    alt={`Preview ${index + 1}`}
-                    width={80}
-                    height={80}
-                    className="object-cover rounded border w-full h-full"
-                  />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setImages((prev) => prev.filter((_, i) => i !== index))
-                    }
-                    className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center font-bold shadow opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
+          {images && (
+            <Image
+              src={images}
+              alt="Preview"
+              width={120}
+              height={120}
+              className="rounded border object-cover"
+            />
           )}
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
-              Short Description
+              Content
             </label>
-            <input
-              type="text"
-              required
-              value={shortDescription}
-              onChange={(e) => setShortDescription(e.target.value)}
-              className="w-full border p-2 rounded text-sm bg-white"
-              placeholder="A brief one-sentence pitch line..."
-            />
+            <Tiptap value={content} onChange={setContent} />
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs uppercase font-semibold text-gray-500">
-              Full Description
-            </label>
-            <textarea
-              rows={4}
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border p-2 rounded text-sm bg-white"
-              placeholder="Deep product copy properties..."
-            />
-          </div>
-
-          {/* ADDED: Missing Tags Form Field */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
               Tags (Comma separated)
@@ -481,15 +402,6 @@ export default function AdminProducts() {
                 className="rounded border-gray-300 accent-primaryText"
               />
               Feature item on homepage
-            </label>
-            <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isActive}
-                onChange={(e) => setIsActive(e.target.checked)}
-                className="rounded border-gray-300 accent-primaryText"
-              />
-              Item is visible and active
             </label>
           </div>
 
@@ -515,34 +427,29 @@ export default function AdminProducts() {
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-10 w-10 animate-spin text-black" />
           </div>
-        ) : products.length === 0 ? (
+        ) : articles.length === 0 ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            No items yet.
+            No articles published yet.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-175">
               <thead>
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
-                  <th className="p-4">Item Details</th>
+                  <th className="p-4">Title</th>
                   <th className="p-4">Category</th>
-                  <th className="p-4">Price</th>
-                  <th className="p-4">Stock Status</th>
+                  <th className="p-4">Except</th>
+                  <th className="p-4">Tags</th>
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {products.map((prod) => {
-                  // Fallback to support both legacy single string or array formats
-
-                  const displayImage =
-                    Array.isArray(prod.images) && prod.images.length > 0
-                      ? prod.images[0]
-                      : "";
+                {articles.map((art) => {
+                  const displayImage = art.images;
 
                   return (
                     <tr
-                      key={prod._id}
+                      key={art._id}
                       className="hover:bg-gray-50 transition-colors"
                     >
                       <td className="p-4 flex items-center gap-3">
@@ -550,62 +457,42 @@ export default function AdminProducts() {
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={displayImage}
-                            alt={prod.name}
+                            alt={art.title}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}
                         <div>
                           <div className="font-medium text-gray-800 flex items-center gap-1.5">
-                            {prod.name}
-                            {prod.isFeatured && (
-                              <span className="text-[9px] bg-purple-100 text-purple-700 font-bold px-1 rounded">
-                                Featured
+                            {art.title}
+                            {art.isFeatured && (
+                              <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-semibold text-yellow-700">
+                                ⭐ Featured
                               </span>
                             )}
                           </div>
-                          <div className="text-xs text-gray-400">
-                            {prod.sku || "No SKU"}
+                          <div className="text-xs text-gray-400 line-clamp-1">
+                            {art.excerpt}
                           </div>
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        {getCategoryName(prod.category, categories)}
+                        <span className="inline-flex rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-700">
+                          {getCategoryName(art.category)}
+                        </span>
                       </td>
-                      <td className="p-4 font-medium text-gray-800">
-                        {prod.discountPrice ? (
-                          <span>
-                            <span className="text-red-600">
-                              ${prod.discountPrice}
-                            </span>
-                            <span className="text-xs text-gray-400 line-through ml-1.5">
-                              ${prod.price}
-                            </span>
-                          </span>
-                        ) : (
-                          `$${prod.price}`
-                        )}
-                      </td>
-                      <td className="p-4">
-                        {prod.stock <= 0 ? (
-                          <span className="text-xs bg-red-50 text-red-600 px-2 py-0.5 rounded font-medium">
-                            Out of stock
-                          </span>
-                        ) : (
-                          <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded font-medium">
-                            {prod.stock} units
-                          </span>
-                        )}
+                      <td className="p-4 text-sm text-gray-800">
+                        {art.readTimeMinutes} min read
                       </td>
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
-                          onClick={() => startEdit(prod)}
+                          onClick={() => startEdit(art)}
                           className="text-xs font-semibold px-2.5 py-1 text-slate-700 bg-slate-100 rounded hover:bg-slate-200 transition"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => {
-                            setSelectedProductId(prod._id);
+                            setSelectedLifestyleId(art._id);
                             setDeleteModalOpen(true);
                           }}
                           className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
@@ -625,13 +512,13 @@ export default function AdminProducts() {
       <DeleteModal
         isOpen={deleteModalOpen}
         loading={deleting}
-        title="Delete Product"
-        message="Are you sure you want to permanently delete this product? This action cannot be undone."
+        title="Delete Lifestyle"
+        message="Are you sure you want to permanently delete this lifestyle? This action cannot be undone."
         onCancel={() => {
           setDeleteModalOpen(false);
-          setSelectedProductId(null);
+          setSelectedLifestyleId(null);
         }}
-        onConfirm={handleDeleteProduct}
+        onConfirm={handleDeleteLifestyle}
       />
     </div>
   );
