@@ -11,7 +11,7 @@ import {
   FaTripadvisor,
 } from "react-icons/fa";
 import { Toaster } from "sonner";
-import { AuthProvider, useAuth } from "@/components/context/authContext";
+import { useAuth } from "@/components/context/authContext";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
@@ -65,7 +65,7 @@ export default function AdminLayout({
       {/* Main Content Pane */}
 
       <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen">
-        <AuthProvider>{children}</AuthProvider>
+        {children}
         <Toaster richColors position="top-right" />
       </main>
     </div>

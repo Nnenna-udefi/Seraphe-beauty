@@ -3,6 +3,7 @@ import { Figtree, Red_Hat_Display, Cantata_One } from "next/font/google";
 import "./globals.css";
 import { Nav } from "../components/nav";
 import { Footer } from "../components/footer";
+import { AuthProvider } from "@/components/context/authContext";
 
 const figTree = Figtree({
   variable: "--font-figTree",
@@ -37,7 +38,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Nav />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Footer />
       </body>
     </html>
