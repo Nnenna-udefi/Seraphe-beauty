@@ -1,24 +1,23 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { authManager } from "../lib/auth";
 import { api } from "../lib/api";
 import { Product, Review } from "../types/api";
 import { toast } from "sonner";
 import { Loader2, Star } from "lucide-react";
+import { useAuth } from "../context/authContext";
 
 export default function AdminReviews() {
   const router = useRouter();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
-
+  const { isAuthenticated } = useAuth();
   useEffect(() => {
-    if (!authManager.isAuthenticated()) {
-      router.push("/admin");
+    if (!isAuthenticated) {
+      router.replace("/admin");
       return;
     }
-    let isMounted = true;
 
     const fetchData = async () => {
       try {
@@ -26,29 +25,20 @@ export default function AdminReviews() {
           api.adminShop.getProductReviews(),
           api.adminShop.getProducts(),
         ]);
-        if (isMounted) {
-          setReviews(reviewsData);
-          setProducts(productsData);
-        }
+
+        setReviews(reviewsData);
+        setProducts(productsData);
       } catch (error: unknown) {
-        if (isMounted) {
-          const errMsg =
-            error instanceof Error ? error.message : "An error occurred";
-          toast.error(`Failed to load Reviews: ${errMsg}`);
-        }
+        const errMsg =
+          error instanceof Error ? error.message : "An error occurred";
+        toast.error(`Failed to load Reviews: ${errMsg}`);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     fetchData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   const getProductName = (productId: string) => {
     const product = products.find((p) => p._id === productId);

@@ -1,6 +1,7 @@
 "use client";
+import { useAuth } from "@/components/context/authContext";
 import { api } from "@/components/lib/api";
-import { authManager } from "@/components/lib/auth";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface SignInProps {
@@ -12,6 +13,8 @@ export default function AdminSignIn({
   onAuthSuccess,
   onSwitchToSignUp,
 }: SignInProps) {
+  const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,13 +22,21 @@ export default function AdminSignIn({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setError("");
     setSubmitting(true);
 
     try {
-      const response = await api.auth.adminSignin({ email, password });
-      authManager.setSession(response);
+      const response = await api.auth.adminSignin({
+        email,
+        password,
+      });
+
+      login(response);
+
       onAuthSuccess();
+
+      router.replace("/admin");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "Invalid email or secret credentials.");
@@ -33,7 +44,6 @@ export default function AdminSignIn({
       setSubmitting(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="max-w-md w-full bg-boxBg p-8 rounded-xl shadow-md border border-gray-100">

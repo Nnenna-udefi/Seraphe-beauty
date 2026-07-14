@@ -1,47 +1,111 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Lifestyle } from "../types/api";
+import { api } from "../lib/api";
+import { toast } from "sonner";
+import Card from "../ui/card";
+import { useAuth } from "../context/authContext";
 
 export default function AdminDashboard() {
-  // Mock Month-by-Month Graph Frequency Data
-  const chartData = [
-    { month: "Jan", count: 4 },
-    { month: "Feb", count: 7 },
-    { month: "Mar", count: 5 },
-    { month: "Apr", count: 12 },
-    { month: "May", count: 9 },
-    { month: "Jun", count: 15 },
-  ];
+  const { admin } = useAuth();
+  const [stats, setStats] = useState({
+    blogs: 0,
+    categories: 0,
+    products: 0,
+    reviews: 0,
+    lifestyle: 0,
+  });
+  const [chartData, setChartData] = useState<
+    { month: string; count: number }[]
+  >([]);
+
+  const [latestPosts, setLatestPosts] = useState<Lifestyle[]>([]);
+
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        const [blogs, categories, products, reviews, lifestyle] =
+          await Promise.all([
+            api.adminShop.getTips(),
+            api.adminShop.getCategories(),
+            api.adminShop.getProducts(),
+            api.adminShop.getProductReviews(),
+            api.adminShop.getLifestyle(),
+          ]);
+
+        setStats({
+          blogs: blogs.length,
+          categories: categories.length,
+          products: products.length,
+          reviews: reviews.length,
+          lifestyle: lifestyle.length,
+        });
+
+        setLatestPosts(
+          [...lifestyle]
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime(),
+            )
+            .slice(0, 5),
+        );
+
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        const uploads = new Array(12).fill(0);
+
+        lifestyle.forEach((article) => {
+          const month = new Date(article.createdAt).getMonth();
+          uploads[month]++;
+        });
+
+        setChartData(
+          months.map((month, index) => ({
+            month,
+            count: uploads[index],
+          })),
+        );
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (err) {
+        toast.error("Failed to load dashboard");
+      }
+    };
+
+    loadDashboard();
+  }, []);
+  const maxCount = Math.max(...chartData.map((c) => c.count), 1);
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-serif font-bold">Dashboard</h1>
+        <h2>Welcome back, {admin?.name}</h2>
       </div>
 
-      {/* Metric Badges */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white border p-6 rounded-lg shadow-sm flex justify-between items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase text-gray-400 tracking-wider">
-              Total Blogs
-            </p>
-            <h3 className="text-4xl font-serif font-bold mt-2">24</h3>
-          </div>
-          <span className="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">
-            Live Feed
-          </span>
-        </div>
-        <div className="bg-white border p-6 rounded-lg shadow-sm flex justify-between items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase text-gray-400 tracking-wider">
-              Active Categories
-            </p>
-            <h3 className="text-4xl font-serif font-bold mt-2">9</h3>
-          </div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">
-            Store Taxonomy
-          </span>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <Card title="Products" value={stats.products} />
+
+        <Card title="Categories" value={stats.categories} />
+
+        <Card title="Reviews" value={stats.reviews} />
+
+        <Card title="Beauty Tips" value={stats.blogs} />
+
+        <Card title="Lifestyle" value={stats.lifestyle} />
       </div>
 
       {/* Upload Frequency Monthly Chart */}
@@ -56,7 +120,9 @@ export default function AdminDashboard() {
               className="flex-1 flex flex-col items-center gap-2 group h-full justify-end"
             >
               <div
-                style={{ height: `${(data.count / 15) * 100}%` }}
+                style={{
+                  height: `${(data.count / maxCount) * 100}%`,
+                }}
                 className="w-full bg-slate-800 group-hover:bg-amber-500 transition-colors rounded-t relative"
               >
                 <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -85,13 +151,11 @@ export default function AdminDashboard() {
             </tr>
           </thead>
           <tbody className="divide-y">
-            {[1, 2, 3, 4, 5].map((idx) => (
-              <tr key={idx} className="hover:bg-gray-50">
-                <td className="p-4 font-medium text-gray-900">
-                  Makeup Brushes Are Ruining Your Skin ({idx})
-                </td>
-                <td className="p-4 text-amber-600 font-medium">Beauty Tips</td>
-                <td className="p-4 text-gray-500">Sophia Panych</td>
+            {latestPosts.map((post) => (
+              <tr key={post._id} className="hover:bg-gray-50">
+                <td className="p-4 font-medium">{post.title}</td>
+                <td className="p-4">{post.category}</td>
+                <td className="p-4">{post.author}</td>
               </tr>
             ))}
           </tbody>

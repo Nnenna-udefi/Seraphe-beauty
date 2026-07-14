@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Category, Lifestyle } from "../types/api";
+import { Category, Tips } from "../types/api";
 import { toast } from "sonner";
 import { api } from "../lib/api";
 import { supabase } from "../lib/supabase";
@@ -12,9 +12,9 @@ import { Loader2 } from "lucide-react";
 import Tiptap from "../ui/tiptap";
 import { useAuth } from "../context/authContext";
 
-export default function AdminLifestyle() {
+export default function AdminBeautyTips() {
   const router = useRouter();
-  const [articles, setArticles] = useState<Lifestyle[]>([]);
+  const [articles, setArticles] = useState<Tips[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
@@ -22,23 +22,21 @@ export default function AdminLifestyle() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState("");
   const [categorySlug, setCategorySlug] = useState("");
-  const [excerpt, setExcerpt] = useState("");
+  const [summary, setSummary] = useState("");
+  const [level, setLevel] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
   const [images, setImages] = useState("");
   const [tags, setTags] = useState("");
-  const [isFeatured, setIsFeatured] = useState(false);
   const [order, setOrder] = useState(1);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [selectedLifestyleId, setSelectedLifestyleId] = useState<string | null>(
-    null,
-  );
+  const [selectedTipsId, setSelectedTipsId] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -48,17 +46,17 @@ export default function AdminLifestyle() {
 
     const initData = async () => {
       try {
-        const [lifestyleData, catData] = await Promise.all([
-          api.adminShop.getLifestyle(),
+        const [beautyTipsData, catData] = await Promise.all([
+          api.adminShop.getTips(),
           api.adminShop.getCategories(),
         ]);
 
-        setArticles(lifestyleData);
+        setArticles(beautyTipsData);
         setCategories(catData);
       } catch (error: unknown) {
         const errMsg =
           error instanceof Error ? error.message : "Data fetch error";
-        toast.error(`Failed to load store lifestyle: ${errMsg}`);
+        toast.error(`Failed to load store beauty Tips: ${errMsg}`);
       } finally {
         setLoading(false);
       }
@@ -68,7 +66,7 @@ export default function AdminLifestyle() {
   }, [isAuthenticated, router]);
 
   // 2. CREATE & UPDATE Handler
-  const handleSaveLifestyle = async (e: React.FormEvent) => {
+  const handleSaveTips = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!category) return toast.error("Please select a target category.");
 
@@ -79,7 +77,8 @@ export default function AdminLifestyle() {
       slug,
       category,
       categorySlug,
-      excerpt,
+      summary,
+      level,
       content,
       author,
       readTimeMinutes,
@@ -88,20 +87,19 @@ export default function AdminLifestyle() {
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
-      isFeatured,
       order,
     };
     try {
       if (editingId) {
-        const updated = await api.adminShop.updateLifestyle(editingId, payload);
+        const updated = await api.adminShop.updateTips(editingId, payload);
         setArticles((prev) =>
           prev.map((p) => (p._id === editingId ? updated : p)),
         );
-        toast.success("Lifestyle record updated successfully!");
+        toast.success("Beauty tips record updated successfully!");
       } else {
-        const created = await api.adminShop.createLifestyle(payload);
+        const created = await api.adminShop.createTips(payload);
         setArticles((prev) => [...prev, created]);
-        toast.success("New lifestyle cataloged successfully!");
+        toast.success("New Beauty tips cataloged successfully!");
       }
       resetForm();
     } catch (error: unknown) {
@@ -113,37 +111,37 @@ export default function AdminLifestyle() {
   };
 
   // 3. DELETE Handler
-  const handleDeleteLifestyle = async () => {
-    if (!selectedLifestyleId) return;
+  const handleDeleteTips = async () => {
+    if (!selectedTipsId) return;
 
     try {
       setDeleting(true);
-      await api.adminShop.deleteLifestyle(selectedLifestyleId);
-      setArticles((prev) => prev.filter((p) => p._id !== selectedLifestyleId));
-      toast.success("Lifestyle deleted successfully.");
+      await api.adminShop.deleteTips(selectedTipsId);
+      setArticles((prev) => prev.filter((p) => p._id !== selectedTipsId));
+      toast.success("Tips deleted successfully.");
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : "Deletion failed";
       toast.error(errMsg);
     } finally {
       setDeleting(false);
       setDeleteModalOpen(false);
-      setSelectedLifestyleId(null);
+      setSelectedTipsId(null);
     }
   };
 
-  const startEdit = (article: Lifestyle) => {
+  const startEdit = (article: Tips) => {
     setEditingId(article._id);
     setTitle(article.title);
     setSlug(article.slug);
     setCategory(article.category);
     setCategorySlug(article.categorySlug);
-    setExcerpt(article.excerpt);
+    setSummary(article.summary);
+    setLevel(article.level);
     setContent(article.content);
     setAuthor(article.author);
     setReadTimeMinutes(article.readTimeMinutes);
     setImages(article.images);
     setTags(article.tags.join(", "));
-    setIsFeatured(article.isFeatured);
     setOrder(article.order);
     setShowForm(true);
   };
@@ -154,13 +152,13 @@ export default function AdminLifestyle() {
     setSlug("");
     setCategory("");
     setCategorySlug("");
-    setExcerpt("");
+    setSummary("");
+    setLevel("");
     setContent("");
     setAuthor("");
     setReadTimeMinutes(5);
     setImages("");
     setTags("");
-    setIsFeatured(false);
     setOrder(1);
     setShowForm(false);
   };
@@ -226,29 +224,31 @@ export default function AdminLifestyle() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold">Lifestyle Articles</h1>
+          <h1 className="text-3xl font-serif font-bold">
+            Beauty Tips Articles
+          </h1>
         </div>
         <button
           onClick={() => (showForm ? resetForm() : setShowForm(true))}
           className="bg-black text-white px-5 py-2.5 rounded text-xs uppercase font-semibold tracking-wider hover:bg-neutral-800 transition-colors"
         >
-          {showForm ? "Cancel" : "Add New Lifestyle"}
+          {showForm ? "Cancel" : "Add New Beauty Tips"}
         </button>
       </div>
 
       {showForm && (
         <form
-          onSubmit={handleSaveLifestyle}
+          onSubmit={handleSaveTips}
           className="bg-white border rounded-lg p-6 space-y-4 shadow-sm max-w-2xl"
         >
           <h3 className="text-sm font-bold uppercase tracking-wider text-gray-700">
-            {editingId ? "Modify Lifestyle" : "Register Lifestyle"}
+            {editingId ? "Modify Beauty Tips" : "Register Beauty Tips"}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Lifestyle Title
+                Beauty Tips Title
               </label>
               <input
                 type="text"
@@ -256,7 +256,7 @@ export default function AdminLifestyle() {
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="e.g., Hydrating Serum"
+                placeholder="e.g., Restoring a Damaged Moisture Barrier"
               />
             </div>
 
@@ -295,14 +295,14 @@ export default function AdminLifestyle() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Excerpt
+                Summary
               </label>
               <input
                 type="text"
-                value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="excerpt"
+                placeholder="summary"
               />
             </div>
 
@@ -316,6 +316,19 @@ export default function AdminLifestyle() {
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Level
+              </label>
+              <input
+                type="text"
+                required
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+                className="border p-2 rounded text-sm bg-white"
+                placeholder="Beginner"
               />
             </div>
 
@@ -382,18 +395,6 @@ export default function AdminLifestyle() {
             />
           </div>
 
-          <div className="flex gap-6 items-center pt-2">
-            <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isFeatured}
-                onChange={(e) => setIsFeatured(e.target.checked)}
-                className="rounded border-gray-300 accent-primaryText"
-              />
-              Feature item on homepage
-            </label>
-          </div>
-
           <button
             type="submit"
             disabled={submitting || uploading}
@@ -451,16 +452,8 @@ export default function AdminLifestyle() {
                           />
                         )}
                         <div>
-                          <div className="font-medium text-gray-800 flex items-center gap-1.5">
-                            {art.title}
-                            {art.isFeatured && (
-                              <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-semibold text-yellow-700">
-                                ⭐ Featured
-                              </span>
-                            )}
-                          </div>
                           <div className="text-xs text-gray-400 line-clamp-1">
-                            {art.excerpt}
+                            {art.title}
                           </div>
                         </div>
                       </td>
@@ -472,6 +465,7 @@ export default function AdminLifestyle() {
                       <td className="p-4 text-sm text-gray-800">
                         {art.readTimeMinutes} min read
                       </td>
+                      <td className="p-4 text-sm text-gray-800">{art.level}</td>
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
                           onClick={() => startEdit(art)}
@@ -481,7 +475,7 @@ export default function AdminLifestyle() {
                         </button>
                         <button
                           onClick={() => {
-                            setSelectedLifestyleId(art._id);
+                            setSelectedTipsId(art._id);
                             setDeleteModalOpen(true);
                           }}
                           className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
@@ -501,13 +495,13 @@ export default function AdminLifestyle() {
       <DeleteModal
         isOpen={deleteModalOpen}
         loading={deleting}
-        title="Delete Lifestyle"
-        message="Are you sure you want to permanently delete this lifestyle? This action cannot be undone."
+        title="Delete Beauty Tips"
+        message="Are you sure you want to permanently delete this Tips? This action cannot be undone."
         onCancel={() => {
           setDeleteModalOpen(false);
-          setSelectedLifestyleId(null);
+          setSelectedTipsId(null);
         }}
-        onConfirm={handleDeleteLifestyle}
+        onConfirm={handleDeleteTips}
       />
     </div>
   );

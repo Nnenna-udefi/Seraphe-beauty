@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Category } from "../types/api";
 import { api } from "../lib/api";
-import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import DeleteModal from "./deleteModal";
+import { useAuth } from "../context/authContext";
 
 export default function AdminCategories() {
   const router = useRouter();
@@ -21,39 +21,29 @@ export default function AdminCategories() {
   const [deleting, setDeleting] = useState(false);
   const [name, setName] = useState("");
   const [editId, setEditId] = useState<string | null>(null);
-
+  const { isAuthenticated } = useAuth();
   useEffect(() => {
-    if (!authManager.isAuthenticated()) {
-      router.push("/admin"); // Redirect cleanly to login if missing credentials
+    if (!isAuthenticated) {
+      router.replace("/admin");
       return;
     }
-    let isMounted = true;
 
     const fetchCategories = async () => {
       try {
         const data = await api.adminShop.getCategories();
-        if (isMounted) {
-          setCategories(data);
-        }
+
+        setCategories(data);
       } catch (error: unknown) {
-        if (isMounted) {
-          const errMsg =
-            error instanceof Error ? error.message : "An error occurred";
-          toast.error(`Failed to load categories: ${errMsg}`);
-        }
+        const errMsg =
+          error instanceof Error ? error.message : "An error occurred";
+        toast.error(`Failed to load categories: ${errMsg}`);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     fetchCategories();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   // 2. CREATE & UPDATE Handler
   const handleSaveCategory = async (e: React.FormEvent) => {

@@ -4,9 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GrDashboard } from "react-icons/gr";
 import { BiCategory, BiShoppingBag } from "react-icons/bi";
-import { FaBookOpen, FaRegCommentDots } from "react-icons/fa";
-import { authManager } from "@/components/lib/auth";
+import {
+  FaBookOpen,
+  FaRegCommentDots,
+  FaStickyNote,
+  FaTripadvisor,
+} from "react-icons/fa";
 import { Toaster } from "sonner";
+import { AuthProvider, useAuth } from "@/components/context/authContext";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
@@ -14,6 +19,8 @@ export const AdminNavItems = [
   { icon: BiCategory, text: "Categories", link: "/admin/categories" },
   { icon: BiShoppingBag, text: "Products", link: "/admin/products" },
   { icon: FaRegCommentDots, text: "Reviews", link: "/admin/reviews" },
+  { icon: FaTripadvisor, text: "Beauty Tips", link: "/admin/beauty-tips" },
+  { icon: FaStickyNote, text: "Lifestyle", link: "/admin/lifestyle" },
 ];
 
 export default function AdminLayout({
@@ -22,12 +29,13 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const showNav = authManager.isAuthenticated();
+
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="flex min-h-screen text-black ">
       {/* Side Navigation Bar */}
-      {showNav && (
+      {isAuthenticated && (
         <aside className="w-16 md:w-64 bg-gray-100 border-r border-darkText shrink-0">
           <nav className="flex flex-col gap-2 p-2 md:p-4">
             {AdminNavItems.map((item) => {
@@ -55,8 +63,9 @@ export default function AdminLayout({
       )}
 
       {/* Main Content Pane */}
+
       <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Toaster richColors position="top-right" />
       </main>
     </div>

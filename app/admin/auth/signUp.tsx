@@ -1,7 +1,9 @@
 "use client";
+
 import { api } from "@/components/lib/api";
-import { authManager } from "@/components/lib/auth";
+
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 interface SignUpProps {
   onAuthSuccess: () => void;
@@ -24,12 +26,20 @@ export default function AdminSignUp({
     setSubmitting(true);
 
     try {
-      const response = await api.auth.adminSignup({ name, email, password });
-      authManager.setSession(response);
+      await api.auth.adminSignup({
+        name,
+        email,
+        password,
+      });
+
+      toast.success("Account created successfully.");
+
+      onSwitchToSignIn();
+
       onAuthSuccess();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || "Registration denied. Check system properties.");
+      setError(err.message || "Registration denied.");
     } finally {
       setSubmitting(false);
     }

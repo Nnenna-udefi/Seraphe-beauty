@@ -4,11 +4,11 @@ import { Category, Product } from "../types/api";
 import { api } from "../lib/api";
 import { supabase } from "../lib/supabase";
 import Image from "next/image";
-import { authManager } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import DeleteModal from "./deleteModal";
+import { useAuth } from "../context/authContext";
 
 export default function AdminProducts() {
   const router = useRouter();
@@ -40,14 +40,14 @@ export default function AdminProducts() {
     null,
   );
   const [deleting, setDeleting] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   // READ: Fetch products and category listings together cleanly on mount
   useEffect(() => {
-    if (!authManager.isAuthenticated()) {
-      router.push("/admin");
+    if (!isAuthenticated) {
+      router.replace("/admin");
       return;
     }
-    let isMounted = true;
 
     const initData = async () => {
       try {
@@ -56,29 +56,19 @@ export default function AdminProducts() {
           api.adminShop.getCategories(),
         ]);
 
-        if (isMounted) {
-          setProducts(prodData);
-          setCategories(catData);
-        }
+        setProducts(prodData);
+        setCategories(catData);
       } catch (error: unknown) {
-        if (isMounted) {
-          const errMsg =
-            error instanceof Error ? error.message : "Data fetch error";
-          toast.error(`Failed to load store products: ${errMsg}`);
-        }
+        const errMsg =
+          error instanceof Error ? error.message : "Data fetch error";
+        toast.error(`Failed to load store products: ${errMsg}`);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     initData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   // Auto-generate helper to build url slugs as you type out the product name
   const handleNameChange = (val: string) => {
