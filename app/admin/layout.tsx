@@ -6,9 +6,15 @@ import { GrDashboard } from "react-icons/gr";
 import { BiCategory, BiShoppingBag } from "react-icons/bi";
 import {
   FaBookOpen,
+  FaLifeRing,
   FaRegCommentDots,
+  FaShoppingBag,
   FaStickyNote,
+  FaSuperpowers,
+  FaTag,
   FaTripadvisor,
+  FaUserFriends,
+  FaWalking,
 } from "react-icons/fa";
 import { Toaster } from "sonner";
 import { useAuth } from "@/components/context/authContext";
@@ -20,7 +26,11 @@ export const AdminNavItems = [
   { icon: BiShoppingBag, text: "Products", link: "/admin/products" },
   { icon: FaRegCommentDots, text: "Reviews", link: "/admin/reviews" },
   { icon: FaTripadvisor, text: "Beauty Tips", link: "/admin/beauty-tips" },
-  { icon: FaStickyNote, text: "Lifestyle", link: "/admin/lifestyle" },
+  { icon: FaLifeRing, text: "Lifestyle", link: "/admin/lifestyle" },
+  { icon: FaTag, text: "Trends", link: "/admin/trends" },
+  { icon: FaWalking, text: "Models", link: "/admin/models" },
+  { icon: FaUserFriends, text: "Subscribers", link: "/admin/subscribers" },
+  { icon: FaSuperpowers, text: "Team", link: "/admin/team" },
 ];
 
 export default function AdminLayout({

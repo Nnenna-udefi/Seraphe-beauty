@@ -184,7 +184,7 @@ export default function AdminProducts() {
     setCategory("");
     setShortDescription("");
     setDescription("");
-    setImages([]); // Correct clean state reset
+    setImages([]);
     setStock(0);
     setDiscountPrice(undefined);
     setSku("");
@@ -228,7 +228,7 @@ export default function AdminProducts() {
 
       const { data } = supabase.storage.from("products").getPublicUrl(fileName);
 
-      // FIXED: Append the new image URL to our tracking array state safely
+      // Append the new image URL to our tracking array state safely
       setImages((prev) => [...prev, data.publicUrl]);
       toast.success("Image uploaded successfully!");
     } catch (err) {

@@ -72,6 +72,90 @@ export interface Review {
   updatedAt: string;
 }
 
+export interface Subscribers {
+  _id: string;
+  name: string;
+  email: string;
+  subscribedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Model {
+  _id: string;
+  name: string;
+  slug: string;
+  category: string;
+  categorySlug: string;
+  badge: string;
+  location: string;
+  portfolioSummary: string;
+  bio: string;
+  featureImage: string;
+  images: string[];
+  tags?: string[];
+  isFeatured?: boolean;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Team {
+  _id: string;
+  name: string;
+  role: string;
+  section: string;
+  sectionSlug: string;
+  image: string;
+  linkedin: string;
+  email: string;
+  bio: string;
+  instagram: string;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface TeamGrouped {
+  name: string;
+  slug: string;
+  members: Team[];
+}
+
+export interface TeamSections {
+  name: string;
+  slug: string;
+}
+
+export interface TrendsFocus {
+  name: string;
+  slug: string;
+}
+
+export interface ModelsCategory {
+  name: string;
+  slug: string;
+}
+export interface Trends {
+  _id: string;
+  title: string;
+  slug: string;
+  focusArea: string;
+  focusAreaSlug: string;
+  label: string;
+  subtitle: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  featureImage: string;
+  images: string[];
+  hashtags: string[];
+  readTimeMinutes: number;
+  isFeatured: boolean;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // --- API Request Payloads (What your forms send) ---
 export interface CategoryPayload {
   name: string;
@@ -131,6 +215,48 @@ export interface ReviewPayload {
   email: string;
   reviewText: string;
   name: string;
+}
+
+export interface ModelPayload {
+  name: string;
+  category: string;
+  badge: string;
+  location: string;
+  portfolioSummary: string;
+  bio: string;
+  featureImage: string;
+  images: string[];
+  tags?: string[];
+  isFeatured?: boolean;
+  order: number;
+}
+
+export interface TeamPayload {
+  name: string;
+  role: string;
+  section: string;
+  image: string;
+  linkedin: string;
+  email: string;
+  bio: string;
+  instagram: string;
+  order: number;
+}
+
+export interface TrendsPayload {
+  title: string;
+  focusArea: string;
+  label: string;
+  subtitle: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  featureImage: string;
+  images: string[];
+  hashtags: string[];
+  readTimeMinutes: number;
+  isFeatured: boolean;
+  order: number;
 }
 
 // --- API Response Wrappers ---

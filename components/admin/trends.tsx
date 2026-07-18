@@ -2,37 +2,38 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Tips } from "../types/api";
+import { Trends } from "../types/api";
 import { toast } from "sonner";
 import { api } from "../lib/api";
-import { supabase } from "../lib/supabase";
 import DeleteModal from "./deleteModal";
-import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import Tiptap from "../ui/tiptap";
 import { useAuth } from "../context/authContext";
+import ImageUploader from "../helper/imageUploader";
 
-export default function AdminBeautyTips() {
+export default function AdminTrends() {
   const router = useRouter();
-  const [articles, setArticles] = useState<Tips[]>([]);
+  const [trends, setTrends] = useState<Trends[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [category, setCategory] = useState("");
-  const [categorySlug, setCategorySlug] = useState("");
-  const [summary, setSummary] = useState("");
-  const [level, setLevel] = useState("");
   const [content, setContent] = useState("");
+  const [focusArea, setFocusArea] = useState("");
+  const [focusAreaSlug, setFocusAreaSlug] = useState("");
+  const [label, setLabel] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [excerpt, setExcerpt] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
-  const [images, setImages] = useState("");
-  const [tags, setTags] = useState("");
+  const [featureImage, setFeatureImage] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [hashTags, setHashtags] = useState("");
   const [order, setOrder] = useState(1);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [selectedTipsId, setSelectedTipsId] = useState<string | null>(null);
+  const [isFeatured, setIsFeatured] = useState(false);
+  const [selectedTrendsId, setSelectedTrendsId] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const isAuthenticated = useAuth();
@@ -45,13 +46,13 @@ export default function AdminBeautyTips() {
 
     const initData = async () => {
       try {
-        const data = await api.adminShop.getTips();
+        const data = await api.adminShop.getTrends();
 
-        setArticles(data);
+        setTrends(data);
       } catch (error: unknown) {
         const errMsg =
           error instanceof Error ? error.message : "Data fetch error";
-        toast.error(`Failed to load store beauty Tips: ${errMsg}`);
+        toast.error(`Failed to load store trends: ${errMsg}`);
       } finally {
         setLoading(false);
       }
@@ -61,40 +62,42 @@ export default function AdminBeautyTips() {
   }, [isAuthenticated, router]);
 
   // 2. CREATE & UPDATE Handler
-  const handleSaveTips = async (e: React.FormEvent) => {
+  const handleSaveTrends = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return toast.error("Please select a target category.");
 
     setSubmitting(true);
 
     const payload = {
       title,
       slug,
-      category,
-      categorySlug,
-      summary,
-      level,
+      focusArea,
+      focusAreaSlug,
+      label,
+      subtitle,
+      excerpt,
+      featureImage,
       content,
       author,
       readTimeMinutes,
       images,
-      tags: tags
+      hashtags: hashTags
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
       order,
+      isFeatured,
     };
     try {
       if (editingId) {
-        const updated = await api.adminShop.updateTips(editingId, payload);
-        setArticles((prev) =>
+        const updated = await api.adminShop.updateTrends(editingId, payload);
+        setTrends((prev) =>
           prev.map((p) => (p._id === editingId ? updated : p)),
         );
-        toast.success("Beauty tips record updated successfully!");
+        toast.success("Trends record updated successfully!");
       } else {
-        const created = await api.adminShop.createTips(payload);
-        setArticles((prev) => [...prev, created]);
-        toast.success("New Beauty tips cataloged successfully!");
+        const created = await api.adminShop.createTrends(payload);
+        setTrends((prev) => [...prev, created]);
+        toast.success("New Trends cataloged successfully!");
       }
       resetForm();
     } catch (error: unknown) {
@@ -106,96 +109,60 @@ export default function AdminBeautyTips() {
   };
 
   // 3. DELETE Handler
-  const handleDeleteTips = async () => {
-    if (!selectedTipsId) return;
+  const handleDeleteTrends = async () => {
+    if (!selectedTrendsId) return;
 
     try {
       setDeleting(true);
-      await api.adminShop.deleteTips(selectedTipsId);
-      setArticles((prev) => prev.filter((p) => p._id !== selectedTipsId));
-      toast.success("Tips deleted successfully.");
+      await api.adminShop.deleteTrends(selectedTrendsId);
+      setTrends((prev) => prev.filter((p) => p._id !== selectedTrendsId));
+      toast.success("Trends deleted successfully.");
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : "Deletion failed";
       toast.error(errMsg);
     } finally {
       setDeleting(false);
       setDeleteModalOpen(false);
-      setSelectedTipsId(null);
+      setSelectedTrendsId(null);
     }
   };
 
-  const startEdit = (article: Tips) => {
-    setEditingId(article._id);
-    setTitle(article.title);
-    setSlug(article.slug);
-    setCategory(article.category);
-    setCategorySlug(article.categorySlug);
-    setSummary(article.summary);
-    setLevel(article.level);
-    setContent(article.content);
-    setAuthor(article.author);
-    setReadTimeMinutes(article.readTimeMinutes);
-    setImages(article.images);
-    setTags(article.tags.join(", "));
-    setOrder(article.order);
+  const startEdit = (trend: Trends) => {
+    setEditingId(trend._id);
+    setTitle(trend.title);
+    setSlug(trend.slug);
+    setFocusArea(trend.focusArea);
+    setFocusAreaSlug(trend.focusAreaSlug);
+    setSubtitle(trend.subtitle);
+    setLabel(trend.label);
+    setContent(trend.content);
+    setAuthor(trend.author);
+    setReadTimeMinutes(trend.readTimeMinutes);
+    setFeatureImage(trend.featureImage);
+    setImages(trend.images);
+    setHashtags(trend.hashtags.join(", "));
+    setOrder(trend.order);
     setShowForm(true);
+    setIsFeatured(!!trend.isFeatured);
   };
 
   const resetForm = () => {
     setEditingId(null);
     setTitle("");
     setSlug("");
-    setCategory("");
-    setCategorySlug("");
-    setSummary("");
-    setLevel("");
+    setFocusArea("");
+    setFocusAreaSlug("");
+    setSubtitle("");
+    setLabel("");
     setContent("");
     setAuthor("");
     setReadTimeMinutes(5);
-    setImages("");
-    setTags("");
+    setImages([]);
+    setFeatureImage("");
+    setHashtags("");
     setOrder(1);
     setShowForm(false);
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.warning("Maximum image size is 5MB");
-      return;
-    }
-
-    if (!file.type.startsWith("image/")) {
-      toast.warning("Please upload an image file.");
-      return;
-    }
-
-    setUploading(true);
-
-    try {
-      const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
-
-      const { error } = await supabase.storage
-        .from("lifestyle")
-        .upload(fileName, file);
-
-      if (error) throw error;
-
-      const { data } = supabase.storage
-        .from("lifestyle")
-        .getPublicUrl(fileName);
-
-      setImages(data.publicUrl);
-      toast.success("Image uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
+    setIsFeatured(false);
   };
 
   const handleTitleChange = (value: string) => {
@@ -214,25 +181,23 @@ export default function AdminBeautyTips() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold">
-            Beauty Tips Articles
-          </h1>
+          <h1 className="text-3xl font-serif font-bold">Trends Trends</h1>
         </div>
         <button
           onClick={() => (showForm ? resetForm() : setShowForm(true))}
           className="bg-black text-white px-5 py-2.5 rounded text-xs uppercase font-semibold tracking-wider hover:bg-neutral-800 transition-colors"
         >
-          {showForm ? "Cancel" : "Add New Beauty Tips"}
+          {showForm ? "Cancel" : "Add New Trends"}
         </button>
       </div>
 
       {showForm && (
         <form
-          onSubmit={handleSaveTips}
+          onSubmit={handleSaveTrends}
           className="bg-white border rounded-lg p-6 space-y-4 shadow-sm max-w-2xl"
         >
           <h3 className="text-sm font-bold uppercase tracking-wider text-gray-700">
-            {editingId ? "Modify Beauty Tips" : "Register Beauty Tips"}
+            {editingId ? "Modify Trends" : "Register Trends"}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -246,7 +211,7 @@ export default function AdminBeautyTips() {
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="Managing Hormonal Acne Breakouts"
+                placeholder="The Rise of Neurocosmetics"
               />
             </div>
 
@@ -260,20 +225,20 @@ export default function AdminBeautyTips() {
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
                 className="border p-2 rounded text-sm bg-gray-50"
-                placeholder="Managing-Hormonal-Acne-Breakouts"
+                placeholder="the-Rise-of-Neurocosmetics"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Category
+                Focus Area
               </label>
               <input
                 type="text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={focusArea}
+                onChange={(e) => setFocusArea(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="Acne"
+                placeholder="Skincare"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -283,23 +248,23 @@ export default function AdminBeautyTips() {
               <input
                 type="text"
                 required
-                value={categorySlug}
-                onChange={(e) => setCategorySlug(e.target.value)}
+                value={focusAreaSlug}
+                onChange={(e) => setFocusAreaSlug(e.target.value)}
                 className="border p-2 rounded text-sm bg-gray-50"
-                placeholder="acne"
+                placeholder="skincare"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Summary
+                Sub title
               </label>
               <input
                 type="text"
-                value={summary}
-                onChange={(e) => setSummary(e.target.value)}
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="A targeted guide on using salicylic acid and niacinamide effectively."
+                placeholder="subtitle"
               />
             </div>
 
@@ -317,15 +282,29 @@ export default function AdminBeautyTips() {
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Level
+                Label
               </label>
               <input
                 type="text"
                 required
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="Beginner"
+                placeholder="Trending Now"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Excerpt
+              </label>
+              <input
+                type="text"
+                required
+                value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
+                className="border p-2 rounded text-sm bg-white"
+                placeholder="Explore how topicals formulated for skin-stress responses are changing beauty."
               />
             </div>
 
@@ -343,34 +322,28 @@ export default function AdminBeautyTips() {
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Image URL (First)
+                Upload Feature Image
               </label>
-              <input
-                type="text"
-                required
-                value={images}
-                onChange={(e) => setImages(e.target.value)}
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="https://cdn.com/product.jpg"
+              <ImageUploader
+                bucket="trends"
+                value={featureImage}
+                onChange={(url) => setFeatureImage(url as string)}
               />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="border rounded-md p-1"
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Upload Image(s)
+              </label>
+
+              <ImageUploader
+                bucket="trends"
+                multiple
+                value={images}
+                onChange={(imgs) => setImages(imgs as string[])}
               />
             </div>
           </div>
-
-          {images && (
-            <Image
-              src={images}
-              alt="Preview"
-              width={120}
-              height={120}
-              className="rounded border object-cover"
-            />
-          )}
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
@@ -381,29 +354,27 @@ export default function AdminBeautyTips() {
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
-              Tags (Comma separated)
+              HashTags (Comma separated)
             </label>
             <input
               type="text"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
+              value={hashTags}
+              onChange={(e) => setHashtags(e.target.value)}
               className="w-full border p-2 rounded text-sm bg-white"
-              placeholder="makeup, glowing, organic"
+              placeholder="#neurocosmetics, #skincare, #skinbarrier"
             />
           </div>
 
           <button
             type="submit"
-            disabled={submitting || uploading}
+            disabled={submitting}
             className="bg-black text-white px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition disabled:opacity-50"
           >
             {submitting
               ? "Saving..."
-              : uploading
-                ? "Uploading image..."
-                : editingId
-                  ? "Update Product"
-                  : "Create Product"}
+              : editingId
+                ? "Update Trend"
+                : "Create Trend"}
           </button>
         </form>
       )}
@@ -414,9 +385,9 @@ export default function AdminBeautyTips() {
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-10 w-10 animate-spin text-black" />
           </div>
-        ) : articles.length === 0 ? (
+        ) : trends.length === 0 ? (
           <div className="p-8 text-center text-gray-500 font-medium">
-            No articles published yet.
+            No Trends published yet.
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -424,15 +395,15 @@ export default function AdminBeautyTips() {
               <thead>
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                   <th className="p-4">Title</th>
-                  <th className="p-4">Category</th>
+                  <th className="p-4">Focus Areas</th>
                   <th className="p-4">Except</th>
                   <th className="p-4">Tags</th>
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {articles.map((art) => {
-                  const displayImage = art.images;
+                {trends.map((art) => {
+                  const displayImage = art.featureImage;
 
                   return (
                     <tr
@@ -455,14 +426,12 @@ export default function AdminBeautyTips() {
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        <span className="inline-flex rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-700">
-                          {art.category}
-                        </span>
+                        {art.focusArea}
                       </td>
                       <td className="p-4 text-sm text-gray-800">
                         {art.readTimeMinutes} min read
                       </td>
-                      <td className="p-4 text-sm text-gray-800">{art.level}</td>
+                      <td className="p-4 text-sm text-gray-800">{art.label}</td>
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
                           onClick={() => startEdit(art)}
@@ -472,7 +441,7 @@ export default function AdminBeautyTips() {
                         </button>
                         <button
                           onClick={() => {
-                            setSelectedTipsId(art._id);
+                            setSelectedTrendsId(art._id);
                             setDeleteModalOpen(true);
                           }}
                           className="text-xs font-semibold px-2.5 py-1 text-red-600 bg-red-50 rounded hover:bg-red-100 transition"
@@ -492,13 +461,13 @@ export default function AdminBeautyTips() {
       <DeleteModal
         isOpen={deleteModalOpen}
         loading={deleting}
-        title="Delete Beauty Tips"
+        title="Delete Trends"
         message="Are you sure you want to permanently delete this Tips? This action cannot be undone."
         onCancel={() => {
           setDeleteModalOpen(false);
-          setSelectedTipsId(null);
+          setSelectedTrendsId(null);
         }}
-        onConfirm={handleDeleteTips}
+        onConfirm={handleDeleteTrends}
       />
     </div>
   );
