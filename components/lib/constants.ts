@@ -75,20 +75,21 @@ export const navItems = [
     text: "Lifestyle",
     link: "/lifestyle",
   },
+
   {
     id: 3,
-    text: "Seraphé Models",
-    link: "/seraphe-models",
-  },
-  {
-    id: 4,
     text: "Beauty Tips",
     link: "/beauty-tips",
   },
   {
+    id: 4,
+    text: "Beauty Trends",
+    link: "/beauty-trends",
+  },
+  {
     id: 5,
-    text: "Trends",
-    link: "/trends",
+    text: "Seraphé Models",
+    link: "/seraphe-models",
   },
   {
     id: 6,

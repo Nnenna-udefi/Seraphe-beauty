@@ -25,9 +25,9 @@ export const Nav = () => {
     if (shop) showShop(false); // Reset shop sub-state if main nav toggles shut
   };
 
-  const handleShopMenu = () => {
-    showShop((prev) => !prev);
-  };
+  // const handleShopMenu = () => {
+  //   showShop((prev) => !prev);
+  // };
 
   return (
     <nav className="bg-secondary sticky text-secondaryText text-sm md:text-base p-3 ">
