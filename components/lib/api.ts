@@ -289,9 +289,9 @@ export const api = {
 
     // Subscribers
     getSubscribers: (): Promise<Subscribers[]> =>
-      apiRequest<Subscribers[]>("/admin/community-subscribers"),
+      apiRequest<Subscribers[]>("/admin/community/subscribers"),
     getSubscriberId: (id: string | number): Promise<Subscribers[]> =>
-      apiRequest<Subscribers[]>(`/admin/community-subscribers/${id}`),
+      apiRequest<Subscribers[]>(`/admin/community/subscribers/${id}`),
 
     deleteSubscribers: (
       id: string | number,
