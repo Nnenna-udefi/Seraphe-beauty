@@ -8,8 +8,6 @@ import {
   FaBookOpen,
   FaLifeRing,
   FaRegCommentDots,
-  FaShoppingBag,
-  FaStickyNote,
   FaSuperpowers,
   FaTag,
   FaTripadvisor,
