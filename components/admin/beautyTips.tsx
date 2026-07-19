@@ -465,7 +465,7 @@ export default function AdminBeautyTips() {
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        <span className="inline-flex rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-700">
+                        <span className="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-primaryText">
                           {art.category}
                         </span>
                       </td>

@@ -163,7 +163,7 @@ const AdminTeam = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold">Trends Trends</h1>
+          <h1 className="text-3xl font-serif font-bold">Teams Management</h1>
         </div>
         <button
           onClick={() => (showForm ? resetForm() : setShowForm(true))}
@@ -252,6 +252,19 @@ const AdminTeam = () => {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
+                Role
+              </label>
+              <input
+                type="text"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="border p-2 rounded text-sm bg-white"
+                placeholder="Role profile link"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
                 Email
               </label>
               <input
@@ -302,8 +315,8 @@ const AdminTeam = () => {
             {submitting
               ? "Saving..."
               : editingId
-                ? "Update Trend"
-                : "Create Trend"}
+                ? "Update Team"
+                : "Create Team"}
           </button>
         </form>
       )}

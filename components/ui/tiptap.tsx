@@ -24,6 +24,7 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleBold().run()}
+          className="border-l, border-r p-1"
         >
           Bold
         </button>
@@ -31,6 +32,7 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleItalic().run()}
+          className="border-l, border-r p-1"
         >
           Italic
         </button>
@@ -38,15 +40,17 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
+          className="border-l, border-r p-1"
         >
-          • List
+          ol
         </button>
 
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+          className="border-l, border-r p-1"
         >
-          1. List
+          ul
         </button>
       </div>
 
