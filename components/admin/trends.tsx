@@ -177,6 +177,19 @@ export default function AdminTrends() {
       );
     }
   };
+
+  const handleFocusAreaChange = (value: string) => {
+    setFocusArea(value);
+
+    if (!editingId) {
+      setFocusAreaSlug(
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, ""),
+      );
+    }
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -236,7 +249,7 @@ export default function AdminTrends() {
               <input
                 type="text"
                 value={focusArea}
-                onChange={(e) => setFocusArea(e.target.value)}
+                onChange={(e) => handleFocusAreaChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="Skincare"
               />

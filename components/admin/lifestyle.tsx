@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Category, Lifestyle } from "../types/api";
+import { Lifestyle } from "../types/api";
 import { toast } from "sonner";
 import { api } from "../lib/api";
 import { supabase } from "../lib/supabase";
@@ -19,7 +19,6 @@ export default function AdminLifestyle() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState("");
   const [categorySlug, setCategorySlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
@@ -48,13 +47,9 @@ export default function AdminLifestyle() {
 
     const initData = async () => {
       try {
-        const [lifestyleData, catData] = await Promise.all([
-          api.adminShop.getLifestyle(),
-          api.adminShop.getCategories(),
-        ]);
+        const lifestyleData = await api.adminShop.getLifestyle();
 
         setArticles(lifestyleData);
-        setCategories(catData);
       } catch (error: unknown) {
         const errMsg =
           error instanceof Error ? error.message : "Data fetch error";
@@ -70,7 +65,6 @@ export default function AdminLifestyle() {
   // 2. CREATE & UPDATE Handler
   const handleSaveLifestyle = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return toast.error("Please select a target category.");
 
     setSubmitting(true);
 
@@ -165,11 +159,6 @@ export default function AdminLifestyle() {
     setShowForm(false);
   };
 
-  const getCategoryName = (categoryId: string) => {
-    const match = categories.find((c) => c._id === categoryId);
-    return match?.name ?? "Unassigned";
-  };
-
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -215,6 +204,19 @@ export default function AdminLifestyle() {
 
     if (!editingId) {
       setSlug(
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, ""),
+      );
+    }
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+
+    if (!editingId) {
+      setCategorySlug(
         value
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
@@ -276,21 +278,28 @@ export default function AdminLifestyle() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Category Classification
+                Category
               </label>
-              <select
-                required
+              <input
+                type="text"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-              >
-                <option value="">-- Choose Category --</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
+                placeholder="Acne"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Category Slug
+              </label>
+              <input
+                type="text"
+                required
+                value={categorySlug}
+                onChange={(e) => setCategorySlug(e.target.value)}
+                className="border p-2 rounded text-sm bg-gray-50"
+                placeholder="acne"
+              />
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -466,7 +475,7 @@ export default function AdminLifestyle() {
                       </td>
                       <td className="p-4 font-medium text-slate-600">
                         <span className="inline-flex rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-700">
-                          {getCategoryName(art.category)}
+                          {art.category}
                         </span>
                       </td>
                       <td className="p-4 text-sm text-gray-800">

@@ -210,6 +210,19 @@ export default function AdminBeautyTips() {
       );
     }
   };
+
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+
+    if (!editingId) {
+      setCategorySlug(
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, ""),
+      );
+    }
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -271,14 +284,14 @@ export default function AdminBeautyTips() {
               <input
                 type="text"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="Acne"
               />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Focus Area Slug
+                Category Slug
               </label>
               <input
                 type="text"

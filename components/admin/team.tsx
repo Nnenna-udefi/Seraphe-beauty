@@ -146,6 +146,19 @@ const AdminTeam = () => {
       );
     }
   };
+
+  const handleSectionChange = (value: string) => {
+    setSection(value);
+
+    if (!editingId) {
+      setSectionSlug(
+        value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, ""),
+      );
+    }
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -205,7 +218,7 @@ const AdminTeam = () => {
               <input
                 type="text"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSectionChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="Beauty science team"
               />
