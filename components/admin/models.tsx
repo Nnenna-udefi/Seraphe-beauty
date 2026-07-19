@@ -281,7 +281,7 @@ export default function AdminModels() {
                   Upload Feature Image
                 </label>
                 <ImageUploader
-                  bucket="trends"
+                  bucket="models"
                   value={featureImage}
                   onChange={(url) => setFeatureImage(url as string)}
                 />
@@ -293,7 +293,7 @@ export default function AdminModels() {
                 </label>
 
                 <ImageUploader
-                  bucket="trends"
+                  bucket="models"
                   multiple
                   value={images}
                   onChange={(imgs) => setImages(imgs as string[])}

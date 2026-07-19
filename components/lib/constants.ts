@@ -67,37 +67,42 @@ export const skincareList = [
 export const navItems = [
   {
     id: 1,
+    text: "Home",
+    link: "/",
+  },
+  {
+    id: 2,
     text: "Shop Seraphé",
     link: "/shop",
   },
   {
-    id: 2,
+    id: 3,
     text: "Lifestyle",
     link: "/lifestyle",
   },
 
   {
-    id: 3,
+    id: 4,
     text: "Beauty Tips",
     link: "/beauty-tips",
   },
   {
-    id: 4,
+    id: 5,
     text: "Beauty Trends",
     link: "/beauty-trends",
   },
   {
-    id: 5,
+    id: 6,
     text: "Seraphé Models",
     link: "/seraphe-models",
   },
   {
-    id: 6,
+    id: 7,
     text: "About",
     link: "/about",
   },
   {
-    id: 7,
+    id: 8,
     text: "Join Our Community",
     link: "/join-community",
   },

@@ -63,7 +63,6 @@ export default function AdminBeautyTips() {
   // 2. CREATE & UPDATE Handler
   const handleSaveTips = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return toast.error("Please select a target category.");
 
     setSubmitting(true);
 
@@ -179,14 +178,12 @@ export default function AdminBeautyTips() {
       const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
 
       const { error } = await supabase.storage
-        .from("lifestyle")
+        .from("tips")
         .upload(fileName, file);
 
       if (error) throw error;
 
-      const { data } = supabase.storage
-        .from("lifestyle")
-        .getPublicUrl(fileName);
+      const { data } = supabase.storage.from("tips").getPublicUrl(fileName);
 
       setImages(data.publicUrl);
       toast.success("Image uploaded successfully!");

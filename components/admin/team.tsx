@@ -288,7 +288,7 @@ const AdminTeam = () => {
               Upload Image
             </label>
             <ImageUploader
-              bucket="trends"
+              bucket="team"
               value={image}
               onChange={(url) => setImage(url as string)}
             />
