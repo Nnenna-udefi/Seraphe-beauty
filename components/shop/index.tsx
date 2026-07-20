@@ -58,7 +58,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                 </div>
                 <div>
                   <h3 className="uppercase text-yellowText text-sm pt-2">
-                    {product.category}
+                    {product.category.name}
                   </h3>
                   <H3>{product.name}</H3>
                   <p className=" text-darkText text-sm py-2">
