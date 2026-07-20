@@ -25,7 +25,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
               const isActive = pathname === `/shop/products/${category.slug}`;
               return (
                 <Link
-                  key={category._id}
+                  key={category.name}
                   href={`/shop/products/${category.slug}`}
                   className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
                     isActive
