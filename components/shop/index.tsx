@@ -63,7 +63,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                   <p className=" text-darkText text-sm py-2">
                     {product.shortDescription}
                   </p>
-                  <Link href={`product/${product.slug}`}>
+                  <Link href={`/shop/product/${product.slug}`}>
                     <Button className="w-full">{product.price}</Button>
                   </Link>
                 </div>
