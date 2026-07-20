@@ -155,7 +155,7 @@ export default function AdminProducts() {
     setName(product.name);
     setSlug(product.slug);
     setPrice(product.price);
-    setCategory(product.category);
+    setCategory(product.category.name);
     setShortDescription(product.shortDescription);
     setDescription(product.description);
 
@@ -559,7 +559,7 @@ export default function AdminProducts() {
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        {getCategoryName(prod.category, categories)}
+                        {getCategoryName(prod.category.name, categories)}
                       </td>
                       <td className="p-4 font-medium text-gray-800">
                         {prod.discountPrice ? (

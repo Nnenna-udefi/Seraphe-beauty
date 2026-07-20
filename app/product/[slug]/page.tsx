@@ -36,7 +36,7 @@ export default async function ProductDetailsPage({
 
           <div className="flex flex-col gap-2">
             <h3 className="uppercase text-yellowText text-sm">
-              {product.category}
+              {product.category.name}
             </h3>
 
             <H1>{product.name}</H1>
