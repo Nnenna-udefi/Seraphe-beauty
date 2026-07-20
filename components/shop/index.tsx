@@ -25,7 +25,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
               const isActive = pathname === `/shop/products/${category.slug}`;
               return (
                 <Link
-                  key={category._id}
+                  key={category.name}
                   href={`/shop/products/${category.slug}`}
                   className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
                     isActive
@@ -46,7 +46,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
           </h2>
           <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product) => (
-              <div key={product._id} className="flex flex-col gap-1">
+              <div key={product.name} className="flex flex-col gap-1">
                 <div className=" pt-2">
                   <Image
                     src={product.images[0]}
@@ -64,7 +64,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                   <p className=" text-darkText text-sm py-2">
                     {product.shortDescription}
                   </p>
-                  <Link href={`product/${product._id}`}>
+                  <Link href={`product/${product.slug}`}>
                     <Button className="w-full">{product.price}</Button>
                   </Link>
                 </div>
