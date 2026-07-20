@@ -61,6 +61,11 @@ export interface Tips {
   updatedAt: string;
 }
 
+export interface TipsCategory {
+  name: string;
+  slug: string;
+}
+
 export interface Review {
   _id: string;
   product: string;
@@ -107,10 +112,10 @@ export interface Team {
   section: string;
   sectionSlug: string;
   image: string;
-  linkedin: string;
-  email: string;
-  bio: string;
-  instagram: string;
+  linkedin?: string;
+  email?: string;
+  bio?: string;
+  instagram?: string;
   order: number;
   createdAt: string;
   updatedAt: string;
@@ -236,10 +241,10 @@ export interface TeamPayload {
   role: string;
   section: string;
   image: string;
-  linkedin: string;
-  email: string;
-  bio: string;
-  instagram: string;
+  linkedin?: string;
+  email?: string;
+  bio?: string;
+  instagram?: string;
   order: number;
 }
 

@@ -2,61 +2,22 @@
 
 import React, { useState } from "react";
 import { H1 } from "./ui/heading";
+import { Tips, TipsCategory } from "./types/api";
+import Link from "next/link";
 
-const TIPS_CATEGORIES = [
-  "All",
-  "Acne",
-  "Hyperpigmentation",
-  "Skin Aging",
-  "Hydration",
-];
-
-const SKINCARE_TIPS = [
-  {
-    id: 1,
-    title: "Managing Hormonal Acne Breakouts",
-    category: "Acne",
-    summary:
-      "A targeted guide on using salicylic acid and niacinamide effectively without stripping the skin barrier.",
-    readTime: "4 min read",
-    difficulty: "Beginner",
-  },
-  {
-    id: 2,
-    title: "Fading Stubborn Dark Spots",
-    category: "Hyperpigmentation",
-    summary:
-      "How to layer Vitamin C, Alpha Arbutin, and daily SPF to effectively treat post-inflammatory hyperpigmentation.",
-    readTime: "5 min read",
-    difficulty: "Intermediate",
-  },
-  {
-    id: 3,
-    title: "The Golden Rules of Retinoids",
-    category: "Skin Aging",
-    summary:
-      "Introduce retinol safely into your evening routine to minimize fine lines while avoiding irritation and purging.",
-    readTime: "6 min read",
-    difficulty: "Advanced",
-  },
-  {
-    id: 4,
-    title: "Restoring a Damaged Moisture Barrier",
-    category: "Hydration",
-    summary:
-      "When your skin feels tight and irritated, strip back your routine to ceramides, hyaluronic acid, and glycerin.",
-    readTime: "3 min read",
-    difficulty: "Beginner",
-  },
-];
-
-export default function Tips() {
-  const [activeCategory, setActiveCategory] = useState("All");
+export default function TipsPage({
+  tips,
+  categories,
+}: {
+  tips: Tips[];
+  categories: TipsCategory[];
+}) {
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredTips =
-    activeCategory === "All"
-      ? SKINCARE_TIPS
-      : SKINCARE_TIPS.filter((tip) => tip.category === activeCategory);
+    activeCategory === "all"
+      ? tips
+      : tips.filter((tip) => tip.categorySlug === activeCategory);
 
   return (
     <main className="min-h-screen text-black py-10 md:py-16  md:px-12 px-6">
@@ -72,7 +33,17 @@ export default function Tips() {
 
         {/* Categorical Filter Tags */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {TIPS_CATEGORIES.map((category) => (
+          <button onClick={() => setActiveCategory("all")}>All</button>
+
+          {categories.map((category) => (
+            <button
+              key={category.slug}
+              onClick={() => setActiveCategory(category.slug)}
+            >
+              {category.name}
+            </button>
+          ))}
+          {/* {TIPS_CATEGORIES.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
@@ -84,14 +55,14 @@ export default function Tips() {
             >
               {category}
             </button>
-          ))}
+          ))} */}
         </div>
 
         {/* Directory Grid */}
         <div className="grid gap-6 md:grid-cols-2">
           {filteredTips.map((tip) => (
             <article
-              key={tip.id}
+              key={tip.title}
               className="bg-white border border-boxBg rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between"
             >
               <div>
@@ -99,9 +70,9 @@ export default function Tips() {
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-boxBg text-foreground">
                     {tip.category}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
+                  {/* <span className="text-xs text-slate-400 font-medium">
                     {tip.difficulty}
-                  </span>
+                  </span> */}
                 </div>
                 <h2 className="text-xl font-semibold text-black mb-2 hover:darkText cursor-pointer">
                   {tip.title}
@@ -112,11 +83,13 @@ export default function Tips() {
               </div>
               <div className="flex items-center justify-between pt-4 border-t border-slate-50">
                 <span className="text-xs text-darkText font-medium">
-                  {tip.readTime}
+                  {tip.readTimeMinutes} min read
                 </span>
-                <button className="text-sm bg-primaryBg p-2 font-medium text-white hover:underline">
-                  Read Guide &rarr;
-                </button>
+                <Link href={`/beauty-tips/${tip.slug}`}>
+                  <button className="text-sm bg-primaryBg p-2 font-medium text-white hover:underline">
+                    Read Guide &rarr;
+                  </button>
+                </Link>
               </div>
             </article>
           ))}

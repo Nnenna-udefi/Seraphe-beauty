@@ -1,14 +1,17 @@
 "use client";
 import React from "react";
 import { H1, H3 } from "../ui/heading";
-import { productCardBlock, shopItems } from "../lib/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useSite } from "../helper/siteContext";
+import { Product } from "../types/api";
 
-const ShopSeraphe = () => {
+const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const pathname = usePathname();
+
+  const { categories } = useSite();
   return (
     <main className="min-h-screen  py-12 md:px-12 px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -18,19 +21,19 @@ const ShopSeraphe = () => {
             Shop by category:
           </h3>
           <div className="flex flex-wrap gap-3 pb-10">
-            {shopItems.map((item) => {
-              const isActive = pathname === item.link;
+            {categories.map((category) => {
+              const isActive = pathname === `/shop/products/${category.slug}`;
               return (
                 <Link
-                  key={item.id}
-                  href={item.link}
+                  key={category._id}
+                  href={`/shop/products/${category.slug}`}
                   className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
                     isActive
                       ? "bg-[#2E0F0A] border-[#2E0F0A] text-white"
                       : "border-stone-300 text-foreground hover:border-black"
                   }`}
                 >
-                  {item.text}
+                  {category.name}
                 </Link>
               );
             })}
@@ -42,12 +45,12 @@ const ShopSeraphe = () => {
             Featured Products
           </h2>
           <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {productCardBlock.map((product) => (
-              <div key={product.id} className="flex flex-col gap-1">
+            {products.map((product) => (
+              <div key={product._id} className="flex flex-col gap-1">
                 <div className=" pt-2">
                   <Image
-                    src={product.img}
-                    alt="model"
+                    src={product.images[0]}
+                    alt={product.name}
                     width={300}
                     height={300}
                     className="w-full  "
@@ -59,9 +62,9 @@ const ShopSeraphe = () => {
                   </h3>
                   <H3>{product.name}</H3>
                   <p className=" text-darkText text-sm py-2">
-                    {product.descSum}
+                    {product.shortDescription}
                   </p>
-                  <Link href={`product/${product.id}`}>
+                  <Link href={`product/${product._id}`}>
                     <Button className="w-full">{product.price}</Button>
                   </Link>
                 </div>

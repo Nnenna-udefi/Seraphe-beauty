@@ -2,9 +2,10 @@
 import React from "react";
 import { H1, H3 } from "./ui/heading";
 import { Button } from "./ui/button";
-import { blogDummy, teamDummy } from "./lib/constants";
+import { blogDummy } from "./lib/constants";
 import Image from "next/image";
 import Hero from "@/components/images/hero1.jpeg";
+import TeamSection from "./teamSection";
 
 const About = () => {
   return (
@@ -16,6 +17,46 @@ const About = () => {
             Find everything you need to know about the best makeup tools and
             helpful application techniques straight from the pros. Read on for
             tips and tricks no matter your skill level
+          </p>
+        </div>
+
+        {/* Community Impact */}
+        <div className="bg-primaryBg text-white py-12 px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <h2 className="text-4xl font-bold">640+</h2>
+              <p className="mt-2 text-sm uppercase tracking-wider">
+                Community Members
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-4xl font-bold">13</h2>
+              <p className="mt-2 text-sm uppercase tracking-wider">
+                African Countries
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-4xl font-bold">20</h2>
+              <p className="mt-2 text-sm uppercase tracking-wider">
+                Countries Worldwide
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-4xl font-bold">400M+</h2>
+              <p className="mt-2 text-sm uppercase tracking-wider">
+                Global Target Market
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-8 max-w-3xl mx-auto text-center text-sm md:text-base text-white/90">
+            Seraphé is building beauty solutions for more than{" "}
+            <strong>350 million indigenous Africans</strong>, while serving a
+            potential market of over{" "}
+            <strong>400 million people globally</strong>.
           </p>
         </div>
 
@@ -117,88 +158,7 @@ const About = () => {
         </div>
 
         {/* team */}
-        <div className="py-10  md:px-12 md:py-16 px-6 ">
-          <H1 className="py-6">Meet the Seraphé Team</H1>
-          <div>
-            <div className="border-y border-[#c6c6c6] py-6">
-              <H3 className="text-primaryBg py-6">Beauty Science Team</H3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 md:pt-0">
-                {teamDummy.map((item) => (
-                  <div key={item.id}>
-                    <div className=" ">
-                      <Image
-                        src={item.img}
-                        alt="model"
-                        width={300}
-                        height={300}
-                      />
-                    </div>
-                    <div>
-                      <h1 className="md:text-xl text-base py-2 ">
-                        {item.name}
-                      </h1>
-                      <p className="uppercase text-darkText text-sm">
-                        {item.role}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-b border-[#c6c6c6] py-10">
-              <H3 className="text-primaryBg py-6">Technical Team</H3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 md:pt-0">
-                {teamDummy.map((item) => (
-                  <div key={item.id}>
-                    <div className=" ">
-                      <Image
-                        src={item.img}
-                        alt="model"
-                        width={300}
-                        height={300}
-                      />
-                    </div>
-                    <div>
-                      <h1 className="md:text-xl text-base pt-2 pb-1 ">
-                        {item.name}
-                      </h1>
-                      <p className="uppercase text-darkText text-sm">
-                        {item.role}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="py-10">
-              <H3 className="text-primaryBg ">Project Leadership</H3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 md:pt-0">
-                {teamDummy.map((item) => (
-                  <div key={item.id} className="">
-                    <div className=" ">
-                      <Image
-                        src={item.img}
-                        alt="model"
-                        width={300}
-                        height={300}
-                      />
-                    </div>
-                    <div>
-                      <h1 className="md:text-xl text-base pt-2 pb-1 ">
-                        {item.name}
-                      </h1>
-                      <p className="uppercase text-darkText text-sm">
-                        {item.role}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <TeamSection />
       </div>
     </div>
   );

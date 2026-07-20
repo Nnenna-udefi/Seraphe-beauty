@@ -28,6 +28,7 @@
   --font-figTree: var(--font-figTree);
   --font-cantataOne: var(--font-cantataOne);
   --font-redHat: var(--font-redHat);
+  --font-georgia: var(--font-georgia);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,7 +50,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-cantataOne);
+  font-family: var(--font-georgia);
 }
 
 @keyframes fadeIn {

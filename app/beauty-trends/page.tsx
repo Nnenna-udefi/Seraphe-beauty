@@ -1,24 +1,15 @@
-"use client";
-import { useState } from "react";
-import Trends from "../../components/trends";
+import { api } from "@/components/lib/api";
+import TrendsPage from "../../components/trends";
 
-export default function TrendPage() {
-  const [selectedTag, setSelectedTag] = useState<string | null>("All");
-  const availableTags = [
-    "Skincare",
-    "Makeup",
-    "Haircare",
-    "Wellness",
-    "African Beauty",
-  ];
+export default async function TrendMain() {
+  const [trends, focusAreas] = await Promise.all([
+    api.publicShop.getTrends(),
+    api.publicShop.getTrendsByFocusAreas(),
+  ]);
 
   return (
     <div>
-      <Trends
-        tags={availableTags}
-        selectedTag={selectedTag}
-        onTagSelect={setSelectedTag}
-      />
+      <TrendsPage trends={trends} focusAreas={focusAreas} />
     </div>
   );
 }

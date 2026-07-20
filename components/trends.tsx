@@ -2,86 +2,33 @@
 
 import React, { useState } from "react";
 import { H1 } from "./ui/heading";
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { Trends, TrendsFocus } from "./types/api";
+import Link from "next/link";
 
-const TRENDS = [
-  {
-    id: 1,
-    title: "The Rise of Neurocosmetics",
-    subtitle: "Connecting Mind and Skin Barrier",
-    description:
-      "Explore how topicals formulated to address skin-stress responses are changing the high-end beauty industry.",
-    date: "June 2026",
-    status: "Trending Now",
-    imgLink:
-      "https://plus.unsplash.com/premium_photo-1679750866883-b1c549f65da9?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gradient: "from-amber-50 to-orange-50",
-  },
-  {
-    id: 2,
-    title: "Customized Biotech Ingredients",
-    subtitle: "Lab-Grown Efficacy",
-    description:
-      "From bio-fermented extracts to plant-based growth factors, discover the pure molecular compounds outperforming traditional botanicals.",
-    date: "May 2026",
-    status: "Rising Breakthrough",
-    imgLink:
-      "https://plus.unsplash.com/premium_photo-1684407616442-8d5a1b7c978e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gradient: "from-blue-50 to-indigo-50",
-  },
-  {
-    id: 3,
-    title: "Skin Streaming Routines",
-    subtitle: "The Minimalism Evolution",
-    description:
-      "Moving past 10-step systems. Consumers are condensing routines down to 3-4 highly effective, multi-functional items.",
-    date: "April 2026",
-    status: "Macro Trend",
-    imgLink:
-      "https://plus.unsplash.com/premium_photo-1674739375749-7efe56fc8bbb?q=80&w=386&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gradient: "from-rose-50 to-purple-50",
-  },
-];
+export default function TrendsPage({
+  trends,
+  focusAreas,
+}: {
+  trends: Trends[];
+  focusAreas: TrendsFocus[];
+}) {
+  const [activeFocus, setActiveFocus] = useState("all");
 
-// Regional African Hashtags
-const africanBeautyHashtags = [
-  "#Nigerianbeauty",
-  "#Cameroonbeauty",
-  "#Egyptianbeauty",
-  "#Ethiopianbeauty",
-  "#SouthAfrican",
-  "#Kenyanbeauty",
-  "#Senegalese",
-  "#Ghanabeauty",
-  "#Moroccobeauty",
-  "#Cotedivoire",
-  "#AfroAmerican",
-  "#AfroAsian",
-];
+  const filteredTrends =
+    activeFocus === "all"
+      ? trends
+      : trends.filter((trend) => trend.focusArea === activeFocus);
+  // const [africanBeautyOpen, setAfricanBeautyOpen] = useState(false);
 
-interface BeautyTrendsProps {
-  tags: string[];
-  selectedTag: string | null;
-  onTagSelect: (tag: string | null) => void;
-}
-
-export default function Trends({
-  tags,
-  selectedTag,
-  onTagSelect,
-}: BeautyTrendsProps) {
-  const [africanBeautyOpen, setAfricanBeautyOpen] = useState(false);
-
-  const handleTagClick = (tag: string) => {
-    if (tag === "African Beauty") {
-      setAfricanBeautyOpen((prev) => !prev);
-    } else {
-      setAfricanBeautyOpen(false);
-    }
-    onTagSelect(selectedTag === tag ? null : tag);
-  };
+  // const handleTagClick = (tag: string) => {
+  //   if (tag === "African Beauty") {
+  //     setAfricanBeautyOpen((prev) => !prev);
+  //   } else {
+  //     setAfricanBeautyOpen(false);
+  //   }
+  //   onTagSelect(selectedTag === tag ? null : tag);
+  // };
   return (
     <main className="min-h-screen  text-foreground py-12 px-4 md:px-12 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -104,31 +51,32 @@ export default function Trends({
           </p>
 
           <div className="flex flex-wrap gap-3">
-            {tags.map((tag) => {
-              const isSelected = selectedTag === tag;
-              return (
-                <button
-                  key={tag}
-                  onClick={() => handleTagClick(tag)}
-                  className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
-                    isSelected
-                      ? "bg-[#2E0F0A] border-[#2E0F0A] text-white"
-                      : "border-stone-300 text-stone-800 hover:border-black"
-                  }`}
-                >
-                  {tag}
-                  {tag === "African Beauty" && (
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform duration-200 ${africanBeautyOpen ? "rotate-180" : ""}`}
-                    />
-                  )}
-                </button>
-              );
-            })}
+            <button
+              onClick={() => setActiveFocus("all")}
+              className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+                activeFocus === "all"
+                  ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                  : "border-stone-300 hover:border-black"
+              }`}
+            >
+              All
+            </button>
+            {focusAreas.map((focusArea) => (
+              <button
+                key={focusArea.slug}
+                onClick={() => setActiveFocus(focusArea.slug)}
+                className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+                  activeFocus === focusArea.slug
+                    ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                    : "border-stone-300 hover:border-black"
+                }`}
+              >
+                {focusArea.name}
+              </button>
+            ))}
           </div>
 
-          {/* Sub-drawer for African Beauty Regional Hashtags */}
+          {/* Sub-drawer for African Beauty Regional Hashtags
           <AnimatePresence>
             {africanBeautyOpen && (
               <motion.div
@@ -152,23 +100,23 @@ export default function Trends({
                 </div>
               </motion.div>
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
         </div>
 
         {/* Editorial Feed */}
         <div className="space-y-12">
-          {TRENDS.map((trend) => (
+          {trends.map((trend) => (
             <div
-              key={trend.id}
+              key={trend._id}
               className="group grid md:grid-cols-12 gap-6 items-start pb-12 border-b border-slate-100 last:border-none"
             >
               {/* Metainfo column */}
               <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-2">
                 <span className="text-sm font-medium text-yellowText">
-                  {trend.date}
+                  {trend.createdAt}
                 </span>
                 <span className="text-xs font-bold text-foreground tracking-wider uppercase md:mt-1">
-                  {trend.status}
+                  {trend.label}
                 </span>
               </div>
 
@@ -179,7 +127,7 @@ export default function Trends({
                 /> */}
                 <div className="w-full rounded-2xl mb-6">
                   <Image
-                    src={trend.imgLink}
+                    src={trend.featureImage}
                     alt=""
                     width={500}
                     height={0}
@@ -193,19 +141,28 @@ export default function Trends({
                   {trend.subtitle}
                 </h3>
                 <p className="text-darkText leading-relaxed max-w-3xl mb-4">
-                  {trend.description}
+                  {trend.excerpt}
                 </p>
-                <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
-                  Explore Analysis
-                  <span className="transform transition-transform group-hover:translate-x-1">
-                    &rarr;
-                  </span>
-                </button>
+                <Link href={`/beauty-tips/${trend.slug}`}>
+                  <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
+                    Explore Analysis
+                    <span className="transform transition-transform group-hover:translate-x-1">
+                      &rarr;
+                    </span>
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </div>
+      {filteredTrends.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-darkText">
+            No tips found in this category right now.
+          </p>
+        </div>
+      )}
     </main>
   );
 }

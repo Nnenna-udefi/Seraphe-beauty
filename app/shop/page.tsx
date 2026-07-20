@@ -1,12 +1,12 @@
+import { api } from "@/components/lib/api";
 import ShopSeraphe from "@/components/shop";
 import React from "react";
 
-const ShopPage = () => {
+export default async function ShopPage() {
+  const products = await api.publicShop.getProducts();
   return (
     <div>
-      <ShopSeraphe />
+      <ShopSeraphe products={products} />
     </div>
   );
-};
-
-export default ShopPage;
+}

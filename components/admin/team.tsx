@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import DeleteModal from "./deleteModal";
 import { Loader2 } from "lucide-react";
 import ImageUploader from "../helper/imageUploader";
-import Tiptap from "../ui/tiptap";
 
 const AdminTeam = () => {
   const [members, setMembers] = useState<Team[]>([]);
@@ -18,10 +17,10 @@ const AdminTeam = () => {
   const [section, setSection] = useState("");
   const [sectionSlug, setSectionSlug] = useState("");
   const [image, setImage] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [email, setEmail] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [bio, setBio] = useState("");
+  const [linkedin, setLinkedin] = useState<string | undefined>();
+  const [email, setEmail] = useState<string | undefined>();
+  const [instagram, setInstagram] = useState<string | undefined>();
+  const [bio, setBio] = useState<string | undefined>();
   const [order, setOrder] = useState(1);
 
   const [loading, setLoading] = useState(true);
@@ -92,10 +91,10 @@ const AdminTeam = () => {
     setSection(member.section);
     setSectionSlug(member.sectionSlug);
     setImage(member.image);
-    setLinkedin(member.linkedin);
-    setEmail(member.email);
-    setInstagram(member.instagram);
-    setBio(member.bio);
+    setLinkedin(member?.linkedin);
+    setEmail(member?.email);
+    setInstagram(member?.instagram);
+    setBio(member?.bio);
     setOrder(member.order);
 
     setShowForm(true);
@@ -293,7 +292,14 @@ const AdminTeam = () => {
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Bio
               </label>
-              <Tiptap value={bio} onChange={setBio} />
+              <textarea
+                rows={4}
+                required
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                className="w-full border p-2 rounded text-sm bg-white"
+                placeholder="Deep product copy properties..."
+              />
             </div>
           </div>
           <div className="flex flex-col gap-1.5">

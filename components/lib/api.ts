@@ -18,6 +18,7 @@ import {
   TeamPayload,
   TeamSections,
   Tips,
+  TipsCategory,
   TipsPayload,
   Trends,
   TrendsFocus,
@@ -55,16 +56,23 @@ export const api = {
     getProductBySlug: (slug: string): Promise<Product> =>
       apiRequest<Product>(`/shop/products/${slug}`),
 
-    getProductReviewsBySlug: (slug: string): Promise<Review> =>
-      apiRequest<Review>(`/shop/products/${slug}/reviews`),
+    getProductReviewsBySlug: (slug: string): Promise<Review[]> =>
+      apiRequest<Review[]>(`/shop/products/${slug}/reviews`),
 
-    postProductReviewsBySlug: (slug: string): Promise<ReviewPayload> =>
-      apiRequest<ReviewPayload>(`/shop/products/${slug}/reviews`),
+    postProductReviewsBySlug: (
+      slug: string,
+      data: ReviewPayload,
+    ): Promise<Review> =>
+      apiRequest<Review>(`/shop/products/${slug}/reviews`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+
     //beauty tips
     getBeautyTips: (): Promise<Tips[]> => apiRequest<Tips[]>("/beauty-tips"),
 
-    getBeautyTipsByCategories: (): Promise<Tips[]> =>
-      apiRequest<Tips[]>("/beauty-tips/categories"),
+    getBeautyTipsByCategories: (): Promise<TipsCategory[]> =>
+      apiRequest<TipsCategory[]>("/beauty-tips/categories"),
 
     getBeautyTipsBySlug: (slug: string): Promise<Tips> =>
       apiRequest<Tips>(`/beauty-tips/${slug}`),

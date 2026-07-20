@@ -1,55 +1,100 @@
-import { Mail, X } from "lucide-react";
-import React, { useState } from "react";
+"use client";
+import { Mail, Star, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { api } from "./lib/api";
+import { toast } from "sonner";
 
-const Reviews = ({ productId }: { productId: number }) => {
+import { Review } from "./types/api";
+
+const Reviews = ({ productSlug }: { productSlug: string }) => {
+  // const { subscriber } = useSite();
   const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("");
+  const [reviewText, setReviewText] = useState("");
   const [reviewerName, setReviewerName] = useState("");
-  const [reviewerEmail, setReviewerEmail] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hoverRating, setHoverRating] = useState<number | null>(null);
+  // const email = subscriber.find(
+  //   (s) => s.email === localStorage.getItem("newsletterEmail"),
+  // )?.email;
 
-  // intercepts the click to show the modal
+  const [reviewerEmail, setReviewerEmail] = useState(() => {
+    if (typeof window === "undefined") return "";
+
+    return (
+      localStorage.getItem("newsletterEmail") ||
+      localStorage.getItem("userEmail") ||
+      ""
+    );
+  });
+
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+
+  useEffect(() => {
+    const loadReviews = async () => {
+      try {
+        const data = await api.publicShop.getProductReviewsBySlug(productSlug);
+
+        setReviews(data.slice(0, 10));
+      } catch {
+        toast.error("Unable to load reviews.");
+      } finally {
+        setLoadingReviews(false);
+      }
+    };
+
+    loadReviews();
+  }, [productSlug]);
+
   const handleReviewPreSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!comment || !reviewerName || !reviewerEmail) {
-      alert("Please fill in all the fields before submitting your review.");
+
+    if (!reviewText || !reviewerName || !reviewerEmail) {
+      toast.error("Please fill in all the fields.");
       return;
     }
-    setIsModalOpen(true);
+
+    const hasNewsletter = !!localStorage.getItem("newsletterEmail");
+
+    if (hasNewsletter) {
+      handleFinalSubmit(false);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleFinalSubmit = async (shouldSubscribe: boolean) => {
     setIsSubmitting(true);
 
     const reviewPayload = {
-      productId,
+      product: productSlug,
       rating,
-      comment,
-      name: reviewerName,
       email: reviewerEmail,
-      subscribed: shouldSubscribe,
+      reviewText,
+      name: reviewerName,
     };
+
     try {
-      // API call to submit the review to your backend database
-      console.log("Submitting final review payload...", reviewPayload);
+      await api.publicShop.postProductReviewsBySlug(productSlug, reviewPayload);
 
       if (shouldSubscribe) {
         console.log(
           `Adding ${reviewerEmail} to the Seraphé newsletter list...`,
         );
-        // fetch('/api/newsletter/subscribe', { method: 'POST', body: JSON.stringify({ email: reviewerEmail }) })
+        // Persist email locally so future forms also auto-fill
+        localStorage.setItem("newsletterEmail", reviewerEmail);
+        // await fetch('/api/newsletter/subscribe', { method: 'POST', body: JSON.stringify({ email: reviewerEmail }) })
       }
 
       // Simulated API Response Delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Thank you! Your review has been submitted successfully.");
+      toast.success("Thank you! Your review has been submitted successfully.");
 
       // Reset Form fields
-      setComment("");
+      setReviewText("");
       setReviewerName("");
-      setReviewerEmail("");
       setIsModalOpen(false);
     } catch (error) {
       console.error("Submission failed", error);
@@ -64,21 +109,40 @@ const Reviews = ({ productId }: { productId: number }) => {
 
       <form onSubmit={handleReviewPreSubmit} className="space-y-4">
         {/* Rating Selector */}
+        {/* Interactive Star Rating Selector */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs uppercase font-semibold tracking-wider text-foreground">
+          <label className="text-xs uppercase font-semibold tracking-wider text-gray-500">
             Rating
           </label>
-          <select
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            className="border p-2.5 rounded bg-white text-sm w-32 border-gray-300"
-          >
-            <option value={5}>⭐⭐⭐⭐⭐ (5)</option>
-            <option value={4}>⭐⭐⭐⭐ (4)</option>
-            <option value={3}>⭐⭐⭐ (3)</option>
-            <option value={2}>⭐⭐ (2)</option>
-            <option value={1}>⭐ (1)</option>
-          </select>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((starIndex) => {
+              const activeRating = hoverRating ?? rating;
+              const isFilled = starIndex <= activeRating;
+
+              return (
+                <button
+                  key={starIndex}
+                  type="button"
+                  onClick={() => setRating(starIndex)}
+                  onMouseEnter={() => setHoverRating(starIndex)}
+                  onMouseLeave={() => setHoverRating(null)}
+                  className="p-1 focus:outline-none transition-transform hover:scale-110"
+                  aria-label={`Rate ${starIndex} out of 5 stars`}
+                >
+                  <Star
+                    className={`w-6 h-6 transition-colors ${
+                      isFilled
+                        ? "fill-amber-400 text-amber-400"
+                        : "fill-transparent text-gray-300"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+            <span className="text-xs font-semibold text-gray-500 ml-2">
+              ({hoverRating ?? rating} / 5)
+            </span>
+          </div>
         </div>
 
         {/* Name and Email Row */}
@@ -120,8 +184,8 @@ const Reviews = ({ productId }: { productId: number }) => {
             rows={4}
             required
             placeholder="Share your thoughts about this beauty formula..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
             className="border p-2.5 text-sm rounded bg-white border-gray-300 focus:outline-none focus:border-black resize-none"
           />
         </div>
@@ -133,6 +197,49 @@ const Reviews = ({ productId }: { productId: number }) => {
           Submit Review
         </button>
       </form>
+
+      <div className="mt-14 border-t pt-10">
+        <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
+
+        {loadingReviews ? (
+          <p>Loading reviews...</p>
+        ) : reviews.length === 0 ? (
+          <p className="text-gray-500">Be the first to review this product.</p>
+        ) : (
+          <div className="space-y-6">
+            {reviews.map((review) => (
+              <div key={review._id} className="border rounded-lg p-5">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-semibold">{review.name}</p>
+
+                    <p className="text-xs text-gray-500">
+                      {new Date(review.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+
+                  <div className="flex">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < review.rating
+                            ? "fill-amber-400 text-amber-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <p className="mt-4 text-gray-700 leading-relaxed">
+                  {review.reviewText}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* CONFIRMATION POP-UP MODAL (Renders conditionally) */}
 
