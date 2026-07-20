@@ -10,7 +10,6 @@ import { Product } from "../types/api";
 
 const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const pathname = usePathname();
-
   const { categories } = useSite();
   return (
     <main className="min-h-screen  py-12 md:px-12 px-6 lg:px-8">
