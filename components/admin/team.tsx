@@ -209,6 +209,18 @@ const AdminTeam = () => {
                 placeholder="john-obi"
               />
             </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Role
+              </label>
+              <input
+                type="text"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="border p-2 rounded text-sm bg-white"
+                placeholder="Role profile link"
+              />
+            </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
@@ -246,19 +258,6 @@ const AdminTeam = () => {
                 onChange={(e) => setLinkedin(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="Linkedin profile link"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs uppercase font-semibold text-gray-500">
-                Role
-              </label>
-              <input
-                type="text"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="Role profile link"
               />
             </div>
 
@@ -345,7 +344,7 @@ const AdminTeam = () => {
                   <th className="p-4">Name</th>
                   <th className="p-4">Role</th>
                   <th className="p-4">Section</th>
-                  <th className="p-4">Email</th>
+                  {/* <th className="p-4">Email</th> */}
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
@@ -379,9 +378,9 @@ const AdminTeam = () => {
                       <td className="p-4 text-sm text-gray-800">
                         {member.section}
                       </td>
-                      <td className="p-4 text-sm text-gray-800">
+                      {/* <td className="p-4 text-sm text-gray-800">
                         {member.email}
-                      </td>
+                      </td> */}
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
                           onClick={() => startEdit(member)}

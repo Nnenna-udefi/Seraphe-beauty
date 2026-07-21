@@ -50,7 +50,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-georgia);
+  font-family: var(--font-cantataOne);
+  letter-spacing: -0.02em;
 }
 
 @keyframes fadeIn {

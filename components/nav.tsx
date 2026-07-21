@@ -5,15 +5,18 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { navItems, serapheDatabase, shopItems } from "./lib/constants";
+import { navItems, shopItems } from "./lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
-import PredictiveSearch, { SearchItem } from "./search";
+import PredictiveSearch from "./search";
+import { useSite } from "./helper/siteContext";
 
 export const Nav = () => {
   const [nav, showNav] = useState(false);
   const pathname = usePathname();
   const [shop, showShop] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const { products, categories, tips, trends } = useSite();
 
   const closeMobileMenu = () => {
     showNav(false);
@@ -30,7 +33,7 @@ export const Nav = () => {
   // };
 
   return (
-    <nav className="bg-secondary sticky text-secondaryText text-sm p-3 ">
+    <nav className="bg-secondary sticky text-secondaryText text-sm lg:text-base p-3 ">
       <div className="py-2 md:px-10 px-3 flex justify-between items-center">
         <Link href="/">
           <Image
@@ -64,10 +67,14 @@ export const Nav = () => {
             </svg>
           </div>
         </div>
+
         <PredictiveSearch
           isOpen={isSearchOpen}
           onClose={() => setIsSearchOpen(false)}
-          mockData={serapheDatabase as SearchItem[]}
+          products={products}
+          blogs={tips}
+          trends={trends}
+          collections={categories}
         />
       </div>
 

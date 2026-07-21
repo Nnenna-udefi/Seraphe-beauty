@@ -1,28 +1,38 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
+import { Category, Product, Tips, Trends } from "./types/api";
+import Link from "next/link";
 
 // Define the shape of our search results
 export interface SearchItem {
-  id: string | number;
+  id: string;
   title: string;
   subtitle?: string;
   img?: string;
-  category: "products" | "collections" | "blogs" | "pages";
+  slug: string;
+  keywords: string;
+  category: "products" | "collections" | "blogs" | "trends";
 }
 
 interface PredictiveSearchProps {
   isOpen: boolean;
   onClose: () => void;
-  mockData: SearchItem[]; // Pass your database/API results array here
-}
 
-type TabType = "products" | "collections" | "blogs" | "pages";
+  products: Product[];
+  blogs: Tips[];
+  collections: Category[];
+  trends: Trends[];
+}
+type TabType = "all" | "products" | "collections" | "blogs" | "trends";
 
 export default function PredictiveSearch({
   isOpen,
   onClose,
-  mockData,
+  products,
+  blogs,
+  collections,
+  trends,
 }: PredictiveSearchProps) {
   const [query, setQuery] = useState("");
   const [activeTab, setActiveTab] = useState<TabType>("products");
@@ -36,35 +46,65 @@ export default function PredictiveSearch({
     }
   }, [isOpen]);
 
-  // Filter logic across tabs based on text input
-  //   useEffect(() => {
-  //     if (!query.trim()) {
-  //       setFilteredResults([]);
-  //       return;
-  //     }
+  const searchItems = useMemo<SearchItem[]>(
+    () => [
+      ...products.map((product) => ({
+        id: product._id,
+        title: product.name,
+        subtitle: product.shortDescription,
+        img: product.images[0],
+        slug: `/shop/products/${product.slug}`,
+        category: "products" as const,
+        keywords: [
+          product.name,
+          product.shortDescription,
+          product.category.name,
+        ].join(" "),
+      })),
 
-  //     const results = mockData.filter((item) => {
-  //       const matchesQuery = item.title
-  //         .toLowerCase()
-  //         .includes(query.toLowerCase());
-  //       const matchesTab = item.category === activeTab;
-  //       return matchesQuery && matchesTab;
-  //     });
+      ...collections.map((category) => ({
+        id: category._id,
+        title: category.name,
+        slug: `/shop/products/${category.slug}`,
+        category: "collections" as const,
+        keywords: category.name,
+      })),
 
-  //     setFilteredResults(results);
-  //   }, [query, activeTab, mockData]);
-  // Computes only when query, activeTab, or mockData changes
+      ...blogs.map((blog) => ({
+        id: blog._id,
+        title: blog.title,
+        subtitle: blog.summary,
+        img: blog.images,
+        slug: `/beauty-tips/${blog.slug}`,
+        category: "blogs" as const,
+        keywords: [blog.title, blog.summary, blog.category].join(" "),
+      })),
+
+      ...trends.map((trend) => ({
+        id: trend._id,
+        title: trend.title,
+        slug: trend.slug,
+        category: "trends" as const,
+        keywords: [trend.title, trend.excerpt, trend.focusArea].join(" "),
+      })),
+    ],
+    [products, collections, blogs, trends],
+  );
+
   const filteredResults = useMemo(() => {
     if (!query.trim()) return [];
 
-    return mockData.filter((item) => {
-      const matchesQuery = item.title
-        .toLowerCase()
-        .includes(query.toLowerCase());
-      const matchesTab = item.category === activeTab;
-      return matchesQuery && matchesTab;
+    const search = query.toLowerCase();
+
+    return searchItems.filter((item) => {
+      const matchesCategory =
+        activeTab === "all" || item.category === activeTab;
+
+      const matchesQuery = item.keywords.toLowerCase().includes(search);
+
+      return matchesCategory && matchesQuery;
     });
-  }, [query, activeTab, mockData]);
+  }, [query, activeTab, searchItems]);
 
   if (!isOpen) return null;
 
@@ -121,21 +161,21 @@ export default function PredictiveSearch({
 
         {/* Categories Tab Bar */}
         <div className="flex items-center gap-6 overflow-x-auto py-4 scrollbar-hide border-b border-gray-50 text-sm md:text-base">
-          {(["products", "collections", "blogs", "pages"] as TabType[]).map(
-            (tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`capitalize pb-1 border-b-2 font-medium whitespace-nowrap transition-all ${
-                  activeTab === tab
-                    ? "border-amber-800 text-amber-800" // Highlighting style matching regirl
-                    : "border-transparent text-gray-400 hover:text-black"
-                }`}
-              >
-                {tab === "blogs" ? "Blog posts" : tab}
-              </button>
-            ),
-          )}
+          {(
+            ["all", "products", "collections", "blogs", "trends"] as TabType[]
+          ).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`capitalize pb-1 border-b-2 font-medium whitespace-nowrap transition-all ${
+                activeTab === tab
+                  ? "border-primaryText text-primaryText"
+                  : "border-transparent text-gray-400 hover:text-black"
+              }`}
+            >
+              {tab === "blogs" ? "Blog posts" : tab}
+            </button>
+          ))}
         </div>
 
         {/* Live Results Panel */}
@@ -147,12 +187,14 @@ export default function PredictiveSearch({
           ) : filteredResults.length > 0 ? (
             <div className="space-y-4">
               {filteredResults.map((item) => (
-                <div
+                <Link
                   key={item.id}
-                  className="flex items-center gap-4 p-2 hover:bg-gray-50 rounded-md transition-colors cursor-pointer"
+                  href={item.slug}
+                  onClick={onClose}
+                  className="flex items-center gap-4 p-2 rounded-md hover:bg-gray-50 transition-colors"
                 >
                   {item.img && (
-                    <div className="relative w-16 h-16 bg-gray-100 shrink-0 rounded-sm overflow-hidden">
+                    <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-sm bg-gray-100">
                       <Image
                         src={item.img}
                         alt={item.title}
@@ -161,17 +203,17 @@ export default function PredictiveSearch({
                       />
                     </div>
                   )}
+
                   <div>
-                    <h4 className="text-black font-medium text-base">
-                      {item.title}
-                    </h4>
+                    <h4 className="font-medium text-black">{item.title}</h4>
+
                     {item.subtitle && (
-                      <p className="text-gray-500 text-xs mt-0.5">
+                      <p className="mt-1 text-xs text-gray-500">
                         {item.subtitle}
                       </p>
                     )}
                   </div>
-                </div>
+                </Link>
               ))}
 
               {/* View All Button matching reference image */}

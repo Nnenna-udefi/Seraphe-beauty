@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { useSite } from "../helper/siteContext";
 import { Product } from "../types/api";
+import { Star } from "lucide-react";
 
 const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const pathname = usePathname();
@@ -43,28 +44,37 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
           <h2 className="font-cantataOne text-xl py-4 md:text-3xl text-black font-normal">
             Featured Products
           </h2>
-          <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="py-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {products.map((product) => (
-              <div key={product.name} className="flex flex-col gap-1">
+              <div
+                key={product.name}
+                className="group rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+              >
                 <div className=" pt-2">
                   <Image
                     src={product.images[0]}
                     alt={product.name}
                     width={300}
                     height={300}
-                    className="w-full  "
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div>
-                  <h3 className="uppercase text-yellowText text-sm pt-2">
+                  <span className="inline-block rounded-full bg-stone-100 px-3 py-1 text-xs uppercase tracking-wider text-yellowText">
                     {product.category.name}
-                  </h3>
-                  <H3>{product.name}</H3>
-                  <p className=" text-darkText text-sm py-2">
+                  </span>
+                  <H3 className="mt-3 line-clamp-2">{product.name}</H3>
+                  <p className="line-clamp-3 text-sm text-darkText">
                     {product.shortDescription}
                   </p>
+                  <div className="flex justify-between">
+                    <p className="text-xl font-semibold">${product.price}</p>
+                    <Star className="fill-yellow-400 text-yellow-400" />
+                    4.8
+                  </div>
+
                   <Link href={`/shop/products/${product.slug}`}>
-                    <Button className="w-full">{product.price}</Button>
+                    <Button className="w-full">View Details</Button>
                   </Link>
                 </div>
               </div>

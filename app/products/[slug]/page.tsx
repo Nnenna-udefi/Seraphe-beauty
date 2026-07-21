@@ -3,7 +3,6 @@ import { H1 } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import Reviews from "@/components/reviews";
 import { api } from "@/components/lib/api";
-import { notFound } from "next/navigation";
 
 export default async function ProductDetailsPage({
   params,
@@ -17,7 +16,11 @@ export default async function ProductDetailsPage({
   try {
     product = await api.publicShop.getProductBySlug(slug);
   } catch {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Product not found.</p>
+      </div>
+    );
   }
 
   return (
@@ -34,21 +37,22 @@ export default async function ProductDetailsPage({
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-5">
             <h3 className="uppercase text-yellowText text-sm">
               {product.category.name}
             </h3>
 
             <H1>{product.name}</H1>
+            <p>★★★★☆ 4.8 (23 reviews)</p>
 
-            <p className="text-darkText text-xl md:text-2xl py-2">
+            <p className="text-base leading-8 text-darkText">
               {product.description}
             </p>
 
-            <p>{product.price}</p>
+            <p className="text-3xl font-semibold">${product.price}</p>
 
-            <div>
-              <p>In stock:</p>
+            <div className="flex flex-col gap-2">
+              <p>In Stock:</p>
               <p>Quantity: {product.stock}</p>
             </div>
 
@@ -69,12 +73,3 @@ export default async function ProductDetailsPage({
     </div>
   );
 }
-
-// 5. Fallback check: If the id doesn't match anything, don't let it crash
-// if (!product) {
-//   return (
-//     <div className="min-h-screen flex items-center justify-center">
-//       <p className="text-gray-500">Product not found.</p>
-//     </div>
-//   );
-// }

@@ -6,8 +6,9 @@ import { blogDummy } from "./lib/constants";
 import Image from "next/image";
 import Hero from "@/components/images/hero1.jpeg";
 import TeamSection from "./teamSection";
+import { Team } from "./types/api";
 
-const About = () => {
+const About = ({ teams }: { teams: Team[] }) => {
   return (
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto">
@@ -158,7 +159,7 @@ const About = () => {
         </div>
 
         {/* team */}
-        <TeamSection />
+        <TeamSection teams={teams} />
       </div>
     </div>
   );

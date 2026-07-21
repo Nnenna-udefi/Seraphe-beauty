@@ -58,9 +58,7 @@ export default function TrendsPage({
                   ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
                   : "border-stone-300 hover:border-black"
               }`}
-            >
-              All
-            </button>
+            />
             {focusAreas.map((focusArea) => (
               <button
                 key={focusArea.slug}
@@ -143,7 +141,7 @@ export default function TrendsPage({
                 <p className="text-darkText leading-relaxed max-w-3xl mb-4">
                   {trend.excerpt}
                 </p>
-                <Link href={`/beauty-tips/${trend.slug}`}>
+                <Link href={`/trends/${trend.slug}`}>
                   <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
                     Explore Analysis
                     <span className="transform transition-transform group-hover:translate-x-1">

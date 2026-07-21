@@ -2,12 +2,22 @@
 
 import { createContext, useContext } from "react";
 
-import { Category, TeamGrouped, TrendsFocus } from "@/components/types/api";
+import {
+  Category,
+  Product,
+  TeamGrouped,
+  Tips,
+  Trends,
+  TrendsFocus,
+} from "@/components/types/api";
 
 type SiteContextType = {
   categories: Category[];
   trendFocusAreas: TrendsFocus[];
   teamGrouped: TeamGrouped[];
+  products: Product[];
+  trends: Trends[];
+  tips: Tips[];
 };
 
 const SiteContext = createContext<SiteContextType | null>(null);
