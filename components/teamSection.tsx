@@ -3,10 +3,10 @@
 import Image from "next/image";
 // import { useSite } from "./helper/siteContext";
 import { H1, H3 } from "./ui/heading";
-import { FaLinkedin, FaInstagram } from "react-icons/fa";
+// import { FaLinkedin, FaInstagram } from "react-icons/fa";
 import { Team } from "./types/api";
-import { Mail } from "lucide-react";
-import Link from "next/link";
+// import { Mail } from "lucide-react";
+// import Link from "next/link";
 
 export default function TeamSection({ teams }: { teams: Team[] }) {
   // const { teamGrouped } = useSite();
@@ -61,14 +61,14 @@ export default function TeamSection({ teams }: { teams: Team[] }) {
                       <p className="uppercase text-darkText text-sm mt-1">
                         {member.role}
                       </p>
-
+                      {/* 
                       {member?.bio && (
                         <p className="text-sm text-darkText mt-3 line-clamp-3">
                           {member.bio}
                         </p>
-                      )}
+                      )} */}
 
-                      <div className="flex gap-3 mt-4">
+                      {/* <div className="flex gap-3 mt-4">
                         {member?.linkedin && (
                           <a
                             href={member.linkedin}
@@ -103,7 +103,7 @@ export default function TeamSection({ teams }: { teams: Team[] }) {
                             />
                           </Link>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}

@@ -51,14 +51,14 @@ export default function TrendsPage({
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <button
+            {/* <button
               onClick={() => setActiveFocus("all")}
               className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
                 activeFocus === "all"
                   ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
                   : "border-stone-300 hover:border-black"
               }`}
-            />
+            /> */}
             {focusAreas.map((focusArea) => (
               <button
                 key={focusArea.slug}

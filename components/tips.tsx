@@ -33,14 +33,14 @@ export default function TipsPage({
 
         {/* Categorical Filter Tags */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          <button
+          {/* <button
             onClick={() => setActiveCategory("all")}
             className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
               activeCategory === "all"
                 ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
                 : "border-stone-300 hover:border-black"
             }`}
-          />
+          /> */}
 
           {categories.map((category) => (
             <button

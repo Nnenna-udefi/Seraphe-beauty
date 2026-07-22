@@ -222,7 +222,7 @@ export default function AdminBeautyTips() {
   };
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="md:flex block justify-between items-center">
         <div>
           <h1 className="text-3xl font-serif font-bold">
             Beauty Tips Articles

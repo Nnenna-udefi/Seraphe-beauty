@@ -17,6 +17,9 @@ export const Nav = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const { products, categories, tips, trends } = useSite();
+  const isAdminRoute = pathname?.startsWith("/admin");
+
+  if (isAdminRoute) return null;
 
   const closeMobileMenu = () => {
     showNav(false);

@@ -50,12 +50,12 @@ const AdminPage = () => {
 
   return (
     <div className="min-h-screen  px-6">
-      <header className="flex justify-between items-center bg-white p-4 shadow-sm mb-6">
+      <header className="md:flex block justify-between items-center bg-white p-4 shadow-sm mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800">
             Seraphé Workspace Dashboard
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="py-2 md:py-0 text-sm text-gray-500">
             Welcome back, {currentAdmin?.name || "Admin"}
           </p>
         </div>

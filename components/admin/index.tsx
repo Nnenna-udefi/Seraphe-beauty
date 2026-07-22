@@ -93,7 +93,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-serif font-bold">Dashboard</h1>
-        <h2>Welcome back, {admin?.name}</h2>
+        <h2 className="py-2">Welcome back, {admin?.name}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -113,7 +113,7 @@ export default function AdminDashboard() {
         <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-6">
           Blog Upload Volume (Per Month)
         </h3>
-        <div className="flex items-end gap-4 h-48 pt-4 border-b border-l px-4 border-gray-200">
+        <div className="flex items-end gap-4 h-48 pt-4 border-b border-l px-4 border-gray-200 overflow-hidden overflow-x-scroll">
           {chartData.map((data) => (
             <div
               key={data.month}
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Top 5 Latest Posts Table */}
-      <div className="bg-white border rounded-lg shadow-sm overflow-hidden">
+      <div className="bg-white border rounded-lg shadow-sm overflow-hidden overflow-x-scroll">
         <div className="p-5 border-b">
           <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider">
             Latest Published Stories
