@@ -11,58 +11,61 @@ import { Team } from "./types/api";
 const About = ({ teams }: { teams: Team[] }) => {
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col gap-6 bg-boxBg py-10 md:py-16 md:px-12 px-6">
-          <H1>About Seraphé</H1>
-          <p className="md:text-base lg:w-[60%]  w-full text-sm text-darkText">
-            Find everything you need to know about the best makeup tools and
-            helpful application techniques straight from the pros. Read on for
-            tips and tricks no matter your skill level
-          </p>
+      <div className=" mx-auto">
+        <div className="bg-boxBg">
+          <div className="flex max-w-8xl flex-col gap-6  py-10 md:py-16 md:px-12 px-6">
+            <H1>About Seraphé</H1>
+            <p className="md:text-base lg:w-[60%]  w-full text-sm text-darkText">
+              Find everything you need to know about the best makeup tools and
+              helpful application techniques straight from the pros. Read on for
+              tips and tricks no matter your skill level
+            </p>
+          </div>
         </div>
 
         {/* Community Impact */}
-        <div className="bg-primaryBg text-white py-12 px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <h2 className="text-4xl font-bold">640+</h2>
-              <p className="mt-2 text-sm uppercase tracking-wider">
-                Community Members
-              </p>
+        <div className="bg-primaryBg">
+          <div className="max-w-8xl  text-white py-12 px-6 md:px-12">
+            <div className=" grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <h2 className="text-4xl font-bold">640+</h2>
+                <p className="mt-2 text-sm uppercase tracking-wider">
+                  Community Members
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-4xl font-bold">13</h2>
+                <p className="mt-2 text-sm uppercase tracking-wider">
+                  African Countries
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-4xl font-bold">20</h2>
+                <p className="mt-2 text-sm uppercase tracking-wider">
+                  Countries Worldwide
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-4xl font-bold">400M+</h2>
+                <p className="mt-2 text-sm uppercase tracking-wider">
+                  Global Target Market
+                </p>
+              </div>
             </div>
 
-            <div>
-              <h2 className="text-4xl font-bold">13</h2>
-              <p className="mt-2 text-sm uppercase tracking-wider">
-                African Countries
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-4xl font-bold">20</h2>
-              <p className="mt-2 text-sm uppercase tracking-wider">
-                Countries Worldwide
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-4xl font-bold">400M+</h2>
-              <p className="mt-2 text-sm uppercase tracking-wider">
-                Global Target Market
-              </p>
-            </div>
+            <p className="mt-8 max-w-8xl mx-auto text-center text-sm md:text-base text-white/90">
+              Seraphé is building beauty solutions for more than{" "}
+              <strong>350 million indigenous Africans</strong>, while serving a
+              potential market of over{" "}
+              <strong>400 million people globally</strong>.
+            </p>
           </div>
-
-          <p className="mt-8 max-w-3xl mx-auto text-center text-sm md:text-base text-white/90">
-            Seraphé is building beauty solutions for more than{" "}
-            <strong>350 million indigenous Africans</strong>, while serving a
-            potential market of over{" "}
-            <strong>400 million people globally</strong>.
-          </p>
         </div>
-
         {/* mission */}
-        <div className="py-10 md:px-12 md:py-16 px-6 flex md:flex-row flex-col gap-6">
+        <div className="max-w-8xl py-10 md:px-12 md:py-16 px-6 flex md:flex-row flex-col gap-6">
           <div>
             <div className="py-4">
               <H3>Our Mission</H3>
@@ -135,7 +138,7 @@ const About = ({ teams }: { teams: Team[] }) => {
           </div>
         </div>
 
-        <div className="pt-10 md:px-12 md:pt-16 flex flex-col px-6 justify content items-center text-center">
+        <div className="max-w-8xl pt-10 md:px-12 md:pt-16 flex flex-col px-6 justify content items-center text-center">
           <H1>Beauty Writing Internships</H1>
           <p className="text-black py-6 md:w-[80%] w-full text-center pb-6 md:text-base text-sm">
             Are you a medical writer or beauty enthusiast? Do you want to
@@ -159,7 +162,9 @@ const About = ({ teams }: { teams: Team[] }) => {
         </div>
 
         {/* team */}
-        <TeamSection teams={teams} />
+        <div className="max-w-8xl">
+          <TeamSection teams={teams} />{" "}
+        </div>
       </div>
     </div>
   );

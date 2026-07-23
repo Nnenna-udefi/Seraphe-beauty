@@ -33,7 +33,7 @@ export default function JoinCommunity() {
   return (
     <div className="text-darkText py-10 md:py-16 md:px-12 px-6">
       {/* SECTION 1: THE CORE PERKS (The "What's in it for me?") */}
-      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24 border-b border-darkText">
+      <section className="max-w-8xl mx-auto px-6 py-16 md:py-24 border-b border-darkText">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="font-cantataOne text-2xl md:text-5xl text-black font-normal mb-4">
             The Perks of Belonging

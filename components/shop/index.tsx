@@ -14,7 +14,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const { categories } = useSite();
   return (
     <main className="min-h-screen  py-12 md:px-12 px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         <H1>Shop</H1>
         <div>
           <h3 className="font-cantataOne py-4 text-lg md:text-lg">

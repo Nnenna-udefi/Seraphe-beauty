@@ -31,7 +31,7 @@ export default function TrendsPage({
   // };
   return (
     <main className="min-h-screen  text-foreground py-12 px-4 md:px-12 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         {/* Header */}
         <div className="border-b border-slate-200 pb-8 mb-12">
           <span className="text-xs font-semibold tracking-widest text-yellowText uppercase">

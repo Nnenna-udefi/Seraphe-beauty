@@ -21,7 +21,7 @@ export default function TipsPage({
 
   return (
     <main className="min-h-screen text-black py-10 md:py-16  md:px-12 px-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <H1>Beauty Tips & Guide</H1>

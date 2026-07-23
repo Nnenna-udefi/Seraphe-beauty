@@ -74,7 +74,7 @@ export default function PredictiveSearch({
         id: blog._id,
         title: blog.title,
         subtitle: blog.summary,
-        img: blog.images,
+        img: blog.image,
         slug: `/beauty-tips/${blog.slug}`,
         category: "blogs" as const,
         keywords: [blog.title, blog.summary, blog.category].join(" "),
@@ -109,8 +109,8 @@ export default function PredictiveSearch({
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-0 left-0 w-full bg-white shadow-xl z-50 animate-fadeIn border-b border-gray-100">
-      <div className="max-w-6xl mx-auto md:px-12 px-6 py-4">
+    <div className="absolute top-0 left-0 w-full h-fit bg-white shadow-xl z-50 animate-fadeIn border-b border-gray-100">
+      <div className="max-w-7xl mx-auto md:px-12 px-6 py-4">
         {/* Search Input Bar */}
         <div className="flex items-center justify-between border-b border-gray-200 py-3">
           <div className="flex items-center gap-3 w-full">
