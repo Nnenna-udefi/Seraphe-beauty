@@ -54,7 +54,7 @@ export interface Tips {
   content: string;
   author: string;
   readTimeMinutes: number;
-  images: string;
+  image: string;
   tags: string[];
   order: number;
   createdAt: string;
@@ -209,7 +209,7 @@ export interface TipsPayload {
   content: string;
   author: string;
   readTimeMinutes: number;
-  images: string;
+  image: string;
   tags: string[];
   order: number;
 }

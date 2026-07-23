@@ -22,11 +22,11 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
           </h3>
           <div className="flex flex-wrap gap-3 pb-10">
             {categories.map((category) => {
-              const isActive = pathname === `/shop/products/${category.slug}`;
+              const isActive = pathname === `/shop/${category.slug}`;
               return (
                 <Link
                   key={category.name}
-                  href={`/shop/products/${category.slug}`}
+                  href={`/shop/${category.slug}`}
                   className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all duration-200 flex items-center gap-2 tracking-wide font-medium ${
                     isActive
                       ? "bg-[#2E0F0A] border-[#2E0F0A] text-white"

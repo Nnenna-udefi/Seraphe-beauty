@@ -21,7 +21,7 @@ export const footerList = [
   },
   {
     id: 5,
-    text: "Trends",
+    text: "Beauty Trends",
     link: "/trends",
   },
   {
@@ -35,32 +35,32 @@ export const skincareList = [
   {
     id: 1,
     text: "Skin",
-    link: "/skin",
+    link: "/products/skin",
   },
   {
     id: 2,
     text: "Hair",
-    link: "/hair",
+    link: "/products/hair",
   },
   {
     id: 3,
     text: "Makeup",
-    link: "/makeup",
+    link: "/lifestyle/makeup",
   },
   {
     id: 4,
     text: "Fragrance",
-    link: "/fragrance",
+    link: "/lifestyle/fragrance",
   },
   {
     id: 5,
     text: "Wellness",
-    link: "/wellness",
+    link: "/lifestyle/wellness",
   },
   {
     id: 6,
     text: "Reviews",
-    link: "/reviews",
+    link: "/products/reviews",
   },
 ];
 
@@ -89,7 +89,7 @@ export const navItems = [
   {
     id: 5,
     text: "Beauty Trends",
-    link: "/beauty-trends",
+    link: "/trends",
   },
   {
     id: 6,

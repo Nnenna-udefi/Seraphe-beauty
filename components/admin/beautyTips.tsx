@@ -26,7 +26,7 @@ export default function AdminBeautyTips() {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
-  const [images, setImages] = useState("");
+  const [image, setImage] = useState("");
   const [tags, setTags] = useState("");
   const [order, setOrder] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -76,7 +76,7 @@ export default function AdminBeautyTips() {
       content,
       author,
       readTimeMinutes,
-      images,
+      image,
       tags: tags
         .split(",")
         .map((t) => t.trim())
@@ -134,7 +134,7 @@ export default function AdminBeautyTips() {
     setContent(article.content);
     setAuthor(article.author);
     setReadTimeMinutes(article.readTimeMinutes);
-    setImages(article.images);
+    setImage(article.image);
     setTags(article.tags.join(", "));
     setOrder(article.order);
     setShowForm(true);
@@ -151,7 +151,7 @@ export default function AdminBeautyTips() {
     setContent("");
     setAuthor("");
     setReadTimeMinutes(5);
-    setImages("");
+    setImage("");
     setTags("");
     setOrder(1);
     setShowForm(false);
@@ -185,7 +185,7 @@ export default function AdminBeautyTips() {
 
       const { data } = supabase.storage.from("tips").getPublicUrl(fileName);
 
-      setImages(data.publicUrl);
+      setImage(data.publicUrl);
       toast.success("Image uploaded successfully!");
     } catch (err) {
       console.error(err);
@@ -358,8 +358,8 @@ export default function AdminBeautyTips() {
               <input
                 type="text"
                 required
-                value={images}
-                onChange={(e) => setImages(e.target.value)}
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="https://cdn.com/product.jpg"
               />
@@ -372,9 +372,9 @@ export default function AdminBeautyTips() {
             </div>
           </div>
 
-          {images && (
+          {image && (
             <Image
-              src={images}
+              src={image}
               alt="Preview"
               width={120}
               height={120}
@@ -442,7 +442,7 @@ export default function AdminBeautyTips() {
               </thead>
               <tbody className="divide-y">
                 {articles.map((art) => {
-                  const displayImage = art.images;
+                  const displayImage = art.image;
 
                   return (
                     <tr
@@ -451,8 +451,7 @@ export default function AdminBeautyTips() {
                     >
                       <td className="p-4 flex items-center gap-3">
                         {displayImage && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
+                          <Image
                             src={displayImage}
                             alt={art.title}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"

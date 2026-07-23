@@ -41,7 +41,7 @@ export default async function TipDetails({ params }: Props) {
 
         <div className="py-3">
           <Image
-            src={tip.images}
+            src={tip.image}
             alt={tip.title}
             width={1200}
             height={600}
@@ -88,7 +88,7 @@ export default async function TipDetails({ params }: Props) {
               {related.map((item) => (
                 <div key={item._id} className="flex gap-2">
                   <Image
-                    src={item.images}
+                    src={item.image}
                     alt={item.title}
                     width={80}
                     height={80}
