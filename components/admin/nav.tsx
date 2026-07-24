@@ -3,7 +3,7 @@ import { authManager } from "../lib/auth";
 import AdminSignIn from "@/app/admin/auth/signIn";
 import AdminSignUp from "@/app/admin/auth/signUp";
 import Link from "next/link";
-import { ArrowBigRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const AdminNav = () => {
   const [view, setView] = useState<"signin" | "signup" | "dashboard">(() => {
@@ -40,12 +40,15 @@ const AdminNav = () => {
   return (
     <div>
       <header className="md:flex block justify-between items-center border-b p-2 shadow-sm mb-6">
-        <Link href="/" className="border p-2">
-          <ArrowBigRight /> <span>Back to Home</span>
+        <Link
+          href="/"
+          className="border rounded-md border-darkText p-2 flex gap-2"
+        >
+          <ArrowLeft /> <span>Home</span>
         </Link>
         <div>
           <h1 className="text-xl font-bold text-gray-800">
-            Seraphé Workspace Dashboard
+            Seraphé Admin Dashboard
           </h1>
           <p className="py-2 md:py-0 text-sm text-gray-500">
             Welcome back, {currentAdmin?.name || "Admin"}

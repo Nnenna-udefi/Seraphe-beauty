@@ -35,7 +35,7 @@ export interface Lifestyle {
   content: string;
   author: string;
   readTimeMinutes: number;
-  images: string;
+  image: string;
   tags: string[];
   isFeatured: boolean;
   order: number;
@@ -43,6 +43,10 @@ export interface Lifestyle {
   updatedAt: string;
 }
 
+export interface LifestyleCategory {
+  name: string;
+  slug: string;
+}
 export interface Tips {
   _id: string;
   title: string;
@@ -194,7 +198,7 @@ export interface LifestylePayload {
   content: string;
   author: string;
   readTimeMinutes: number;
-  images: string;
+  image: string;
   tags: string[];
   isFeatured: boolean;
   order: number;

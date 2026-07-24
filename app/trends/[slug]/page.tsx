@@ -32,10 +32,7 @@ export default async function TrendDetails({ params }: Props) {
           items={[
             { label: "Home", href: "/" },
             { label: "Trends", href: "/trends" },
-            {
-              label: trend.focusArea,
-              href: `/trends/${trend.focusAreaSlug}`,
-            },
+
             { label: trend.title },
           ]}
         />

@@ -32,10 +32,7 @@ export default async function TipDetails({ params }: Props) {
         items={[
           { label: "Home", href: "/" },
           { label: "Beauty Tips", href: "/beauty-tips" },
-          {
-            label: tip.category,
-            href: `/beauty-tips/${tip.categorySlug}`,
-          },
+
           { label: tip.title },
         ]}
       />
@@ -67,7 +64,7 @@ export default async function TipDetails({ params }: Props) {
           <div className="flex-1">
             <div className="text-black flex flex-col md:text-base text-sm gap-4">
               <div
-                className="tiptap-content"
+                className="prose prose-neutral max-w-none"
                 dangerouslySetInnerHTML={{
                   __html: tip.content,
                 }}

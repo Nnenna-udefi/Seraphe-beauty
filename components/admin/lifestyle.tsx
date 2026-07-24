@@ -25,7 +25,7 @@ export default function AdminLifestyle() {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
-  const [images, setImages] = useState("");
+  const [image, setImage] = useState("");
   const [tags, setTags] = useState("");
   const [isFeatured, setIsFeatured] = useState(false);
   const [order, setOrder] = useState(1);
@@ -77,7 +77,7 @@ export default function AdminLifestyle() {
       content,
       author,
       readTimeMinutes,
-      images,
+      image,
       tags: tags
         .split(",")
         .map((t) => t.trim())
@@ -135,7 +135,7 @@ export default function AdminLifestyle() {
     setContent(article.content);
     setAuthor(article.author);
     setReadTimeMinutes(article.readTimeMinutes);
-    setImages(article.images);
+    setImage(article.image);
     setTags(article.tags.join(", "));
     setIsFeatured(article.isFeatured);
     setOrder(article.order);
@@ -152,7 +152,7 @@ export default function AdminLifestyle() {
     setContent("");
     setAuthor("");
     setReadTimeMinutes(5);
-    setImages("");
+    setImage("");
     setTags("");
     setIsFeatured(false);
     setOrder(1);
@@ -189,7 +189,7 @@ export default function AdminLifestyle() {
         .from("lifestyle")
         .getPublicUrl(fileName);
 
-      setImages(data.publicUrl);
+      setImage(data.publicUrl);
       toast.success("Image uploaded successfully!");
     } catch (err) {
       console.error(err);
@@ -347,8 +347,8 @@ export default function AdminLifestyle() {
               <input
                 type="text"
                 required
-                value={images}
-                onChange={(e) => setImages(e.target.value)}
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="https://cdn.com/product.jpg"
               />
@@ -361,9 +361,9 @@ export default function AdminLifestyle() {
             </div>
           </div>
 
-          {images && (
+          {image && (
             <Image
-              src={images}
+              src={image}
               alt="Preview"
               width={120}
               height={120}
@@ -436,14 +436,13 @@ export default function AdminLifestyle() {
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                   <th className="p-4">Title</th>
                   <th className="p-4">Category</th>
-                  <th className="p-4">Except</th>
-                  <th className="p-4">Tags</th>
+                  <th className="p-4">Author</th>
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {articles.map((art) => {
-                  const displayImage = art.images;
+                  const displayImage = art.image;
 
                   return (
                     <tr
@@ -464,7 +463,7 @@ export default function AdminLifestyle() {
                             {art.title}
                             {art.isFeatured && (
                               <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-semibold text-yellow-700">
-                                ⭐ Featured
+                                Featured
                               </span>
                             )}
                           </div>
@@ -479,7 +478,7 @@ export default function AdminLifestyle() {
                         </span>
                       </td>
                       <td className="p-4 text-sm text-gray-800">
-                        {art.readTimeMinutes} min read
+                        {art.author}
                       </td>
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button

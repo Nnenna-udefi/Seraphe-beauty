@@ -3,6 +3,7 @@ import {
   Category,
   CategoryPayload,
   Lifestyle,
+  LifestyleCategory,
   LifestylePayload,
   Model,
   ModelPayload,
@@ -80,8 +81,8 @@ export const api = {
     getLifestyle: (): Promise<Lifestyle[]> =>
       apiRequest<Lifestyle[]>("/lifestyle"),
 
-    getLifestyleByCategories: (): Promise<Lifestyle[]> =>
-      apiRequest<Lifestyle[]>("/lifestyle/categories"),
+    getLifestyleByCategories: (): Promise<LifestyleCategory[]> =>
+      apiRequest<LifestyleCategory[]>("/lifestyle/categories"),
 
     getLifestyleBySlug: (slug: string): Promise<Lifestyle> =>
       apiRequest<Lifestyle>(`/lifestyle/${slug}`),

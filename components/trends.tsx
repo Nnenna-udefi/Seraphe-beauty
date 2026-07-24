@@ -5,6 +5,7 @@ import { H1 } from "./ui/heading";
 import Image from "next/image";
 import { Trends, TrendsFocus } from "./types/api";
 import Link from "next/link";
+import { formatDate } from "./helper/formatDate";
 
 export default function TrendsPage({
   trends,
@@ -103,7 +104,7 @@ export default function TrendsPage({
               {/* Metainfo column */}
               <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-2">
                 <span className="text-sm font-medium text-yellowText">
-                  {trend.createdAt}
+                  {formatDate(trend.createdAt)}
                 </span>
                 <span className="text-xs font-bold text-foreground tracking-wider uppercase md:mt-1">
                   {trend.label}
