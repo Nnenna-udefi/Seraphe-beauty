@@ -16,7 +16,7 @@ import {
 } from "react-icons/fa";
 import { Toaster } from "sonner";
 import { useAuth } from "@/components/context/authContext";
-import { ArrowBigRight } from "lucide-react";
+import AdminNav from "@/components/admin/nav";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
@@ -47,9 +47,6 @@ export default function AdminLayout({
       {isAuthenticated && (
         <aside className="w-16 md:w-64 bg-gray-100 border-rack border-darkText shrink-0">
           <nav className="flex flex-col gap-2 p-2 md:p-4">
-            <Link href="/" className="border p-2">
-              <ArrowBigRight />
-            </Link>
             {AdminNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.link;
@@ -76,7 +73,8 @@ export default function AdminLayout({
 
       {/* Main Content Pane */}
 
-      <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen">
+      <main className="flex-1 p-3 md:p-12 overflow-y-auto max-h-screen">
+        <AdminNav />
         {children}
         <Toaster richColors position="top-right" />
       </main>

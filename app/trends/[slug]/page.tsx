@@ -1,4 +1,6 @@
+import { formatDate } from "@/components/helper/formatDate";
 import { api } from "@/components/lib/api";
+import Breadcrumb from "@/components/ui/breadCrumbs";
 // import Carousel from "@/components/ui/carousel";
 import Community from "@/components/ui/community";
 import { H1, H3 } from "@/components/ui/heading";
@@ -25,7 +27,18 @@ export default async function TrendDetails({ params }: Props) {
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-8xl mx-auto px-6">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Trends", href: "/trends" },
+            {
+              label: trend.focusArea,
+              href: `/trends/${trend.focusAreaSlug}`,
+            },
+            { label: trend.title },
+          ]}
+        />
         <h3 className="uppercase text-yellowText text-sm py-2">
           {trend.focusArea}
         </h3>
@@ -33,7 +46,7 @@ export default async function TrendDetails({ params }: Props) {
         <p className="text-[#484646] flex gap-1 items-center text-sm py-2">
           <span>By {""}</span>
           <span>{trend.author}</span> <span>.</span>{" "}
-          <span>{trend.createdAt}</span>
+          {formatDate(trend.createdAt)}
         </p>
 
         <div>
@@ -100,26 +113,30 @@ export default async function TrendDetails({ params }: Props) {
           <div className="flex flex-col gap-3 md:w-1/3">
             <H3>Related Stories</H3>
             <div className="flex gap-4 flex-col pt-6 md:pt-0">
-              {related.map((item) => (
-                <div key={item._id} className="flex gap-2">
-                  <Image
-                    src={item.featureImage}
-                    alt={item.title}
-                    width={80}
-                    height={80}
-                    className="object-cover"
-                  />
-                  <div>
-                    <h3 className="uppercase text-yellowText text-xs">
-                      {item.focusArea}
-                    </h3>
-                    <h1 className="text-sm font-medium py-1">{item.title}</h1>
-                    <p className="uppercase text-darkText text-xs">
-                      {item.author}
-                    </p>
+              {related && related.length > 0 ? (
+                related.map((item) => (
+                  <div key={item._id} className="flex gap-2">
+                    <Image
+                      src={item.featureImage}
+                      alt={item.title}
+                      width={80}
+                      height={80}
+                      className="object-cover"
+                    />
+                    <div>
+                      <h3 className="uppercase text-yellowText text-xs">
+                        {item.focusArea}
+                      </h3>
+                      <h1 className="text-sm font-medium py-1">{item.title}</h1>
+                      <p className="uppercase text-darkText text-xs">
+                        {item.author}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p>No related stories available.</p>
+              )}
             </div>
           </div>
         </div>

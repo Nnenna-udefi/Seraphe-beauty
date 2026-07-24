@@ -18,7 +18,7 @@ export default function TrendsPage({
   const filteredTrends =
     activeFocus === "all"
       ? trends
-      : trends.filter((trend) => trend.focusArea === activeFocus);
+      : trends.filter((trend) => trend.focusAreaSlug === activeFocus);
   // const [africanBeautyOpen, setAfricanBeautyOpen] = useState(false);
 
   // const handleTagClick = (tag: string) => {
@@ -51,14 +51,6 @@ export default function TrendsPage({
           </p>
 
           <div className="flex flex-wrap gap-3">
-            {/* <button
-              onClick={() => setActiveFocus("all")}
-              className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
-                activeFocus === "all"
-                  ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
-                  : "border-stone-300 hover:border-black"
-              }`}
-            /> */}
             {focusAreas.map((focusArea) => (
               <button
                 key={focusArea.slug}
@@ -157,7 +149,7 @@ export default function TrendsPage({
       {filteredTrends.length === 0 && (
         <div className="text-center py-12">
           <p className="text-darkText">
-            No tips found in this category right now.
+            No trends found in this category right now.
           </p>
         </div>
       )}

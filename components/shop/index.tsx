@@ -59,7 +59,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-2">
+                <div className="p-4">
                   <span className="inline-block rounded-full bg-stone-100 px-3 py-1 text-xs uppercase tracking-wider text-yellowText">
                     {product.category.name}
                   </span>
