@@ -39,7 +39,7 @@ const AdminNav = () => {
   const currentAdmin = authManager.getAdminUser();
   return (
     <div>
-      <header className="md:flex block justify-between items-center border-b p-2 shadow-sm mb-6">
+      <header className="md:flex justify-between items-center border-b p-2 shadow-sm mb-6">
         <Link
           href="/"
           className="border rounded-md border-darkText p-2 flex gap-2"
@@ -47,11 +47,9 @@ const AdminNav = () => {
           <ArrowLeft /> <span>Home</span>
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-gray-800">
-            Seraphé Admin Dashboard
-          </h1>
+          <h1 className="text-xl font-bold text-gray-800">Seraphé Admin</h1>
           <p className="py-2 md:py-0 text-sm text-gray-500">
-            Welcome back, {currentAdmin?.name || "Admin"}
+            {currentAdmin?.name || "Admin"}
           </p>
         </div>
         <button
