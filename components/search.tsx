@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Category, Product, Tips, Trends } from "./types/api";
 import Link from "next/link";
 
-// Define the shape of our search results
 export interface SearchItem {
   id: string;
   title: string;
@@ -39,7 +38,6 @@ export default function PredictiveSearch({
   //   const [filteredResults, setFilteredResults] = useState<SearchItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus input automatically when search overlay opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
@@ -217,10 +215,16 @@ export default function PredictiveSearch({
               ))}
 
               {/* View All Button matching reference image */}
-              <button className="w-full mt-4 bg-amber-900 hover:bg-amber-950 text-white font-medium py-3 px-4 flex items-center justify-center gap-2 transition-all uppercase tracking-wider text-sm">
+              <Link
+                href={`/search?q=${encodeURIComponent(query)}${
+                  activeTab !== "all" ? `&type=${activeTab}` : ""
+                }`}
+                onClick={onClose}
+                className="w-full mt-4 bg-amber-900 hover:bg-amber-950 text-white font-medium py-3 px-4 flex items-center justify-center gap-2 transition-all uppercase tracking-wider text-sm"
+              >
                 View all results
                 <span className="text-lg">→</span>
-              </button>
+              </Link>
             </div>
           ) : (
             <p className="text-gray-500 text-sm">

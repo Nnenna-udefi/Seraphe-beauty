@@ -44,15 +44,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [categories, trendFocusAreas, teamGrouped, products, trends, tips] =
-    await Promise.all([
-      api.publicShop.getCategories(),
-      api.publicShop.getTrendsByFocusAreas(),
-      api.publicShop.getTeamByGrouped(),
-      api.publicShop.getProducts(),
-      api.publicShop.getTrends(),
-      api.publicShop.getBeautyTips(),
-    ]);
+  const [
+    categories,
+    trendFocusAreas,
+    teamGrouped,
+    products,
+    trends,
+    tips,
+    lifestyle,
+  ] = await Promise.all([
+    api.publicShop.getCategories(),
+    api.publicShop.getTrendsByFocusAreas(),
+    api.publicShop.getTeamByGrouped(),
+    api.publicShop.getProducts(),
+    api.publicShop.getTrends(),
+    api.publicShop.getBeautyTips(),
+    api.publicShop.getLifestyle(),
+  ]);
   return (
     <html
       lang="en"
@@ -66,6 +74,7 @@ export default async function RootLayout({
           products={products}
           trends={trends}
           tips={tips}
+          lifestyle={lifestyle}
         >
           <Nav />
           <AuthProvider>{children}</AuthProvider>

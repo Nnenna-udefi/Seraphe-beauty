@@ -13,13 +13,15 @@ interface CarouselProps<T> {
   title: string;
   data: T[];
   renderItem: (item: T) => React.ReactNode;
+  getKey: (item: T) => string | number;
   className?: string;
 }
 
-export default function Carousel<T extends { id: string | number }>({
+export default function Carousel<T>({
   title,
   data,
   renderItem,
+  getKey,
   className,
 }: CarouselProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -85,7 +87,7 @@ export default function Carousel<T extends { id: string | number }>({
         className="w-full"
       >
         {data.map((item) => (
-          <SwiperSlide key={item.id} className="">
+          <SwiperSlide key={getKey(item)} className="">
             {renderItem(item)}
           </SwiperSlide>
         ))}

@@ -1,3 +1,13 @@
+export type HomeBlog = {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  createdAt: string;
+  image: string;
+  category: string;
+  type: "tips" | "trends" | "lifestyle";
+};
 export interface Category {
   _id: string;
   name: string;

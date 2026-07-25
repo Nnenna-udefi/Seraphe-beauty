@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { blogDummy, shopDummy } from "./lib/constants";
+// import { blogDummy, shopDummy } from "./lib/constants";
 import Image from "next/image";
-import model from "@/components/images/model.jpeg";
+// import model from "@/components/images/model.jpeg";
 import Community from "./ui/community";
 import { Lifestyle, LifestyleCategory } from "./types/api";
 import Link from "next/link";
@@ -57,7 +57,7 @@ export default function LifestyleAdmin({
         <div className="px-6 md:px-12 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {filteredLifestyle.map((item) => (
-              <div key={item.title} className="pt-6 md:pt-0">
+              <div key={item._id} className="pt-6 md:pt-0">
                 <div className=" ">
                   <Image
                     src={item.image}
@@ -90,7 +90,7 @@ export default function LifestyleAdmin({
         </div>
 
         {/* second section */}
-        <div className="px-6 md:px-12 py-10  md:py-16">
+        {/* <div className="px-6 md:px-12 py-10  md:py-16">
           <div className="py-6 flex md:flex-row gap-3 flex-col justify-between ">
             <div>
               <div className="">
@@ -138,9 +138,9 @@ export default function LifestyleAdmin({
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
         {/* third section */}
-        <div className="px-6 md:px-12 py-10 md:py-16">
+        {/* <div className="px-6 md:px-12 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {shopDummy.map((item) => (
               <div key={item.id} className="pt-6 md:pt-0">
@@ -173,7 +173,7 @@ export default function LifestyleAdmin({
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Join our community */}
 

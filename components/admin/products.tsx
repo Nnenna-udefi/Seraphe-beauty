@@ -194,11 +194,11 @@ export default function AdminProducts() {
     setShowForm(false);
   };
 
-  const getCategoryName = (categoryId: string, categories: Category[]) => {
-    const match = categories.find((c) => c._id === categoryId);
+  // const getCategoryName = (categoryId: string, categories: Category[]) => {
+  //   const match = categories.find((c) => c._id === categoryId);
 
-    return match?.name ?? "Unassigned";
-  };
+  //   return match?.name ?? "Unassigned";
+  // };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -326,7 +326,7 @@ export default function AdminProducts() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Price ($)
+                Price ($/#)
               </label>
               <input
                 type="number"
@@ -559,7 +559,8 @@ export default function AdminProducts() {
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        {getCategoryName(prod.category.name, categories)}
+                        {prod.category.name}
+                        {/* {getCategoryName(prod.category.name, categories)} */}
                       </td>
                       <td className="p-4 font-medium text-gray-800">
                         {prod.discountPrice ? (

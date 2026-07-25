@@ -44,6 +44,7 @@ export default function AdminReviews() {
     const product = products.find((p) => p._id === productId);
     return product ? product.name : "Unknown Product";
   };
+  console.log("Product:", products);
 
   return (
     <div className="space-y-6">

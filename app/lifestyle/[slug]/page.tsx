@@ -7,7 +7,7 @@ import { H1, H3 } from "@/components/ui/heading";
 import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
 import Link from "next/link";
-
+import * as cheerio from "cheerio";
 interface Props {
   params: Promise<{
     slug: string;
@@ -17,14 +17,25 @@ interface Props {
 export default async function LifestyleDetails({ params }: Props) {
   const { slug } = await params;
 
-  const [lifestyle, allLifestyles] = await Promise.all([
+  const [lifestyle, allLifestyles, products] = await Promise.all([
     api.publicShop.getLifestyleBySlug(slug),
     api.publicShop.getLifestyle(),
+    api.publicShop.getProducts(),
   ]);
 
   const related = allLifestyles
     .filter((t) => t.slug !== slug && t.categorySlug === lifestyle.categorySlug)
     .slice(0, 3);
+
+  const $ = cheerio.load(lifestyle.content);
+
+  const headings = $("h1,h2,h3")
+    .map((_, el) => ({
+      id: $(el).attr("id") ?? "",
+      text: $(el).text(),
+      level: el.tagName,
+    }))
+    .get();
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
@@ -48,6 +59,28 @@ export default async function LifestyleDetails({ params }: Props) {
         </p>
 
         <div>{lifestyle.readTimeMinutes} min read</div>
+
+        <ul className="space-y-2">
+          {headings.map((heading) => (
+            <li
+              key={heading.id}
+              className={
+                heading.level === "h2"
+                  ? "ml-3"
+                  : heading.level === "h3"
+                    ? "ml-6"
+                    : ""
+              }
+            >
+              <a
+                href={`#${heading.id}`}
+                className="text-sm text-gray-600 hover:text-black"
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
 
         <div className="py-3">
           <Image
@@ -85,8 +118,9 @@ export default async function LifestyleDetails({ params }: Props) {
                 Shop editor-approved picks and great beauty science innovation
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <ProductCard />
-                <ProductCard />
+                {products.slice(0, 2).map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
               </div>
             </div>
           </div>

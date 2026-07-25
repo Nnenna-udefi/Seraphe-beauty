@@ -74,7 +74,7 @@ export default function TipsPage({
         <div className="grid gap-6 md:grid-cols-2">
           {filteredTips.map((tip) => (
             <article
-              key={tip.title}
+              key={tip._id}
               className="bg-white border border-boxBg rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between"
             >
               <div>

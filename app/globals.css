@@ -85,3 +85,7 @@ h6 {
 .tiptap-content li {
   margin: 0.4rem 0;
 }
+
+button {
+  cursor: pointer;
+}

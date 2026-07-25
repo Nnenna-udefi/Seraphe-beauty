@@ -2,6 +2,7 @@
 
 import {
   Category,
+  Lifestyle,
   Product,
   TeamGrouped,
   Tips,
@@ -18,6 +19,7 @@ export function SiteProvider({
   products,
   trends,
   tips,
+  lifestyle,
 }: {
   children: React.ReactNode;
   categories: Category[];
@@ -26,6 +28,7 @@ export function SiteProvider({
   products: Product[];
   trends: Trends[];
   tips: Tips[];
+  lifestyle: Lifestyle[];
 }) {
   return (
     <SiteContext.Provider
@@ -36,6 +39,7 @@ export function SiteProvider({
         products,
         trends,
         tips,
+        lifestyle,
       }}
     >
       {children}

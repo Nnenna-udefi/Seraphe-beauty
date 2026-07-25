@@ -4,6 +4,7 @@ import { createContext, useContext } from "react";
 
 import {
   Category,
+  Lifestyle,
   Product,
   TeamGrouped,
   Tips,
@@ -18,6 +19,7 @@ type SiteContextType = {
   products: Product[];
   trends: Trends[];
   tips: Tips[];
+  lifestyle: Lifestyle[];
 };
 
 const SiteContext = createContext<SiteContextType | null>(null);

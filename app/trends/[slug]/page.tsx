@@ -6,7 +6,8 @@ import Community from "@/components/ui/community";
 import { H1, H3 } from "@/components/ui/heading";
 import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
-
+import Link from "next/link";
+import * as cheerio from "cheerio";
 interface Props {
   params: Promise<{
     slug: string;
@@ -16,14 +17,25 @@ interface Props {
 export default async function TrendDetails({ params }: Props) {
   const { slug } = await params;
 
-  const [trend, allTrends] = await Promise.all([
+  const [trend, allTrends, products] = await Promise.all([
     api.publicShop.getTrendsBySlug(slug),
     api.publicShop.getTrends(),
+    api.publicShop.getProducts(),
   ]);
 
   const related = allTrends
     .filter((t) => t.slug !== slug && t.focusAreaSlug === trend.focusAreaSlug)
     .slice(0, 3);
+
+  const $ = cheerio.load(trend.content);
+
+  const headings = $("h1,h2,h3")
+    .map((_, el) => ({
+      id: $(el).attr("id") ?? "",
+      text: $(el).text(),
+      level: el.tagName,
+    }))
+    .get();
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
@@ -47,9 +59,30 @@ export default async function TrendDetails({ params }: Props) {
         </p>
 
         <div>
-          {trend.label}•{trend.readTimeMinutes} min read
+          {trend.label} • {trend.readTimeMinutes} min read
         </div>
 
+        <ul className="space-y-2">
+          {headings.map((heading) => (
+            <li
+              key={heading.id}
+              className={
+                heading.level === "h2"
+                  ? "ml-3"
+                  : heading.level === "h3"
+                    ? "ml-6"
+                    : ""
+              }
+            >
+              <a
+                href={`#${heading.id}`}
+                className="text-sm text-gray-600 hover:text-black"
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
         <div className="py-3">
           <Image
             src={trend.featureImage}
@@ -70,9 +103,9 @@ export default async function TrendDetails({ params }: Props) {
               />
 
               <div className="flex gap-2 flex-wrap">
-                {trend.images.map((image) => (
+                {trend.images.map((image, index) => (
                   <Image
-                    key={trend.title}
+                    key={image || index}
                     src={image}
                     alt={trend.title}
                     width={1200}
@@ -100,8 +133,9 @@ export default async function TrendDetails({ params }: Props) {
                 Shop editor-approved picks and great beauty science innovation
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <ProductCard />
-                <ProductCard />
+                {products.slice(0, 4).map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
               </div>
             </div>
           </div>

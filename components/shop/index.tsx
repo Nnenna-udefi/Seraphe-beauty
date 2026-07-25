@@ -1,12 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { H1, H3 } from "../ui/heading";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "../ui/button";
+import { H1 } from "../ui/heading";
 import { useSite } from "../helper/siteContext";
 import { Product } from "../types/api";
-import { Star } from "lucide-react";
+import ProductCard from "../ui/productCard";
 
 const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const { categories } = useSite();
@@ -47,38 +44,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
           </h2>
           <div className="py-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {filteredProducts.map((product) => (
-              <div
-                key={product.name}
-                className="group rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-                <div className=" pt-2">
-                  <Image
-                    src={product.images[0]}
-                    alt={product.name}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4">
-                  <span className="inline-block rounded-full bg-stone-100 px-3 py-1 text-xs uppercase tracking-wider text-yellowText">
-                    {product.category.name}
-                  </span>
-                  <H3 className="mt-3 line-clamp-2">{product.name}</H3>
-                  <p className="line-clamp-3 text-sm text-darkText">
-                    {product.shortDescription}
-                  </p>
-                  <div className="flex py-3 justify-between">
-                    <p className="text-xl font-semibold">${product.price}</p>
-                    <Star className="fill-yellow-400 text-yellow-400" />
-                    4.8
-                  </div>
-
-                  <Link href={`/shop/products/${product.slug}`}>
-                    <Button className="w-full">View Details</Button>
-                  </Link>
-                </div>
-              </div>
+              <ProductCard key={product.name} product={product} />
             ))}
           </div>
         </div>

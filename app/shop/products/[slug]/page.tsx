@@ -3,6 +3,8 @@ import { H1 } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import Reviews from "@/components/reviews";
 import { api } from "@/components/lib/api";
+import { Star } from "lucide-react";
+import Breadcrumb from "@/components/ui/breadCrumbs";
 
 export default async function ProductDetailsPage({
   params,
@@ -10,6 +12,7 @@ export default async function ProductDetailsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const reviews = await api.publicShop.getProductReviewsBySlug(slug);
 
   let product;
   // let relatedProducts;
@@ -27,9 +30,22 @@ export default async function ProductDetailsPage({
     );
   }
 
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      : 0;
+
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
       <div className="max-w-6xl mx-auto px-6">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Shop", href: "/shop" },
+
+            { label: product.name },
+          ]}
+        />
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-full">
             <Image
@@ -47,7 +63,18 @@ export default async function ProductDetailsPage({
             </h3>
 
             <H1>{product.name}</H1>
-            <p>★★★★☆ 4.8 (23 reviews)</p>
+            <div className="flex items-center gap-2">
+              <Star className="fill-yellow-400 text-yellow-400" />
+
+              {reviews.length > 0 ? (
+                <>
+                  <span>{averageRating.toFixed(1)}</span>
+                  <span>({reviews.length} reviews)</span>
+                </>
+              ) : (
+                <span>No reviews yet</span>
+              )}
+            </div>
 
             <p className="text-base leading-8 text-darkText">
               {product.description}
