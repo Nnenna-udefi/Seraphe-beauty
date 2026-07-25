@@ -116,7 +116,7 @@ export default function AdminCategories() {
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
-        <div>
+        <div className="pb-2 md:pb-0">
           <h1 className="text-3xl font-serif font-bold">Categories</h1>
         </div>
         <button
@@ -164,7 +164,7 @@ export default function AdminCategories() {
       )}
 
       {/* Categories Data Display Table */}
-      <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
+      <div className="bg-white border rounded-lg overflow-hidden text-sm w-full shadow-sm">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-10 w-10 animate-spin text-black" />

@@ -223,7 +223,7 @@ export default function AdminBeautyTips() {
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
-        <div>
+        <div className="pb-2 md:pb-0">
           <h1 className="text-3xl font-serif font-bold">
             Beauty Tips Articles
           </h1>
@@ -389,7 +389,7 @@ export default function AdminBeautyTips() {
             <Tiptap
               value={content}
               onChange={setContent}
-              className="tiptap-content"
+              className="prose prose-neutral max-w-none"
             />
           </div>
 

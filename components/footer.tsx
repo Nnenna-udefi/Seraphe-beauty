@@ -82,7 +82,7 @@ export const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="py-2 px-3 bg-gray-300 text-sm md:text-base text-darkText placeholder:text-darkText"
+                className="py-2 px-3 bg-gray-300 text-sm md:text-base max-w-full text-darkText placeholder:text-darkText"
               />
               <button type="submit" className="bg-primaryBg text-white p-2">
                 Sign Up

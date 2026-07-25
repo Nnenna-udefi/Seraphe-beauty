@@ -79,9 +79,9 @@ const Reviews = ({ productSlug }: { productSlug: string }) => {
       await api.publicShop.postProductReviewsBySlug(productSlug, reviewPayload);
 
       if (shouldSubscribe) {
-        console.log(
-          `Adding ${reviewerEmail} to the Seraphé newsletter list...`,
-        );
+        // console.log(
+        //   `Adding ${reviewerEmail} to the Seraphé newsletter list...`,
+        // );
         // Persist email locally so future forms also auto-fill
         localStorage.setItem("newsletterEmail", reviewerEmail);
         // await fetch('/api/newsletter/subscribe', { method: 'POST', body: JSON.stringify({ email: reviewerEmail }) })
@@ -96,6 +96,8 @@ const Reviews = ({ productSlug }: { productSlug: string }) => {
       setReviewText("");
       setReviewerName("");
       setIsModalOpen(false);
+      setReviewerEmail("");
+      setRating(0);
     } catch (error) {
       console.error("Submission failed", error);
     } finally {

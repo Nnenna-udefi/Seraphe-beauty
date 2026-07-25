@@ -28,15 +28,15 @@ export default async function LifestyleDetails({ params }: Props) {
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Beauty Lifestyles", href: "/beauty-Lifestyles" },
+      <div className="max-w-8xl mx-auto px-6">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Beauty Lifestyles", href: "/beauty-Lifestyles" },
 
-          { label: lifestyle.title },
-        ]}
-      />
-      <div className="max-w-6xl mx-auto px-6">
+            { label: lifestyle.title },
+          ]}
+        />
         <h3 className="uppercase text-yellowText text-sm py-2">
           {lifestyle.category}
         </h3>
@@ -54,7 +54,7 @@ export default async function LifestyleDetails({ params }: Props) {
             src={lifestyle.image}
             alt={lifestyle.title}
             width={1200}
-            height={600}
+            height={400}
             className="w-full object-cover"
           />
         </div>

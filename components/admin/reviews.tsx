@@ -48,12 +48,7 @@ export default function AdminReviews() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-serif font-bold">
-          Store Product Reviews Log
-        </h1>
-        <p className="text-sm text-gray-500">
-          Monitor incoming product ratings and newsletter subscription updates.
-        </p>
+        <h1 className="text-3xl font-serif font-bold">Product Reviews Log</h1>
       </div>
 
       <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
@@ -66,7 +61,7 @@ export default function AdminReviews() {
             No reviews yet.
           </div>
         ) : (
-          <table className="w-full text-left border-collapse">
+          <table className="max-w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                 <th className="p-4">Name</th>

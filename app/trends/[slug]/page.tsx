@@ -76,7 +76,7 @@ export default async function TrendDetails({ params }: Props) {
                     src={image}
                     alt={trend.title}
                     width={1200}
-                    height={600}
+                    height={400}
                     className="w-full object-cover"
                   />
                 ))}

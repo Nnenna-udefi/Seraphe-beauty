@@ -227,7 +227,7 @@ export default function AdminLifestyle() {
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
-        <div>
+        <div className="pb-2 md:pb-0">
           <h1 className="text-3xl font-serif font-bold">Lifestyle Articles</h1>
         </div>
         <button
@@ -378,7 +378,7 @@ export default function AdminLifestyle() {
             <Tiptap
               value={content}
               onChange={setContent}
-              className="tiptap-content"
+              className="prose prose-neutral max-w-none"
             />
           </div>
 

@@ -81,7 +81,7 @@ export default function AdminDashboard() {
         );
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
-        toast.error("Failed to load dashboard");
+        toast.error("Failed to load dashboard, Logout and Log in again");
       }
     };
 

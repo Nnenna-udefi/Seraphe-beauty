@@ -6,6 +6,7 @@ import Image from "next/image";
 import model from "@/components/images/model.jpeg";
 import Community from "./ui/community";
 import { Lifestyle, LifestyleCategory } from "./types/api";
+import Link from "next/link";
 
 export default function LifestyleAdmin({
   lifestyle,
@@ -75,6 +76,14 @@ export default function LifestyleAdmin({
                     {item.author}
                   </p>
                 </div>
+                <Link href={`/lifestyle/${item.slug}`}>
+                  <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
+                    Explore Lifestyle
+                    <span className="transform transition-transform group-hover:translate-x-1">
+                      &rarr;
+                    </span>
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -153,6 +162,14 @@ export default function LifestyleAdmin({
                     {item.author}
                   </p>
                 </div>
+                <Link href={`/lifestyle}`}>
+                  <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
+                    Explore Lifestyle
+                    <span className="transform transition-transform group-hover:translate-x-1">
+                      &rarr;
+                    </span>
+                  </button>
+                </Link>
               </div>
             ))}
           </div>

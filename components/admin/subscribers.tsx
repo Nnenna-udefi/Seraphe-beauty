@@ -72,7 +72,7 @@ export default function AdminSubscribers() {
       </div>
 
       {/* subscribers Data Display Table */}
-      <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
+      <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-full shadow-sm">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-10 w-10 animate-spin text-black" />

@@ -60,7 +60,7 @@ export default async function ProductDetailsPage({
               <p>Quantity: {product.stock}</p>
             </div>
 
-            <Button className="w-fit">Buy Now</Button>
+            <Button className="w-full">Buy Online</Button>
           </div>
         </div>
 

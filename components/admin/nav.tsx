@@ -74,10 +74,11 @@ const AdminNav = () => {
 
           <button
             onClick={handleLogout}
-            className="rounded-md bg-red-50 p-2 text-red-600 hover:bg-red-100 transition"
+            className="rounded-md flex gap-2 bg-red-50 p-2 text-red-600 hover:bg-red-100 transition"
             title="Logout"
           >
             <LogOut size={18} />
+            <span className="hidden md:block text-black">Log Out</span>
           </button>
         </div>
       </div>

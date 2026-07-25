@@ -68,7 +68,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                   <p className="line-clamp-3 text-sm text-darkText">
                     {product.shortDescription}
                   </p>
-                  <div className="flex justify-between">
+                  <div className="flex py-3 justify-between">
                     <p className="text-xl font-semibold">${product.price}</p>
                     <Star className="fill-yellow-400 text-yellow-400" />
                     4.8

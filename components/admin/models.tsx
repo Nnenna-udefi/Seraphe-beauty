@@ -193,7 +193,7 @@ export default function AdminModels() {
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
-        <div>
+        <div className="pb-2 md:pb-0">
           <h1 className="text-3xl font-serif font-bold">Models</h1>
         </div>
         <button

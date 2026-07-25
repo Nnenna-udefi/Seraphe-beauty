@@ -56,7 +56,7 @@ export default async function TipDetails({ params }: Props) {
             src={tip.image}
             alt={tip.title}
             width={1200}
-            height={600}
+            height={400}
             className="w-full object-cover"
           />
         </div>
