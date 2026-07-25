@@ -1,11 +1,16 @@
 export interface Category {
   _id: string;
   name: string;
-  slug?: string;
+  slug: string;
   description?: string;
   isActive?: boolean;
   order?: number;
   image?: string;
+}
+
+export interface ProductResponse {
+  product: Product;
+  relatedProducts: Product[];
 }
 
 export interface Product {

@@ -10,6 +10,7 @@ import {
   ModelsCategory,
   Product,
   ProductPayload,
+  ProductResponse,
   PublicShopOverview,
   Review,
   ReviewPayload,
@@ -54,8 +55,8 @@ export const api = {
     getProducts: (): Promise<Product[]> =>
       apiRequest<Product[]>("/shop/products"),
 
-    getProductBySlug: (slug: string): Promise<Product> =>
-      apiRequest<Product>(`/shop/products/${slug}`),
+    getProductBySlug: (slug: string): Promise<ProductResponse> =>
+      apiRequest<ProductResponse>(`/shop/products/${slug}`),
 
     getProductReviewsBySlug: (slug: string): Promise<Review[]> =>
       apiRequest<Review[]>(`/shop/products/${slug}/reviews`),

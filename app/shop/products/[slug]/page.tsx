@@ -12,9 +12,13 @@ export default async function ProductDetailsPage({
   const { slug } = await params;
 
   let product;
+  // let relatedProducts;
 
   try {
-    product = await api.publicShop.getProductBySlug(slug);
+    const response = await api.publicShop.getProductBySlug(slug);
+
+    product = response.product;
+    // relatedProducts = response.relatedProducts;
   } catch {
     return (
       <div className="min-h-screen flex items-center justify-center">

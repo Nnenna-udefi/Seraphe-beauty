@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { GrDashboard } from "react-icons/gr";
 import { BiCategory, BiShoppingBag } from "react-icons/bi";
 import {
-  FaBookOpen,
   FaLifeRing,
   FaRegCommentDots,
   FaSuperpowers,
@@ -20,7 +19,6 @@ import AdminNav from "@/components/admin/nav";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
-  { icon: FaBookOpen, text: "Blog", link: "/admin/blog" },
   { icon: BiCategory, text: "Categories", link: "/admin/categories" },
   { icon: BiShoppingBag, text: "Products", link: "/admin/products" },
   { icon: FaRegCommentDots, text: "Reviews", link: "/admin/reviews" },
@@ -55,15 +53,40 @@ export default function AdminLayout({
                 <Link
                   key={item.text}
                   href={item.link}
-                  className={`flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 rounded-lg px-2 md:px-4 py-3 transition-colors ${
+                  className={`group relative flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 rounded-lg px-2 md:px-4 py-3 transition-colors ${
                     isActive
                       ? "bg-secondary text-secondaryText font-semibold"
                       : "text-black hover:bg-darkText hover:text-white"
                   }`}
                 >
-                  {Icon && <Icon className="text-xl shrink-0" />}
+                  <Icon className="text-xl shrink-0" />
 
+                  {/* Desktop Label */}
                   <span className="hidden md:inline text-sm">{item.text}</span>
+
+                  {/* Mobile Tooltip */}
+                  <span
+                    className="
+      absolute left-full ml-3
+      whitespace-nowrap
+      rounded-md
+      bg-gray-900
+      px-3 py-2
+      text-xs
+      text-white
+      opacity-0
+      invisible
+      transition-all
+      duration-200
+      group-hover:opacity-100
+      group-hover:visible
+      md:hidden
+      z-50
+      shadow-lg
+    "
+                  >
+                    {item.text}
+                  </span>
                 </Link>
               );
             })}

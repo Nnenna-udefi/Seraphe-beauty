@@ -375,7 +375,11 @@ export default function AdminLifestyle() {
             <label className="text-xs uppercase font-semibold text-gray-500">
               Content
             </label>
-            <Tiptap value={content} onChange={setContent} />
+            <Tiptap
+              value={content}
+              onChange={setContent}
+              className="tiptap-content"
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">

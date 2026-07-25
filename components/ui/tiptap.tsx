@@ -6,9 +6,10 @@ import StarterKit from "@tiptap/starter-kit";
 interface TiptapProps {
   value: string;
   onChange: (value: string) => void;
+  className: string;
 }
 
-export default function Tiptap({ value, onChange }: TiptapProps) {
+export default function Tiptap({ value, onChange, className }: TiptapProps) {
   const editor = useEditor({
     extensions: [StarterKit],
     content: value,
@@ -20,7 +21,7 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
 
   return (
     <div className="border rounded-lg p-3 min-h-60">
-      <div className="flex gap-2 border-b p-2">
+      <div className="flex gap-2 justify-between items-center border-b p-2">
         <button
           type="button"
           onClick={() => editor?.chain().focus().toggleBold().run()}
@@ -42,7 +43,7 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
           className="border-l, border-r p-1"
         >
-          ol
+          ol (.)
         </button>
 
         <button
@@ -50,11 +51,11 @@ export default function Tiptap({ value, onChange }: TiptapProps) {
           onClick={() => editor?.chain().focus().toggleOrderedList().run()}
           className="border-l, border-r p-1"
         >
-          ul
+          ul (1)
         </button>
       </div>
 
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} className={className} />
     </div>
   );
 }
