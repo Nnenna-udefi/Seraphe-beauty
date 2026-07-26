@@ -148,7 +148,7 @@ const Home = () => {
                     {item.title}
                   </h4>
                   <p className="uppercase text-darkText text-sm mt-auto">
-                    {item.author}
+                    By {item.author}
                   </p>
                 </div>
               </div>
@@ -183,7 +183,7 @@ const Home = () => {
                     {item.title}
                   </h4>
                   <p className="uppercase text-darkText text-sm mt-auto">
-                    {item.author}
+                    By {item.author}
                   </p>
                 </div>
               </div>

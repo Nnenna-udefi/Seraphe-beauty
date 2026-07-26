@@ -6,7 +6,6 @@ import Community from "@/components/ui/community";
 import { H1, H3 } from "@/components/ui/heading";
 import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
-import Link from "next/link";
 import * as cheerio from "cheerio";
 interface Props {
   params: Promise<{
@@ -71,14 +70,14 @@ export default async function TrendDetails({ params }: Props) {
                   ? "ml-3"
                   : heading.level === "h3"
                     ? "ml-6"
-                    : ""
+                    : "flex gap-2 flex-wrap"
               }
             >
               <a
                 href={`#${heading.id}`}
-                className="text-sm text-gray-600 hover:text-black"
+                className="text-sm text-blue-500 hover:text-black"
               >
-                {heading.text}
+                {heading.text} |
               </a>
             </li>
           ))}

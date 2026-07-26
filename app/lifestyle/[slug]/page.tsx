@@ -43,7 +43,7 @@ export default async function LifestyleDetails({ params }: Props) {
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
-            { label: "Beauty Lifestyles", href: "/beauty-Lifestyles" },
+            { label: "Beauty Lifestyles", href: "/lifestyle" },
 
             { label: lifestyle.title },
           ]}
@@ -69,14 +69,14 @@ export default async function LifestyleDetails({ params }: Props) {
                   ? "ml-3"
                   : heading.level === "h3"
                     ? "ml-6"
-                    : ""
+                    : " flex flex-wrap gap-2"
               }
             >
               <a
                 href={`#${heading.id}`}
                 className="text-sm text-gray-600 hover:text-black"
               >
-                {heading.text}
+                {heading.text} |
               </a>
             </li>
           ))}

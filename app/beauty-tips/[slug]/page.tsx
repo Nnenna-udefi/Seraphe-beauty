@@ -72,14 +72,14 @@ export default async function TipDetails({ params }: Props) {
                   ? "ml-3"
                   : heading.level === "h3"
                     ? "ml-6"
-                    : ""
+                    : "flex flex-wrap gap-2"
               }
             >
               <a
                 href={`#${heading.id}`}
                 className="text-sm text-gray-600 hover:text-black"
               >
-                {heading.text}
+                {heading.text} |
               </a>
             </li>
           ))}

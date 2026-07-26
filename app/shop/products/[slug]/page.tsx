@@ -20,7 +20,7 @@ export default async function ProductDetailsPage({
   try {
     const response = await api.publicShop.getProductBySlug(slug);
 
-    product = response.product;
+    product = response;
     // relatedProducts = response.relatedProducts;
   } catch {
     return (

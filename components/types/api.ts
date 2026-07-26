@@ -18,10 +18,10 @@ export interface Category {
   image?: string;
 }
 
-export interface ProductResponse {
-  product: Product;
-  relatedProducts: Product[];
-}
+// export interface ProductResponse {
+//   product: Product;
+//   relatedProducts: Product[];
+// }
 
 export interface Product {
   _id: string;
