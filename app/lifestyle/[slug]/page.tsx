@@ -60,7 +60,7 @@ export default async function LifestyleDetails({ params }: Props) {
 
         <div>{lifestyle.readTimeMinutes} min read</div>
 
-        <ul className="space-y-2">
+        <ul className="space-y-2 flex flex-wrap gap-2">
           {headings.map((heading) => (
             <li
               key={heading.id}
@@ -69,12 +69,12 @@ export default async function LifestyleDetails({ params }: Props) {
                   ? "ml-3"
                   : heading.level === "h3"
                     ? "ml-6"
-                    : " flex flex-wrap gap-2"
+                    : ""
               }
             >
               <a
                 href={`#${heading.id}`}
-                className="text-sm text-gray-600 hover:text-black"
+                className="text-sm text-blue-500 hover:text-black"
               >
                 {heading.text} |
               </a>

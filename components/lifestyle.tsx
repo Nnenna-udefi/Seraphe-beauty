@@ -76,7 +76,7 @@ export default function LifestyleAdmin({
                     {item.author}
                   </p>
                 </div>
-                <Link href={`/lifestyle/${item.slug}`}>
+                <Link href={`/lifestyle/${item.slug}`} className=" py-2">
                   <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
                     Explore Lifestyle
                     <span className="transform transition-transform group-hover:translate-x-1">

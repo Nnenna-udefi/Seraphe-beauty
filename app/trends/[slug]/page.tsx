@@ -61,7 +61,7 @@ export default async function TrendDetails({ params }: Props) {
           {trend.label} • {trend.readTimeMinutes} min read
         </div>
 
-        <ul className="space-y-2">
+        <ul className="space-y-2 flex gap-2 flex-wrap">
           {headings.map((heading) => (
             <li
               key={heading.id}
@@ -70,7 +70,7 @@ export default async function TrendDetails({ params }: Props) {
                   ? "ml-3"
                   : heading.level === "h3"
                     ? "ml-6"
-                    : "flex gap-2 flex-wrap"
+                    : ""
               }
             >
               <a
