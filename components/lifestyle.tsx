@@ -23,7 +23,7 @@ export default function LifestyleAdmin({
       : lifestyle.filter((tip) => tip.categorySlug === activeCategory);
   return (
     <div className="min-h-screen py-10 md:py-16">
-      <div className="max-w-8xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-4 items-center">
           <h1 className="font-contataOne text-black md:text-5xl text-3xl font-normal">
             Lifestyle

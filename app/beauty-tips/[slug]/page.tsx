@@ -40,6 +40,7 @@ export default async function TipDetails({ params }: Props) {
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
+      <div className="max-w-7xl mx-auto px-6">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -48,7 +49,6 @@ export default async function TipDetails({ params }: Props) {
           { label: tip.title },
         ]}
       />
-      <div className="max-w-6xl mx-auto px-6">
         <h3 className="uppercase text-yellowText text-sm py-2">
           {tip.category}
         </h3>
@@ -59,8 +59,8 @@ export default async function TipDetails({ params }: Props) {
           <span>{formatDate(tip.createdAt)}</span>
         </p>
 
-        <div>
-          {tip.level}•{tip.readTimeMinutes} min read
+        <div className=" flex gap-1 items-center text-sm py-2">
+          <span>{tip.level}</span> • <span>{tip.readTimeMinutes}</span> min read
         </div>
 
         <ul className="space-y-2 flex flex-wrap gap-2">

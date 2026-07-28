@@ -96,6 +96,11 @@ export interface Review {
   updatedAt: string;
 }
 
+export interface CreateSubscriberRequest {
+  email: string;
+  name: string;
+}
+
 export interface Subscribers {
   _id: string;
   name: string;
@@ -109,16 +114,12 @@ export interface Model {
   _id: string;
   name: string;
   slug: string;
-  category: string;
-  categorySlug: string;
-  badge: string;
-  location: string;
-  portfolioSummary: string;
+  specialty: string;
+  height: string;
   bio: string;
+  hobbies: string[];
   featureImage: string;
   images: string[];
-  tags?: string[];
-  isFeatured?: boolean;
   order: number;
   createdAt: string;
   updatedAt: string;
@@ -243,16 +244,13 @@ export interface ReviewPayload {
 
 export interface ModelPayload {
   name: string;
-  category: string;
-  badge: string;
-  location: string;
-  portfolioSummary: string;
+  slug: string;
+  specialty: string;
+  height: string;
   bio: string;
+  hobbies: string[];
   featureImage: string;
   images: string[];
-  tags?: string[];
-  isFeatured?: boolean;
-  order: number;
 }
 
 export interface TeamPayload {

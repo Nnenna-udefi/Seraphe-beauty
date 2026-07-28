@@ -2,6 +2,7 @@ import {
   AuthResponse,
   Category,
   CategoryPayload,
+  CreateSubscriberRequest,
   Lifestyle,
   LifestyleCategory,
   LifestylePayload,
@@ -113,6 +114,13 @@ export const api = {
 
     getTeamBySection: (): Promise<TeamSections[]> =>
       apiRequest<TeamSections[]>(`/team/section`),
+
+    // COMMUNITY
+    createSubscriber: (data: CreateSubscriberRequest): Promise<CreateSubscriberRequest> =>
+      apiRequest<CreateSubscriberRequest>("/community/signup", {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
   },
 
   // ADMIN DASHBOARD ENDPOINTS

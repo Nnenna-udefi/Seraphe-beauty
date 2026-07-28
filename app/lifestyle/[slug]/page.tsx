@@ -39,7 +39,7 @@ export default async function LifestyleDetails({ params }: Props) {
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
-      <div className="max-w-8xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
@@ -58,7 +58,9 @@ export default async function LifestyleDetails({ params }: Props) {
           <span>{formatDate(lifestyle.createdAt)}</span>
         </p>
 
-        <div>{lifestyle.readTimeMinutes} min read</div>
+        <div className=" py-2">
+          <span>{lifestyle.readTimeMinutes}</span> min read
+        </div>
 
         <ul className="space-y-2 flex flex-wrap gap-2">
           {headings.map((heading) => (

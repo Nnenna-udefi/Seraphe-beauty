@@ -38,7 +38,7 @@ export default async function TrendDetails({ params }: Props) {
 
   return (
     <div className="py-10 md:px-12 min-h-screen md:py-16">
-      <div className="max-w-8xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
@@ -57,8 +57,8 @@ export default async function TrendDetails({ params }: Props) {
           {formatDate(trend.createdAt)}
         </p>
 
-        <div>
-          {trend.label} • {trend.readTimeMinutes} min read
+        <div className="py-2 flex gap-1 items-center text-sm">
+          <span>{trend.label}</span> • <span>{trend.readTimeMinutes}</span> min read
         </div>
 
         <ul className="space-y-2 flex gap-2 flex-wrap">
