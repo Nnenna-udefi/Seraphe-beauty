@@ -94,8 +94,8 @@ export const api = {
     getModelByCategories: (): Promise<ModelsCategory[]> =>
       apiRequest<ModelsCategory[]>("/seraphe-models/categories"),
 
-    getModelBySlug: (slug: string): Promise<Model> =>
-      apiRequest<Model>(`/seraphe-models/${slug}`),
+    getModelById: (id: string): Promise<Model> =>
+      apiRequest<Model>(`/seraphe-models/${id}`),
 
     // trends
     getTrends: (): Promise<Trends[]> => apiRequest<Trends[]>("/trends"),
