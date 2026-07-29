@@ -9,29 +9,29 @@ import DeleteModal from "./deleteModal";
 import { useAuth } from "../context/authContext";
 import ImageUploader from "../helper/imageUploader";
 
+const specialties = [
+  "Runway",
+  "Editorial",
+  "Commercial",
+  "Fitness",]
+
 export default function AdminModels() {
   const router = useRouter();
   const [models, setModels] = useState<Model[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
-  const [price, setPrice] = useState<number>(0);
-  const [category, setCategory] = useState("");
-  const [badge, setBadge] = useState("");
+  const [specialty, setSpecialty] = useState("");
   const [bio, setBio] = useState("");
-  const [location, setLocation] = useState("");
-  const [portfolioSummary, setPortfolioSummary] = useState("");
+  const [height, setHeight] = useState("");
+  const [hobbies, setHobbies] = useState("");
   const [featureImage, setFeatureImage] = useState("");
-  const [tags, setTags] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [isFeatured, setIsFeatured] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
-  const [order, setOrder] = useState(1);
   const [deleting, setDeleting] = useState(false);
   const { isAuthenticated } = useAuth();
 
@@ -44,13 +44,11 @@ export default function AdminModels() {
 
     const initData = async () => {
       try {
-        const [modelData, catData] = await Promise.all([
-          api.adminShop.getModels(),
-          api.adminShop.getCategories(),
-        ]);
-
+        const modelData = await
+          api.adminShop.getModels();
+        
         setModels(modelData);
-        setCategories(catData);
+ 
       } catch (error: unknown) {
         const errMsg =
           error instanceof Error ? error.message : "Data fetch error";
@@ -79,24 +77,20 @@ export default function AdminModels() {
   // 2. CREATE & UPDATE Handler
   const handleSaveModel = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category) return toast.error("Please select a target category.");
+  
 
     setSubmitting(true);
     const payload = {
       name,
       slug,
-      price: Number(price),
-      category,
-      badge,
-      portfolioSummary,
       featureImage,
       images,
-      location,
+
       bio,
-      order,
-      isFeatured,
-      tags: tags
-        ? tags
+      specialty,
+      height,
+     hobbies: hobbies
+        ?hobbies
             .split(",")
             .map((tag) => tag.trim())
             .filter(Boolean)
@@ -147,10 +141,8 @@ export default function AdminModels() {
     setEditingId(model._id);
     setName(model.name);
     setSlug(model.slug);
-    setLocation(model.location);
-    setCategory(model.category);
-    setBadge(model.badge);
-    setPortfolioSummary(model.portfolioSummary);
+    setSpecialty(model.specialty);
+    setHeight(model.height);
     setBio(model.bio);
     const existingImages = Array.isArray(model.images)
       ? model.images
@@ -159,28 +151,20 @@ export default function AdminModels() {
         : [];
     setImages(existingImages);
     setFeatureImage(model.featureImage);
-
-    setIsFeatured(!!model.isFeatured);
-    setTags(Array.isArray(model.tags) ? model.tags.join(", ") : "");
+    setHobbies(Array.isArray(model.hobbies) ? model.hobbies.join(", ") : "");
     setShowForm(true);
-    setOrder(model.order);
   };
 
   const resetForm = () => {
     setEditingId(null);
     setName("");
     setSlug("");
-    setPrice(0);
-    setCategory("");
-    setPortfolioSummary("");
     setBio("");
     setImages([]);
     setFeatureImage("");
-    setLocation("");
-    setBadge("");
-    setIsFeatured(false);
-    setOrder(1);
-    setTags("");
+    setSpecialty("");
+    setHeight("");
+    setHobbies("");
     setShowForm(false);
   };
 
@@ -245,18 +229,18 @@ export default function AdminModels() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Category Classification
+                Specialty
               </label>
               <select
                 required
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={specialty}
+                onChange={(e) => setSpecialty(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
               >
                 <option value="">-- Choose Category --</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
+                {specialties.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
                   </option>
                 ))}
               </select>
@@ -264,14 +248,14 @@ export default function AdminModels() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Badge
+                Height
               </label>
               <input
                 type="text"
-                value={badge}
-                onChange={(e) => setBadge(e.target.value)}
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="Industry icon"
+                placeholder="(e.g., 5'8\')"
               />
             </div>
 
@@ -300,33 +284,8 @@ export default function AdminModels() {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs uppercase font-semibold text-gray-500">
-                Location
-              </label>
-              <input
-                type="text"
-                required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full border p-2 rounded text-sm bg-white"
-                placeholder="Paris"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs uppercase font-semibold text-gray-500">
-                Portfolio Summary
-              </label>
-              <input
-                type="text"
-                required
-                value={portfolioSummary}
-                onChange={(e) => setPortfolioSummary(e.target.value)}
-                className="w-full border p-2 rounded text-sm bg-white"
-                placeholder="Vogue, Chanel, Seraphé Editorial Autumn"
-              />
-            </div>
+           
+          
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
@@ -344,37 +303,17 @@ export default function AdminModels() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Tags (Comma separated)
+                Hobbies (Comma separated)
               </label>
               <input
                 type="text"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
+                value={hobbies}
+                onChange={(e) => setHobbies(e.target.value)}
                 className="w-full border p-2 rounded text-sm bg-white"
                 placeholder="editorial, beauty, runway"
               />
             </div>
 
-            <div className="flex gap-6 items-center pt-2">
-              <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={isFeatured}
-                  onChange={(e) => setIsFeatured(e.target.checked)}
-                  className="rounded border-gray-300 accent-primaryText"
-                />
-                Feature item on homepage
-              </label>
-              <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={isFeatured}
-                  onChange={(e) => setIsFeatured(e.target.checked)}
-                  className="rounded border-gray-300 accent-primaryText"
-                />
-                Item is featured
-              </label>
-            </div>
           </div>
           <button
             type="submit"
@@ -405,10 +344,10 @@ export default function AdminModels() {
             <table className="w-full text-left border-collapse min-w-175">
               <thead>
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
-                  <th className="p-4">Item Details</th>
-                  <th className="p-4">Category</th>
-                  <th className="p-4">Location</th>
-                  <th className="p-4">Summary</th>
+                  <th className="p-4">Model Names</th>
+                  <th className="p-4">Specialty</th>
+                  <th className="p-4">height</th>
+            
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
@@ -436,29 +375,20 @@ export default function AdminModels() {
                           />
                         )}
                         <div>
-                          <div className="font-medium text-gray-800 flex items-center gap-1.5">
+                          <div className="font-medium text-gray-800">
                             {model.name}
-                            {model.isFeatured && (
-                              <span className="text-[9px] bg-purple-100 text-purple-700 font-bold px-1 rounded">
-                                Featured
-                              </span>
-                            )}
+                           
                           </div>
-                          <div className="text-xs text-gray-400">
-                            {model.badge || "No badge"}
-                          </div>
+                        
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                        {getCategoryName(model.category, categories)}
+                       { model.specialty}
                       </td>
                       <td className="p-4 font-medium text-gray-800">
-                        {model.location}
+                        {model.height}
                       </td>
 
-                      <td className="p-4 font-medium text-gray-800">
-                        {model.portfolioSummary}
-                      </td>
 
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
@@ -477,7 +407,7 @@ export default function AdminModels() {
                           Delete
                         </button>
                       </td>
-                      <td>{model.location}</td>
+                    
                     </tr>
                   );
                 })}

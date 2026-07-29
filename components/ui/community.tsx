@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { H1 } from "./heading";
 import { toast } from "sonner";
