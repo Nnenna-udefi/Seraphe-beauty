@@ -7,6 +7,7 @@ import Image from "next/image";
 import Community from "./ui/community";
 import { Lifestyle, LifestyleCategory } from "./types/api";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 export default function LifestyleAdmin({
   lifestyle,
@@ -72,17 +73,18 @@ export default function LifestyleAdmin({
                     {item.category}
                   </h3>
                   <h1 className="md:text-xl text-base py-2 ">{item.title}</h1>
-                  <p className="uppercase text-darkText text-sm">
+                  <p className="uppercase text-darkText text-sm pb-2">
                     {item.author}
                   </p>
                 </div>
-                <Link href={`/lifestyle/${item.slug}`} className=" py-2">
-                  <button className="text-sm font-semibold text-primaryBg hover:text-darkText flex items-center gap-1">
+                <Link href={`/lifestyle/${item.slug}`} className="">
+                           <Button className="mt-5 w-full">View Details
+                 
                     Explore Lifestyle
                     <span className="transform transition-transform group-hover:translate-x-1">
                       &rarr;
                     </span>
-                  </button>
+                  </Button>
                 </Link>
               </div>
             ))}
@@ -174,6 +176,13 @@ export default function LifestyleAdmin({
             ))}
           </div>
         </div> */}
+        {filteredLifestyle.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-darkText">
+            No lifestyles found in this category.
+          </p>
+        </div>
+      )}
 
         {/* Join our community */}
 

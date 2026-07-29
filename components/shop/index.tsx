@@ -15,7 +15,7 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
       : products.filter((product) => product.category.slug === activeCategory);
   return (
     <main className="min-h-screen  py-12 md:px-12 px-6 lg:px-8">
-      <div className="max-w-8xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <H1>Shop</H1>
         <div>
           <h3 className="font-cantataOne py-4 text-lg md:text-lg">

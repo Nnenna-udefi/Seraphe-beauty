@@ -50,7 +50,7 @@ export const Nav = () => {
         <div>
           <div
             onClick={() => setIsSearchOpen(true)}
-            className="bg-white flex items-center gap-3 justify-between px-4 py-2 cursor-pointer w-full "
+            className="bg-secondaryText flex items-center gap-3 justify-between px-4 py-2 cursor-pointer w-full "
           >
             <span className="text-darkText hidden md:block text-sm md:text-base">
               Search Seraphé{" "}

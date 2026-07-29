@@ -12,6 +12,15 @@ import { Loader2 } from "lucide-react";
 import Tiptap from "../ui/tiptap";
 import { useAuth } from "../context/authContext";
 
+const categories = [
+  "All",
+  "Wellness",
+  "Beauty Remedies",
+  "Diet plans",
+  "Exercise",
+  "Fashion Ideas",
+];
+
 export default function AdminLifestyle() {
   const router = useRouter();
   const [articles, setArticles] = useState<Lifestyle[]>([]);
@@ -212,18 +221,18 @@ export default function AdminLifestyle() {
     }
   };
 
-  const handleCategoryChange = (value: string) => {
-    setCategory(value);
+  // const handleCategoryChange = (value: string) => {
+  //   setCategory(value);
 
-    if (!editingId) {
-      setCategorySlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
-  };
+  //   if (!editingId) {
+  //     setCategorySlug(
+  //       value
+  //         .toLowerCase()
+  //         .replace(/[^a-z0-9]+/g, "-")
+  //         .replace(/(^-|-$)/g, ""),
+  //     );
+  //   }
+  // };
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
@@ -280,13 +289,19 @@ export default function AdminLifestyle() {
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Category
               </label>
-              <input
-                type="text"
+             <select
+                required
                 value={category}
-                onChange={(e) => handleCategoryChange(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
-                placeholder="Acne"
-              />
+              >
+                <option value="">-- Choose Category --</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">

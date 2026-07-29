@@ -10,10 +10,14 @@ import { useAuth } from "../context/authContext";
 import ImageUploader from "../helper/imageUploader";
 
 const specialties = [
-  "Runway",
-  "Editorial",
+  "All",
+  "Beauty Editorial",
+  "Skincare Campaigns",
+  "Product Modeling",
   "Commercial",
-  "Fitness",]
+  "Lifestyle",
+  "Beauty & Wellness",
+];
 
 export default function AdminModels() {
   const router = useRouter();

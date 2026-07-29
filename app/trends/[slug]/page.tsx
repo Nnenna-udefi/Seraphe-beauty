@@ -7,6 +7,7 @@ import { H1, H3 } from "@/components/ui/heading";
 import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
 import * as cheerio from "cheerio";
+import { Dot } from "lucide-react";
 interface Props {
   params: Promise<{
     slug: string;
@@ -57,8 +58,8 @@ export default async function TrendDetails({ params }: Props) {
           {formatDate(trend.createdAt)}
         </p>
 
-        <div className="py-2 flex gap-1 items-center text-sm">
-          <span>{trend.label}</span> • <span>{trend.readTimeMinutes}</span> min read
+        <div className="py-2 flex gap-2 items-center text-sm">
+          <span>{trend.label}</span> <Dot /> <span>{trend.readTimeMinutes}</span> mins read
         </div>
 
         <ul className="space-y-2 flex gap-2 flex-wrap">
@@ -75,7 +76,7 @@ export default async function TrendDetails({ params }: Props) {
             >
               <a
                 href={`#${heading.id}`}
-                className="text-sm text-blue-500 hover:text-black"
+                className="text-sm text-primaryText hover:text-black"
               >
                 {heading.text} |
               </a>

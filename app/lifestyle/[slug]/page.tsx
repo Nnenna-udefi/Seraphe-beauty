@@ -59,7 +59,7 @@ export default async function LifestyleDetails({ params }: Props) {
         </p>
 
         <div className=" py-2">
-          <span>{lifestyle.readTimeMinutes}</span> min read
+          <span>{lifestyle.readTimeMinutes}</span> mins read
         </div>
 
         <ul className="space-y-2 flex flex-wrap gap-2">
@@ -76,7 +76,7 @@ export default async function LifestyleDetails({ params }: Props) {
             >
               <a
                 href={`#${heading.id}`}
-                className="text-sm text-blue-500 hover:text-black"
+                className="text-sm text-primaryText hover:text-black"
               >
                 {heading.text} |
               </a>

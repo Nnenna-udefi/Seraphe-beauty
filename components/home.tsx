@@ -73,7 +73,7 @@ const Home = () => {
   };
   return (
     <div className="min-h-screen py-10 md:py-16">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index) => {
             const isFirst = index === 0;
@@ -127,10 +127,10 @@ const Home = () => {
           title="Beauty Tips"
           data={tips}
           getKey={(tips) => tips.slug}
-          className="py-4"
+          className="py-4 px-6 md:px-12"
           renderItem={(item) => (
             <Link href={`/beauty-tips/${item.slug}`}>
-              <div className="flex flex-col h-full ">
+              <div className="flex flex-col h-full">
                 <div className="overflow-hidden bg-gray-100">
                   <Image
                     src={item.image}
@@ -162,7 +162,7 @@ const Home = () => {
           title="Latest Trends"
           data={trends}
           getKey={(trends) => trends.slug}
-          className="bg-boxBg py-4"
+          className="bg-boxBg py-4 px-6 md:px-12"
           renderItem={(item) => (
             <Link href={`/trends/${item.slug}`}>
               <div className="flex flex-col h-full">

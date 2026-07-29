@@ -8,6 +8,7 @@ import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
 import Link from "next/link";
 import * as cheerio from "cheerio";
+import { Dot } from "lucide-react";
 
 interface Props {
   params: Promise<{
@@ -53,14 +54,14 @@ export default async function TipDetails({ params }: Props) {
           {tip.category}
         </h3>
         <H1 className="py-3">{tip.title}</H1>
-        <p className="text-[#484646] flex gap-1 items-center text-sm py-2">
+        <p className="text-[#484646] flex gap-2 items-center text-sm py-2">
           <span>By {""}</span>
-          <span>{tip.author}</span> <span>.</span>{" "}
+          <span>{tip.author}</span> <span><Dot /></span>{" "}
           <span>{formatDate(tip.createdAt)}</span>
         </p>
 
-        <div className=" flex gap-1 items-center text-sm py-2">
-          <span>{tip.level}</span> • <span>{tip.readTimeMinutes}</span> min read
+        <div className=" flex gap-2 items-center text-sm py-2">
+          <span>{tip.level}</span> <Dot /> <span>{tip.readTimeMinutes}</span> mins read
         </div>
 
         <ul className="space-y-2 flex flex-wrap gap-2">
@@ -77,7 +78,7 @@ export default async function TipDetails({ params }: Props) {
             >
               <a
                 href={`#${heading.id}`}
-                className="text-sm text-blue-500 hover:text-black"
+                className="text-sm text-primaryText hover:text-black"
               >
                 {heading.text} |
               </a>
