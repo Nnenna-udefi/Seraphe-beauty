@@ -49,7 +49,7 @@ export default async function ProductDetailsPage({
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-full">
             <Image
-              src={product.images?.[0] || "/placeholder.jpg"}
+              src={product.images?.[0]}
               alt={product.name}
               width={500}
               height={500}

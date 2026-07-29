@@ -1,10 +1,12 @@
 import React from "react";
 import Models from "../../components/models";
+import { api } from "@/components/lib/api";
 
-export default function ModelsPage() {
+export default async function ModelsPage() {
+  const model = await api.publicShop.getModel();
   return (
     <div>
-      <Models />
+      <Models models={model} />
     </div>
   );
 }
