@@ -135,7 +135,7 @@ export default function Models({
                 </div>
 
                 <div className=" items-center  pt-3 border-t border-neutral-50">
-                  <Link href={`/seraphe-models/${model.slug}`} >
+                  <Link href={`/seraphe-models/${model._id}`} >
                   <button className="text-xs font-bold uppercase tracking-widest text-white p-2 bg-primaryBg hover:text-neutral-500 transition-colors duration-200">
                     View Portfolio &rarr;
                   </button>
