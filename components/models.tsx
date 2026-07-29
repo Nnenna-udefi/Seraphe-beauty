@@ -99,6 +99,7 @@ export default function Models({
                 <Image
                   src={model.featureImage}
                   alt={model.name}
+                  width={500}
                   className="w-full h-full object-cover object-top filter grayscale contrast-115 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500"
                   loading="lazy"
                 />

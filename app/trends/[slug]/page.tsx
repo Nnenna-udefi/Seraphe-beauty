@@ -8,6 +8,7 @@ import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
 import * as cheerio from "cheerio";
 import { Dot } from "lucide-react";
+import BlogImageCarousel from "@/components/ui/blogImageCarousel";
 interface Props {
   params: Promise<{
     slug: string;
@@ -102,8 +103,8 @@ export default async function TrendDetails({ params }: Props) {
                 }}
               />
 
-              <div className="flex gap-2 flex-wrap">
-                {trend.images.map((image, index) => (
+              {/* <div className="flex gap-2 flex-wrap"> */}
+                {/* {trend.images.map((image, index) => (
                   <Image
                     key={image || index}
                     src={image}
@@ -112,8 +113,17 @@ export default async function TrendDetails({ params }: Props) {
                     height={400}
                     className="w-full object-cover"
                   />
-                ))}
-              </div>
+                ))} */}
+              {/* </div> */}
+
+              {trend.images?.length > 0 && (
+  <div className="mt-8">
+    <BlogImageCarousel
+      images={trend.images}
+      title={trend.title}
+    />
+  </div>
+)}
 
               <div className="flex flex-wrap gap-2 mt-10">
                 {trend.hashtags.map((tag) => (
