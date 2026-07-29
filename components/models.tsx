@@ -65,7 +65,7 @@ export default function Models({
             Seraphé Collective
           </span>
           <H1>Seraphé Models</H1>
-          <p className="mt-4 text-md font-light text-neutral-500 max-w-xl mx-auto uppercase tracking-wide">
+          <p className="mt-4 text-md  text-neutral-500 max-w-xl mx-auto tracking-wide">
             Curating global breakthroughs and generation-defining faces.
           </p>
         </div>

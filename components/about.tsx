@@ -56,7 +56,7 @@ const About = ({ teams }: { teams: Team[] }) => {
               </div>
             </div>
 
-            <p className="mt-8 max-w-7xl mx-auto mx-auto text-center text-sm md:text-base text-white/90">
+            <p className="mt-8 max-w-7xl mx-auto text-center text-sm md:text-base text-white/90">
               Seraphé is building beauty solutions for more than{" "}
               <strong>350 million indigenous Africans</strong>, while serving a
               potential market of over{" "}

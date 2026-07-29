@@ -9,6 +9,15 @@ import { Lifestyle, LifestyleCategory } from "./types/api";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
+const categories = [
+  "All",
+  "Wellness",
+  "Beauty Remedies",
+  "Diet plans",
+  "Exercise",
+  "Fashion Ideas",
+];
+
 export default function LifestyleAdmin({
   lifestyle,
   categories,
@@ -78,7 +87,7 @@ export default function LifestyleAdmin({
                   </p>
                 </div>
                 <Link href={`/lifestyle/${item.slug}`} className="">
-                           <Button className="mt-5 w-full">View Details
+                           <Button className="mt-5 w-full">
                  
                     Explore Lifestyle
                     <span className="transform transition-transform group-hover:translate-x-1">

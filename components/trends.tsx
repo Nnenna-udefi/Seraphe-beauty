@@ -31,10 +31,10 @@ export default function TrendsPage({
   //   onTagSelect(selectedTag === tag ? null : tag);
   // };
   return (
-    <main className="min-h-screen  text-foreground py-12 px-4 md:px-12 sm:px-6 lg:px-8">
+    <main className="min-h-screen  text-foreground py-12 md:py-12 px-4 md:px-12 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="border-b border-slate-200 pb-8 mb-12">
+        <div className="border-b text-center border-slate-200 pb-8 mb-12">
           <span className="text-xs font-semibold tracking-widest text-yellowText uppercase">
             Seraphé Editorial
           </span>
@@ -47,9 +47,9 @@ export default function TrendsPage({
         </div>
 
         <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-stone-100 mb-12">
-          <p className="text-xs font-bold tracking-widest text-stone-400 uppercase mb-4">
+          {/* <p className="text-xs font-bold tracking-widest text-stone-400 uppercase mb-4">
             Filter content by focus area:
-          </p>
+          </p> */}
 
           <div className="flex flex-wrap gap-3">
             {focusAreas.map((focusArea) => (
