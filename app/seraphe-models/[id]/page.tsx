@@ -53,14 +53,15 @@ export default async function ModelsDetailsPage({
 
             <H1>{model.name}</H1>
 
-            <p>{model.height}</p>
+            <p>Height: {model.height}</p>
 
             {/* Hobbies */}
+            <h3>Hobbies:</h3>
             <div className="flex flex-wrap gap-2 mt-5">
               {model.hobbies.map((hobby: string) => (
                 <span
                   key={hobby}
-                  className="rounded-full bg-boxBg px-3 py-1 text-sm"
+                  className="rounded-full first-letter-cap bg-boxBg px-3 py-1 text-sm"
                 >
                   {hobby}
                 </span>
@@ -81,8 +82,8 @@ export default async function ModelsDetailsPage({
               key={image || index}
               src={image}
               alt={`${model.name} - image ${index + 1}`}
-              width={1200}
-              height={800}
+              width={800}
+              height={600}
               className="w-full object-cover"
             />
           ))}

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-
+.first-letter-cap {
+  @apply first-letter:uppercase;
+}
 :root {
   --background: #faf9f9;
   --foreground: #171717;
@@ -89,3 +91,4 @@ h6 {
 button {
   cursor: pointer;
 }
+
