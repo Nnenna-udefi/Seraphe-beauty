@@ -4,6 +4,7 @@ import { api } from "@/components/lib/api";
 
 export default async function ModelsPage() {
   const model = await api.publicShop.getModel();
+  console.log(model)
   return (
     <div>
       <Models models={model} />
