@@ -208,31 +208,23 @@ export default function AdminLifestyle() {
     }
   };
 
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
   const handleTitleChange = (value: string) => {
     setTitle(value);
-
-    if (!editingId) {
-      setSlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
+    setSlug(slugify(value));
   };
 
-  // const handleCategoryChange = (value: string) => {
-  //   setCategory(value);
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+    setCategorySlug(slugify(value));
+  };
 
-  //   if (!editingId) {
-  //     setCategorySlug(
-  //       value
-  //         .toLowerCase()
-  //         .replace(/[^a-z0-9]+/g, "-")
-  //         .replace(/(^-|-$)/g, ""),
-  //     );
-  //   }
-  // };
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
@@ -273,7 +265,7 @@ export default function AdminLifestyle() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                URL Slug
+                Title Slug
               </label>
               <input
                 type="text"
@@ -289,13 +281,14 @@ export default function AdminLifestyle() {
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Category
               </label>
-             <select
+              <select
                 required
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
               >
-                <option value="">-- Choose Category --</option>
+                <option value=""> Choose Category </option>
+
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
@@ -474,6 +467,8 @@ export default function AdminLifestyle() {
                           <img
                             src={displayImage}
                             alt={art.title}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}

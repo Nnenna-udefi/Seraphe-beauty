@@ -7,15 +7,14 @@ import { BiCategory, BiShoppingBag } from "react-icons/bi";
 import {
   FaLifeRing,
   FaRegCommentDots,
-  FaSuperpowers,
   FaTag,
   FaTripadvisor,
   FaUserFriends,
-  FaWalking,
 } from "react-icons/fa";
 import { Toaster } from "sonner";
 import { useAuth } from "@/components/context/authContext";
 import AdminNav from "@/components/admin/nav";
+import { Loader, User, UsersRound } from "lucide-react";
 
 export const AdminNavItems = [
   { icon: GrDashboard, text: "Dashboard", link: "/admin" },
@@ -25,9 +24,9 @@ export const AdminNavItems = [
   { icon: FaTripadvisor, text: "Beauty Tips", link: "/admin/beauty-tips" },
   { icon: FaLifeRing, text: "Lifestyle", link: "/admin/lifestyle" },
   { icon: FaTag, text: "Trends", link: "/admin/trends" },
-  { icon: FaWalking, text: "Models", link: "/admin/models" },
+  { icon: User, text: "Models", link: "/admin/models" },
   { icon: FaUserFriends, text: "Subscribers", link: "/admin/subscribers" },
-  { icon: FaSuperpowers, text: "Team", link: "/admin/team" },
+  { icon: UsersRound, text: "Team", link: "/admin/team" },
 ];
 
 export default function AdminLayout({
@@ -37,7 +36,15 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen text-black ">

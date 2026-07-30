@@ -18,11 +18,6 @@ export interface Category {
   image?: string;
 }
 
-// export interface ProductResponse {
-//   product: Product;
-//   relatedProducts: Product[];
-// }
-
 export interface Product {
   _id: string;
   name: string;
@@ -73,7 +68,7 @@ export interface Tips {
   content: string;
   author: string;
   readTimeMinutes: number;
-  image: string;
+  images: string[];
   tags: string[];
   order: number;
   createdAt: string;
@@ -87,7 +82,7 @@ export interface TipsCategory {
 
 export interface Review {
   _id: string;
-  product: string;
+  product: ProductPayload;
   rating: number;
   email: string;
   name: string;
@@ -229,7 +224,7 @@ export interface TipsPayload {
   content: string;
   author: string;
   readTimeMinutes: number;
-  image: string;
+  images: string[];
   tags: string[];
   order: number;
 }

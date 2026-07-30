@@ -165,31 +165,23 @@ export default function AdminTrends() {
     setIsFeatured(false);
   };
 
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
   const handleTitleChange = (value: string) => {
     setTitle(value);
-
-    if (!editingId) {
-      setSlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
+    setSlug(slugify(value));
   };
 
   const handleFocusAreaChange = (value: string) => {
     setFocusArea(value);
-
-    if (!editingId) {
-      setFocusAreaSlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
+    setFocusAreaSlug(slugify(value));
   };
+
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
@@ -378,7 +370,7 @@ export default function AdminTrends() {
               value={hashTags}
               onChange={(e) => setHashtags(e.target.value)}
               className="w-full border p-2 rounded text-sm bg-white"
-              placeholder="#neurocosmetics, #skincare, #skinbarrier"
+              placeholder="neurocosmetics, skincare, skinbarrier"
             />
           </div>
 
@@ -433,6 +425,8 @@ export default function AdminTrends() {
                           <img
                             src={displayImage}
                             alt={art.title}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}

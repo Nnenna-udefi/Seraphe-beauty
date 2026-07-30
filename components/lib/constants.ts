@@ -1,3 +1,4 @@
+"use client";
 export const footerList = [
   {
     id: 1,
@@ -35,78 +36,127 @@ export const skincareList = [
   {
     id: 1,
     text: "Skin",
-    link: "/products/skin",
+    link: "/trends?category=skin-care",
   },
   {
     id: 2,
-    text: "Hair",
-    link: "/products/hair",
-  },
-  {
-    id: 3,
-    text: "Makeup",
-    link: "/lifestyle/makeup",
-  },
-  {
-    id: 4,
-    text: "Fragrance",
-    link: "/lifestyle/fragrance",
-  },
-  {
-    id: 5,
     text: "Wellness",
-    link: "/lifestyle/wellness",
-  },
-  {
-    id: 6,
-    text: "Reviews",
-    link: "/products/reviews",
-  },
-];
-
-export const navItems = [
-  {
-    id: 1,
-    text: "Home",
-    link: "/",
-  },
-  {
-    id: 2,
-    text: "Shop Seraphé",
-    link: "/shop",
+    link: "lifestyle?category=wellness",
   },
   {
     id: 3,
-    text: "Lifestyle",
-    link: "/lifestyle",
+    text: "Hygiene",
+    link: "beauty-tips?category=skincare-hygiene",
   },
-
   {
     id: 4,
-    text: "Beauty Tips",
-    link: "/beauty-tips",
+    text: "Exercise",
+    link: "lifestyle?category=exercise",
   },
   {
     id: 5,
-    text: "Beauty Trends",
-    link: "/trends",
+    text: "Diet",
+    link: "lifestyle?category=diet-plans",
   },
   {
     id: 6,
-    text: "Seraphé Models",
-    link: "/seraphe-models",
-  },
-  {
-    id: 7,
-    text: "About",
-    link: "/about",
-  },
-  {
-    id: 8,
-    text: "Join Our Community",
-    link: "/join-community",
+    text: "Makeup",
+    link: "/trends?category=skin-care",
   },
 ];
+
+export const lifestyleCategories = [
+  "All Lifestyle",
+  "Wellness",
+  "Beauty Remedies",
+  "Diet plans",
+  "Exercise",
+  "Fashion Ideas",
+];
+
+export function useNavItems() {
+  const { categories, trendFocusAreas, tipsCategories } = useSite();
+
+  return [
+    {
+      id: 1,
+      text: "Home",
+      link: "/",
+    },
+    {
+      id: 2,
+      text: "Shop Seraphé",
+      link: "/shop",
+      children: [
+        {
+          text: "All",
+          link: "/shop",
+        },
+        ...categories.map((c) => ({
+          text: c.name,
+          link: `/shop?category=${c.slug}`,
+        })),
+      ],
+    },
+    {
+      id: 3,
+      text: "Lifestyle",
+      link: "/lifestyle",
+      children: lifestyleCategories.map((c) => ({
+        text: c,
+        link:
+          c === "All"
+            ? "/lifestyle"
+            : `/lifestyle?category=${encodeURIComponent(c)}`,
+      })),
+    },
+    {
+      id: 4,
+      text: "Beauty Tips",
+      link: "/beauty-tips",
+      children: [
+        {
+          text: "All",
+          link: "/beauty-tips",
+        },
+        ...tipsCategories.map((c) => ({
+          text: c.name,
+          link: `/beauty-tips?category=${c.slug}`,
+        })),
+      ],
+    },
+    {
+      id: 5,
+      text: "Beauty Trends",
+      link: "/trends",
+      children: [
+        {
+          text: "All",
+          link: "/trends",
+        },
+        ...trendFocusAreas.map((c) => ({
+          text: c.name,
+          link: `/trends?category=${c.slug}`,
+        })),
+      ],
+    },
+    {
+      id: 6,
+      text: "Seraphé Models",
+      link: "/seraphe-models",
+    },
+    {
+      id: 7,
+      text: "About",
+      link: "/about",
+    },
+    {
+      id: 8,
+      text: "Join Our Community",
+      link: "/join-community",
+    },
+  ];
+}
 
 import model from "@/components/images/model.jpeg";
 import brush from "@/components/images/brush.png";
@@ -357,6 +407,7 @@ import Hero from "@/components/images/hero2.jpeg";
 import Makeup from "@/components/images/makeup.png";
 import { GrBlog, GrDashboard } from "react-icons/gr";
 import { BiCategory } from "react-icons/bi";
+import { useSite } from "../helper/siteContext";
 
 export const BlogDetailsBlock = [
   {

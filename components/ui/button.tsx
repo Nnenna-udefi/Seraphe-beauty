@@ -11,7 +11,7 @@ export function Button({ children, className, ...props }: ButtonProps) {
     // <Link href={link}>
     <button
       type="submit"
-      className={` text-white p-2 bg-primaryBg hover:text-primaryText hover:bg-white transition-all ${className}`}
+      className={` text-white p-2 bg-primaryBg hover:text-primaryText hover:border-primaryText hover:bg-white transition-all ${className}`}
       {...props}
     >
       {children}

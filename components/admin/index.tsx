@@ -1,10 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Lifestyle } from "../types/api";
+import { Lifestyle, Tips } from "../types/api";
 import { api } from "../lib/api";
 import { toast } from "sonner";
 import Card from "../ui/card";
 import { useAuth } from "../context/authContext";
+import { formatDate } from "../helper/formatDate";
+
+type DashboardPost = {
+  _id: string;
+  title: string;
+  category: string;
+  author: string;
+  createdAt: string;
+  source: "Lifestyle" | "Beauty Tips";
+};
 
 export default function AdminDashboard() {
   const { admin } = useAuth();
@@ -19,7 +29,7 @@ export default function AdminDashboard() {
     { month: string; count: number }[]
   >([]);
 
-  const [latestPosts, setLatestPosts] = useState<Lifestyle[]>([]);
+  const [latestPosts, setLatestPosts] = useState<DashboardPost[]>([]);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -41,8 +51,37 @@ export default function AdminDashboard() {
           lifestyle: lifestyle.length,
         });
 
+        const posts: DashboardPost[] = [
+          ...lifestyle.map((item) => ({
+            _id: item._id,
+            title: item.title,
+            category: item.category,
+            author: item.author,
+            createdAt: item.createdAt,
+            source: "Lifestyle" as const,
+          })),
+          ...blogs.map((item) => ({
+            _id: item._id,
+            title: item.title,
+            category: item.category,
+            author: item.author,
+            createdAt: item.createdAt,
+            source: "Beauty Tips" as const,
+          })),
+        ];
+
         setLatestPosts(
-          [...lifestyle]
+          posts
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime(),
+            )
+            .slice(0, 5),
+        );
+
+        setLatestPosts(
+          posts
             .sort(
               (a, b) =>
                 new Date(b.createdAt).getTime() -
@@ -146,8 +185,11 @@ export default function AdminDashboard() {
           <thead>
             <tr className="bg-gray-50 border-b text-gray-500 text-xs font-bold uppercase">
               <th className="p-4">Title</th>
+
               <th className="p-4">Category</th>
               <th className="p-4">Author</th>
+              <th className="p-4">Source</th>
+              <th className="p-4">Created At</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -156,6 +198,8 @@ export default function AdminDashboard() {
                 <td className="p-4 font-medium">{post.title}</td>
                 <td className="p-4">{post.category}</td>
                 <td className="p-4">{post.author}</td>
+                <td className="p-4">{post.source}</td>
+                <td className="p-4">{formatDate(post.createdAt)}</td>
               </tr>
             ))}
           </tbody>

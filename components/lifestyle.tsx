@@ -8,56 +8,55 @@ import Community from "./ui/community";
 import { Lifestyle, LifestyleCategory } from "./types/api";
 import Link from "next/link";
 import { Button } from "./ui/button";
-
-const categories = [
-  "All",
-  "Wellness",
-  "Beauty Remedies",
-  "Diet plans",
-  "Exercise",
-  "Fashion Ideas",
-];
+import BlogCard from "./ui/blogCard";
+import { lifestyleCategories } from "./lib/constants";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LifestyleAdmin({
   lifestyle,
-  categories,
 }: {
   lifestyle: Lifestyle[];
-  categories: LifestyleCategory[];
 }) {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const activeCategory = searchParams.get("category") || "All Lifestyle";
 
   const filteredLifestyle =
-    activeCategory === "all"
+    activeCategory === "All Lifestyle"
       ? lifestyle
-      : lifestyle.filter((tip) => tip.categorySlug === activeCategory);
+      : lifestyle.filter((item) => item.category === activeCategory);
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-4 items-center border-b border-slate-200 pb-8 mb-12">
           <h1 className="font-contataOne text-black md:text-5xl text-3xl font-normal">
-            Lifestyle
+            {activeCategory === "All Lifestyle" ? "Lifestyle" : activeCategory}
           </h1>
-          <p className="md:text-base text-center lg:w-[60%] py-4 w-full text-sm text-darkText">
+          <p className="md:text-lg text-base text-center lg:w-[60%] py-4 w-full text-darkText">
             Find everything you need to know about the best makeup tools and
             helpful application techniques straight from the pros. Read on for
             tips and tricks no matter your skill level.
           </p>
         </div>
 
-        <div className="py-4 px-10 md:px-12 border-y border-[#DBDBDB] text-[#484646] md:text-base text-sm">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           <div className="flex overflow-y-auto justify-center gap-6 uppercase">
-            {categories.map((category) => (
+            {lifestyleCategories.map((category, index) => (
               <button
-                key={category.slug}
-                onClick={() => setActiveCategory(category.slug)}
+                key={index}
+                onClick={() =>
+                  router.push(
+                    `/lifestyle?category=${encodeURIComponent(category)}`,
+                  )
+                }
                 className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
-                  activeCategory === category.slug
-                    ? "border-text-yellowText font-medium"
-                    : "font-normal hover:text-yellowText"
+                  activeCategory === category
+                    ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                    : "border-stone-300 hover:border-black"
                 }`}
               >
-                {category.name}
+                {category}
               </button>
             ))}
           </div>
@@ -67,35 +66,15 @@ export default function LifestyleAdmin({
         <div className="px-6 md:px-12 py-10 md:py-16">
           <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {filteredLifestyle.map((item) => (
-              <div key={item._id} className="pt-6 md:pt-0">
-                <div className=" ">
-                  <Image
-                    src={item.image}
-                    alt="model"
-                    width={300}
-                    height={0}
-                    className="w-full md:w-75"
-                  />
-                </div>
-                <div>
-                  <h3 className="uppercase text-yellowText text-sm pt-2">
-                    {item.category}
-                  </h3>
-                  <h1 className="md:text-xl text-base py-2 ">{item.title}</h1>
-                  <p className="uppercase text-darkText text-sm pb-2">
-                    {item.author}
-                  </p>
-                </div>
-                <Link href={`/lifestyle/${item.slug}`} className="">
-                           <Button className="mt-5 w-full">
-                 
-                    Explore Lifestyle
-                    <span className="transform transition-transform group-hover:translate-x-1">
-                      &rarr;
-                    </span>
-                  </Button>
-                </Link>
-              </div>
+              <BlogCard
+                key={item._id}
+                title={item.title}
+                category={item.category}
+                author={item.author}
+                image={item.image}
+                href={`/lifestyle/${item.slug}`}
+                buttonText="Explore Lifestyle"
+              />
             ))}
           </div>
         </div>
@@ -186,12 +165,12 @@ export default function LifestyleAdmin({
           </div>
         </div> */}
         {filteredLifestyle.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-darkText">
-            No lifestyles found in this category.
-          </p>
-        </div>
-      )}
+          <div className="text-center py-12">
+            <p className="text-darkText">
+              No lifestyles found in this category.
+            </p>
+          </div>
+        )}
 
         {/* Join our community */}
 

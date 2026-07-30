@@ -18,35 +18,35 @@ export const Footer = () => {
 
   if (isAdminRoute) return null;
 
-    const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
-  
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-  
-      if (!name.trim() || !email.trim()) {
-        return;
-      }
-  
-      try {
-        setLoading(true);
-  
-        await api.publicShop.createSubscriber({
-          name,
-          email,
-        });
-  
-        setName("");
-        setEmail("");
-        setShowSuccess(true);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name.trim() || !email.trim()) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await api.publicShop.createSubscriber({
+        name,
+        email,
+      });
+
+      setName("");
+      setEmail("");
+      setShowSuccess(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="md:px-12 px-6 md:text-lg text-base text-primaryText">
       <hr className="border w-full text-darkText" />
@@ -67,40 +67,35 @@ export const Footer = () => {
                   Sign Up
                 </button>
               </form> */}
-               <form
-            onSubmit={handleSubmit}
-            className="mt-8 max-w-2xl"
-          >
-            <div className="flex flex-col gap-3">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                required
-                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-              />
+              <form onSubmit={handleSubmit} className="mt-8">
+                <div className="flex flex-col gap-3">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    required
+                    className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  />
 
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                required
-                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-              />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    required
+                    className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {loading ? "Joining..." : "Sign Up"}
-              </button>
-            </div>
-
-            
-          </form>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {loading ? "Joining..." : "Sign Up"}
+                  </button>
+                </div>
+              </form>
             </div>
 
             <div className="flex gap-3 text-sm pt-4 pb-10">
@@ -154,40 +149,35 @@ export const Footer = () => {
                 Sign Up
               </button>
             </form> */}
-            <form
-            onSubmit={handleSubmit}
-            className="mt-8 max-w-2xl"
-          >
-            <div className="flex flex-col gap-3">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                required
-                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-              />
+            <form onSubmit={handleSubmit} className="mt-8 max-w-2xl">
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  required
+                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                />
 
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                required
-                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-              />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  required
+                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {loading ? "Joining..." : "Sign Up"}
-              </button>
-            </div>
-
-            
-          </form>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {loading ? "Joining..." : "Sign Up"}
+                </button>
+              </div>
+            </form>
           </div>
 
           <div className="flex gap-3  pt-4 pb-10">
@@ -215,7 +205,7 @@ export const Footer = () => {
         </div>
       </div>
 
-       {showSuccess && (
+      {showSuccess && (
         <div
           className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 px-6 backdrop-blur-sm"
           onClick={() => setShowSuccess(false)}
@@ -227,11 +217,7 @@ export const Footer = () => {
             {/* Success Icon */}
             <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-50">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
-                <Check
-                  size={40}
-                  strokeWidth={3}
-                  className="text-white"
-                />
+                <Check size={40} strokeWidth={3} className="text-white" />
               </div>
             </div>
 
@@ -244,8 +230,8 @@ export const Footer = () => {
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-gray-500 leading-relaxed">
-              Thank you for joining our community. We&apos;ll keep you
-              updated with the latest beauty stories, trends and insights.
+              Thank you for joining our community. We&apos;ll keep you updated
+              with the latest beauty stories, trends and insights.
             </p>
 
             <button
@@ -257,7 +243,7 @@ export const Footer = () => {
             </button>
           </div>
         </div>
-       )}
+      )}
     </div>
   );
 };

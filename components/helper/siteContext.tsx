@@ -8,6 +8,7 @@ import {
   Product,
   TeamGrouped,
   Tips,
+  TipsCategory,
   Trends,
   TrendsFocus,
 } from "@/components/types/api";
@@ -20,6 +21,7 @@ type SiteContextType = {
   trends: Trends[];
   tips: Tips[];
   lifestyle: Lifestyle[];
+  tipsCategories: TipsCategory[];
 };
 
 const SiteContext = createContext<SiteContextType | null>(null);

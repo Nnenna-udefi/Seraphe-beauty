@@ -1,7 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useEffect, useState } from "react";
 import { authManager } from "@/components/lib/auth";
 import { AuthResponse } from "@/components/types/api";
 
@@ -11,17 +10,25 @@ type AuthContextType = {
   login: (auth: AuthResponse) => void;
   logout: () => void;
   token: string | null;
+  loading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    authManager.isAuthenticated(),
-  );
-  const [token, setToken] = useState(() => authManager.getToken());
+  const [loading, setLoading] = useState(true);
 
-  const [admin, setAdmin] = useState(() => authManager.getAdminUser());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [admin, setAdmin] =
+    useState<ReturnType<typeof authManager.getAdminUser>>(null);
+
+  useEffect(() => {
+    setToken(authManager.getToken());
+    setAdmin(authManager.getAdminUser());
+    setIsAuthenticated(authManager.isAuthenticated());
+    setLoading(false);
+  }, []);
 
   const login = (auth: AuthResponse) => {
     authManager.setSession(auth);
@@ -47,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         token,
+        loading,
       }}
     >
       {children}

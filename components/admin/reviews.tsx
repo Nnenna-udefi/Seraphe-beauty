@@ -40,19 +40,13 @@ export default function AdminReviews() {
     fetchData();
   }, [isAuthenticated, router]);
 
-  const getProductName = (productId: string) => {
-    const product = products.find((p) => p._id === productId);
-    return product ? product.name : "Unknown Product";
-  };
-  console.log("Product:", products);
-
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-serif font-bold">Product Reviews Log</h1>
       </div>
 
-      <div className="bg-white border rounded-lg overflow-hidden text-sm max-w-xl shadow-sm">
+      <div className="bg-white  w-full border rounded-lg overflow-hidden text-sm shadow-sm">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-10 w-10 animate-spin text-black" />
@@ -62,7 +56,7 @@ export default function AdminReviews() {
             No reviews yet.
           </div>
         ) : (
-          <table className="max-w-full text-left border-collapse">
+          <table className=" w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                 <th className="p-4">Name</th>
@@ -76,7 +70,7 @@ export default function AdminReviews() {
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="p-4 font-medium text-gray-800">
-                    {getProductName(review.product)}
+                    {review.product.name}
                   </td>
                   <td className="p-4 font-medium text-gray-800">
                     {review.name}

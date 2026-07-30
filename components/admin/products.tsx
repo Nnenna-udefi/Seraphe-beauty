@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import DeleteModal from "./deleteModal";
 import { useAuth } from "../context/authContext";
+import ImageUploader from "../helper/imageUploader";
 
 export default function AdminProducts() {
   const router = useRouter();
@@ -194,51 +195,6 @@ export default function AdminProducts() {
     setShowForm(false);
   };
 
-  // const getCategoryName = (categoryId: string, categories: Category[]) => {
-  //   const match = categories.find((c) => c._id === categoryId);
-
-  //   return match?.name ?? "Unassigned";
-  // };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.warning("Maximum image size is 5MB");
-      return;
-    }
-
-    if (!file.type.startsWith("image/")) {
-      toast.warning("Please upload an image file.");
-      return;
-    }
-
-    setUploading(true);
-
-    try {
-      const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
-
-      const { error } = await supabase.storage
-        .from("products")
-        .upload(fileName, file);
-
-      if (error) throw error;
-
-      const { data } = supabase.storage.from("products").getPublicUrl(fileName);
-
-      // Append the new image URL to our tracking array state safely
-      setImages((prev) => [...prev, data.publicUrl]);
-      toast.success("Image uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div className="md:flex block justify-between items-center">
@@ -373,23 +329,12 @@ export default function AdminProducts() {
               <label className="text-xs uppercase font-semibold text-gray-500">
                 Image URL (First)
               </label>
-              <input
-                type="text"
-                required
-                value={images[0] || ""}
-                onChange={(e) => {
-                  const updated = [...images];
-                  updated[0] = e.target.value;
-                  setImages(updated.filter(Boolean));
-                }}
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="https://cdn.com/product.jpg"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="border rounded-md p-1"
+
+              <ImageUploader
+                bucket="products"
+                multiple
+                value={images}
+                onChange={(imgs) => setImages(imgs as string[])}
               />
             </div>
           </div>
@@ -541,6 +486,8 @@ export default function AdminProducts() {
                           <img
                             src={displayImage}
                             alt={prod.name}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}

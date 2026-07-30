@@ -52,6 +52,7 @@ export default async function RootLayout({
     trends,
     tips,
     lifestyle,
+    tipsCategories,
   ] = await Promise.all([
     api.publicShop.getCategories(),
     api.publicShop.getTrendsByFocusAreas(),
@@ -60,6 +61,7 @@ export default async function RootLayout({
     api.publicShop.getTrends(),
     api.publicShop.getBeautyTips(),
     api.publicShop.getLifestyle(),
+    api.publicShop.getBeautyTipsByCategories(),
   ]);
   return (
     <html
@@ -75,6 +77,7 @@ export default async function RootLayout({
           trends={trends}
           tips={tips}
           lifestyle={lifestyle}
+          tipsCategories={tipsCategories}
         >
           <Nav />
           <AuthProvider>{children}</AuthProvider>

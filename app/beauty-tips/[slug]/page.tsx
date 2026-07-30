@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as cheerio from "cheerio";
 import { Dot } from "lucide-react";
+import BlogImageCarousel from "@/components/ui/blogImageCarousel";
 
 interface Props {
   params: Promise<{
@@ -88,11 +89,11 @@ export default async function TipDetails({ params }: Props) {
 
         <div className="py-3">
           <Image
-            src={tip.image}
+            src={tip.images?.[0]}
             alt={tip.title}
-            width={1200}
+               width={500}
             height={400}
-            className="w-full object-cover"
+            className="md:w-[600px] w-full"
           />
         </div>
         <div className="py-10 md:py-16 flex md:flex-row flex-col gap-6">
@@ -104,6 +105,15 @@ export default async function TipDetails({ params }: Props) {
                   __html: tip.content,
                 }}
               />
+
+               {tip.images?.length > 0 && (
+                <div className="mt-8">
+                  <BlogImageCarousel
+                    images={tip.images}
+                    title={tip.title}
+                  />
+                </div>
+               )}
               <div className="flex flex-wrap gap-2 mt-10">
                 {tip.tags.map((tag) => (
                   <span
@@ -141,7 +151,7 @@ export default async function TipDetails({ params }: Props) {
                     className="flex gap-2"
                   >
                     <Image
-                      src={item.image}
+                      src={item.images?.[0]}
                       alt={item.title}
                       width={80}
                       height={80}

@@ -6,6 +6,7 @@ import {
   Product,
   TeamGrouped,
   Tips,
+  TipsCategory,
   Trends,
   TrendsFocus,
 } from "../types/api";
@@ -20,6 +21,7 @@ export function SiteProvider({
   trends,
   tips,
   lifestyle,
+  tipsCategories,
 }: {
   children: React.ReactNode;
   categories: Category[];
@@ -29,6 +31,7 @@ export function SiteProvider({
   trends: Trends[];
   tips: Tips[];
   lifestyle: Lifestyle[];
+  tipsCategories: TipsCategory[];
 }) {
   return (
     <SiteContext.Provider
@@ -40,6 +43,7 @@ export function SiteProvider({
         trends,
         tips,
         lifestyle,
+        tipsCategories,
       }}
     >
       {children}

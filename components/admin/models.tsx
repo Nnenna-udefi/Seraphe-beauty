@@ -48,11 +48,9 @@ export default function AdminModels() {
 
     const initData = async () => {
       try {
-        const modelData = await
-          api.adminShop.getModels();
-        
+        const modelData = await api.adminShop.getModels();
+
         setModels(modelData);
- 
       } catch (error: unknown) {
         const errMsg =
           error instanceof Error ? error.message : "Data fetch error";
@@ -81,7 +79,6 @@ export default function AdminModels() {
   // 2. CREATE & UPDATE Handler
   const handleSaveModel = async (e: React.FormEvent) => {
     e.preventDefault();
-  
 
     setSubmitting(true);
     const payload = {
@@ -93,8 +90,8 @@ export default function AdminModels() {
       bio,
       specialty,
       height,
-     hobbies: hobbies
-        ?hobbies
+      hobbies: hobbies
+        ? hobbies
             .split(",")
             .map((tag) => tag.trim())
             .filter(Boolean)
@@ -288,8 +285,6 @@ export default function AdminModels() {
                 />
               </div>
             </div>
-           
-          
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
@@ -317,7 +312,6 @@ export default function AdminModels() {
                 placeholder="editorial, beauty, runway"
               />
             </div>
-
           </div>
           <button
             type="submit"
@@ -351,7 +345,7 @@ export default function AdminModels() {
                   <th className="p-4">Model Names</th>
                   <th className="p-4">Specialty</th>
                   <th className="p-4">height</th>
-            
+
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
@@ -359,10 +353,7 @@ export default function AdminModels() {
                 {models.map((model) => {
                   // Fallback to support both legacy single string or array formats
 
-                  const displayImage =
-                    Array.isArray(model.images) && model.images.length > 0
-                      ? model.images[0]
-                      : "";
+                  const displayImage = model.featureImage;
 
                   return (
                     <tr
@@ -375,24 +366,23 @@ export default function AdminModels() {
                           <img
                             src={displayImage}
                             alt={model.name}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}
                         <div>
                           <div className="font-medium text-gray-800">
                             {model.name}
-                           
                           </div>
-                        
                         </div>
                       </td>
                       <td className="p-4 font-medium text-slate-600">
-                       { model.specialty}
+                        {model.specialty}
                       </td>
                       <td className="p-4 font-medium text-gray-800">
                         {model.height}
                       </td>
-
 
                       <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
@@ -411,7 +401,6 @@ export default function AdminModels() {
                           Delete
                         </button>
                       </td>
-                    
                     </tr>
                   );
                 })}

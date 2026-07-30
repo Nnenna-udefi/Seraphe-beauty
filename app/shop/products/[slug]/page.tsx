@@ -5,6 +5,7 @@ import Reviews from "@/components/reviews";
 import { api } from "@/components/lib/api";
 import { Star } from "lucide-react";
 import Breadcrumb from "@/components/ui/breadCrumbs";
+import ProductGallery from "@/components/ui/productGallery";
 
 export default async function ProductDetailsPage({
   params,
@@ -48,13 +49,10 @@ export default async function ProductDetailsPage({
         />
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-full">
-            <Image
-              src={product.images?.[0]}
-              alt={product.name}
-              width={500}
-              height={500}
-              className="w-full"
-            />
+          <ProductGallery
+  images={product.images}
+  name={product.name}
+/>
           </div>
 
           <div className="flex flex-col gap-5">

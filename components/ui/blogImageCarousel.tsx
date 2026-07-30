@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,6 +14,8 @@ export default function BlogImageCarousel({
   title,
 }: BlogImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  
 
   if (!images || images.length === 0) {
     return null;
@@ -31,17 +33,27 @@ export default function BlogImageCarousel({
     );
   };
 
+  useEffect(() => {
+  if (images.length <= 1) return;
+
+  const interval = setInterval(() => {
+    nextSlide();
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, [currentIndex]);
+
   return (
     <div className="relative w-full">
       {/* Main Image */}
-      <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
-        <Image
-          src={images[currentIndex]}
-          alt={`${title} - image ${currentIndex + 1}`}
-          fill
-          priority={currentIndex === 0}
-          className="object-cover"
-        />
+      <div className="relative w-full max-h-[600px] overflow-hidden rounded-xl">
+      <Image
+  src={images[currentIndex]}
+  alt={`${title} ${currentIndex + 1}`}
+  width={1200}
+  height={700}
+  className="w-full h-full"
+/>
 
         {/* Previous */}
         {images.length > 1 && (

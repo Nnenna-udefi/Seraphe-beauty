@@ -84,14 +84,21 @@ export default async function TrendDetails({ params }: Props) {
             </li>
           ))}
         </ul>
-        <div className="py-3">
+        <div className="py-3 ">
           <Image
             src={trend.featureImage}
             alt={trend.title}
-            width={1200}
-            height={600}
-            className="w-full object-cover"
+            width={500}
+            height={400}
+            className="md:w-[600px] w-full"
           />
+          {/* <Image
+  src={trend.featureImage}
+  alt={trend.title}
+  width={800}
+  height={500}
+  className="w-full rounded-xl "
+/> */}
         </div>
         <div className="py-10 md:py-16 flex md:flex-row flex-col gap-6">
           <div className="flex-1">
@@ -116,10 +123,10 @@ export default async function TrendDetails({ params }: Props) {
                 ))} */}
               {/* </div> */}
 
-              {trend.images?.length > 0 && (
+              {trend.images?.length > 1 && (
   <div className="mt-8">
     <BlogImageCarousel
-      images={trend.images}
+      images={trend.images.slice(1)}
       title={trend.title}
     />
   </div>

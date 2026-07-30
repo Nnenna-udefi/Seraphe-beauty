@@ -26,7 +26,7 @@ const Home = () => {
       title: tip.title,
       author: tip.author,
       createdAt: tip.createdAt,
-      image: tip.image,
+      image: tip.images?.[0],
       category: tip.category,
       type: "tips" as const,
     })),
@@ -74,7 +74,7 @@ const Home = () => {
   return (
     <div className="min-h-screen py-10 md:py-16">
       <div className="">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index) => {
             const isFirst = index === 0;
 
@@ -127,13 +127,13 @@ const Home = () => {
           title="Beauty Tips"
           data={tips}
           getKey={(tips) => tips.slug}
-          className="py-4 px-6 max-w-6xl mx-auto md:px-12"
+          className="py-4 px-6 max-w-7xl mx-auto md:px-12"
           renderItem={(item) => (
             <Link href={`/beauty-tips/${item.slug}`}>
               <div className="flex flex-col h-full">
                 <div className="overflow-hidden bg-gray-100">
                   <Image
-                    src={item.image}
+                    src={item.images?.[0]}
                     alt={item.title}
                     width={300}
                     height={0}
@@ -157,43 +157,43 @@ const Home = () => {
         />
 
         {/* trends */}
-
-        <Carousel
-          title="Latest Trends"
-          data={trends}
-          getKey={(trends) => trends.slug}
-          className="bg-boxBg max-w-6xl mx-auto py-4 px-6 md:px-12"
-          renderItem={(item) => (
-            <Link href={`/trends/${item.slug}`}>
-              <div className="flex flex-col h-full">
-                <div className="overflow-hidden bg-gray-100">
-                  <Image
-                    src={item.images[0]}
-                    alt={item.title}
-                    width={300}
-                    height={0}
-                    className="w-full h-75 object-cover"
-                  />
+        <div className="bg-boxBg">
+          <Carousel
+            title="Latest Trends"
+            data={trends}
+            getKey={(trends) => trends.slug}
+            className="max-w-7xl mx-auto py-4 px-6 md:px-12"
+            renderItem={(item) => (
+              <Link href={`/trends/${item.slug}`}>
+                <div className="flex flex-col h-full">
+                  <div className="overflow-hidden bg-gray-100">
+                    <Image
+                      src={item.images[0]}
+                      alt={item.title}
+                      width={300}
+                      height={0}
+                      className="w-full h-75 object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col grow">
+                    <h3 className="uppercase text-yellowText text-sm pt-4">
+                      {item.focusArea}
+                    </h3>
+                    <h4 className="md:text-xl text-base py-2 font-normal text-black">
+                      {item.title}
+                    </h4>
+                    <p className="uppercase text-darkText text-sm mt-auto">
+                      By {item.author}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col grow">
-                  <h3 className="uppercase text-yellowText text-sm pt-4">
-                    {item.focusArea}
-                  </h3>
-                  <h4 className="md:text-xl text-base py-2 font-normal text-black">
-                    {item.title}
-                  </h4>
-                  <p className="uppercase text-darkText text-sm mt-auto">
-                    By {item.author}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          )}
-        />
-
+              </Link>
+            )}
+          />
+        </div>
         {/* readers favourite */}
 
-        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10  md:py-16">
+        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10  md:py-16">
           <div>
             <Image
               src={flower}
@@ -218,7 +218,7 @@ const Home = () => {
 
         {/* md:w-125 md:h-125 */}
         {/* lifestyle */}
-        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10  md:py-16">
+        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10  md:py-16">
           <H1>Lifestyle</H1>
           <div className="py-6 flex flex-col md:flex-row gap-6">
             {featuredLifestyle && (
@@ -227,16 +227,16 @@ const Home = () => {
                   <Image
                     src={featuredLifestyle.image}
                     alt={featuredLifestyle.title}
-                    width={600}
-                    height={600}
-                    className="w-full h-96 object-cover"
+                    width={500}
+                    height={500}
+                    className="w-full h-96"
                   />
 
                   <h3 className="uppercase text-yellowText text-sm pt-2">
                     {featuredLifestyle.category}
                   </h3>
 
-                  <h1 className="text-2xl md:text-4xl py-2">
+                  <h1 className="text-2xl md:text-4xl py-2 hover:underline">
                     {featuredLifestyle.title}
                   </h1>
 
@@ -280,7 +280,7 @@ const Home = () => {
         <Community />
 
         {/* sellers */}
-        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10 md:py-16">
+        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10 md:py-16">
           <H1>Best Sellers for a reason</H1>
           <p className="md:text-base text-sm py-3">
             Shop editor-approved picks and great beauty sales.

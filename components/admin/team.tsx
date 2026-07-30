@@ -363,6 +363,8 @@ const AdminTeam = () => {
                           <img
                             src={displayImage}
                             alt={member.name}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}

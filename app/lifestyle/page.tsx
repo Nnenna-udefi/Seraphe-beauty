@@ -1,5 +1,6 @@
 import LifestyleAdmin from "@/components/lifestyle";
 import { api } from "@/components/lib/api";
+export const dynamic = "force-dynamic";
 
 export default async function LifestylePage() {
   const [lifestyle, categories] = await Promise.all([
@@ -8,7 +9,7 @@ export default async function LifestylePage() {
   ]);
   return (
     <div>
-      <LifestyleAdmin lifestyle={lifestyle} categories={categories} />
+      <LifestyleAdmin lifestyle={lifestyle} />
     </div>
   );
 }

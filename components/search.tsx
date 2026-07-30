@@ -72,7 +72,7 @@ export default function PredictiveSearch({
         id: blog._id,
         title: blog.title,
         subtitle: blog.summary,
-        img: blog.image,
+        img: blog.images?.[0],
         slug: `/beauty-tips/${blog.slug}`,
         category: "blogs" as const,
         keywords: [blog.title, blog.summary, blog.category].join(" "),

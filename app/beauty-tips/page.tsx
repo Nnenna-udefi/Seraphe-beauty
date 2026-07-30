@@ -1,7 +1,9 @@
 import { api } from "@/components/lib/api";
 import TipsPage from "@/components/tips";
+export const dynamic = "force-dynamic";
 
 export default async function BeautyTipsPage() {
+  
   const [tips, categories] = await Promise.all([
     api.publicShop.getBeautyTips(),
     api.publicShop.getBeautyTipsByCategories(),

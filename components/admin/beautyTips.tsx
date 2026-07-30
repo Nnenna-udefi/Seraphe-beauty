@@ -11,6 +11,7 @@ import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import Tiptap from "../ui/tiptap";
 import { useAuth } from "../context/authContext";
+import ImageUploader from "../helper/imageUploader";
 
 export default function AdminBeautyTips() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function AdminBeautyTips() {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState<string[]>([]);
   const [tags, setTags] = useState("");
   const [order, setOrder] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -76,7 +77,7 @@ export default function AdminBeautyTips() {
       content,
       author,
       readTimeMinutes,
-      image,
+      images,
       tags: tags
         .split(",")
         .map((t) => t.trim())
@@ -134,7 +135,7 @@ export default function AdminBeautyTips() {
     setContent(article.content);
     setAuthor(article.author);
     setReadTimeMinutes(article.readTimeMinutes);
-    setImage(article.image);
+    setImages(article.images);
     setTags(article.tags.join(", "));
     setOrder(article.order);
     setShowForm(true);
@@ -151,74 +152,27 @@ export default function AdminBeautyTips() {
     setContent("");
     setAuthor("");
     setReadTimeMinutes(5);
-    setImage("");
+    setImages([]);
     setTags("");
     setOrder(1);
     setShowForm(false);
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.warning("Maximum image size is 5MB");
-      return;
-    }
-
-    if (!file.type.startsWith("image/")) {
-      toast.warning("Please upload an image file.");
-      return;
-    }
-
-    setUploading(true);
-
-    try {
-      const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
-
-      const { error } = await supabase.storage
-        .from("tips")
-        .upload(fileName, file);
-
-      if (error) throw error;
-
-      const { data } = supabase.storage.from("tips").getPublicUrl(fileName);
-
-      setImage(data.publicUrl);
-      toast.success("Image uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
   const handleTitleChange = (value: string) => {
     setTitle(value);
-
-    if (!editingId) {
-      setSlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
+    setSlug(slugify(value));
   };
 
   const handleCategoryChange = (value: string) => {
     setCategory(value);
-
-    if (!editingId) {
-      setCategorySlug(
-        value
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      );
-    }
+    setCategorySlug(slugify(value));
   };
   return (
     <div className="space-y-6">
@@ -262,7 +216,7 @@ export default function AdminBeautyTips() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                URL Slug
+                Title Slug
               </label>
               <input
                 type="text"
@@ -353,34 +307,16 @@ export default function AdminBeautyTips() {
             </div>
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Image URL (First)
+                Upload Image(s)
               </label>
-              <input
-                type="text"
-                required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="https://cdn.com/product.jpg"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="border rounded-md p-1"
+              <ImageUploader
+                bucket="tips"
+                multiple
+                value={images}
+                onChange={(imgs) => setImages(imgs as string[])}
               />
             </div>
           </div>
-
-          {image && (
-            <Image
-              src={image}
-              alt="Preview"
-              width={120}
-              height={120}
-              className="rounded border object-cover"
-            />
-          )}
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs uppercase font-semibold text-gray-500">
@@ -446,7 +382,7 @@ export default function AdminBeautyTips() {
               </thead>
               <tbody className="divide-y">
                 {articles.map((art) => {
-                  const displayImage = art.image;
+                  const displayImage = art.images?.[0];
 
                   return (
                     <tr
@@ -458,6 +394,8 @@ export default function AdminBeautyTips() {
                           <Image
                             src={displayImage}
                             alt={art.title}
+                            width={200}
+                            height={200}
                             className="w-10 h-10 object-cover rounded bg-gray-100 border"
                           />
                         )}
