@@ -73,8 +73,8 @@ const Home = () => {
   };
   return (
     <div className="min-h-screen py-10 md:py-16">
-      <div className="max-w-6xl mx-auto">
-        <div className="px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index) => {
             const isFirst = index === 0;
 
@@ -127,7 +127,7 @@ const Home = () => {
           title="Beauty Tips"
           data={tips}
           getKey={(tips) => tips.slug}
-          className="py-4 px-6 md:px-12"
+          className="py-4 px-6 max-w-6xl mx-auto md:px-12"
           renderItem={(item) => (
             <Link href={`/beauty-tips/${item.slug}`}>
               <div className="flex flex-col h-full">
@@ -162,7 +162,7 @@ const Home = () => {
           title="Latest Trends"
           data={trends}
           getKey={(trends) => trends.slug}
-          className="bg-boxBg py-4 px-6 md:px-12"
+          className="bg-boxBg max-w-6xl mx-auto py-4 px-6 md:px-12"
           renderItem={(item) => (
             <Link href={`/trends/${item.slug}`}>
               <div className="flex flex-col h-full">
@@ -193,7 +193,7 @@ const Home = () => {
 
         {/* readers favourite */}
 
-        <div className="px-6  md:px-12 py-10  md:py-16">
+        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10  md:py-16">
           <div>
             <Image
               src={flower}
@@ -218,7 +218,7 @@ const Home = () => {
 
         {/* md:w-125 md:h-125 */}
         {/* lifestyle */}
-        <div className="px-6  md:px-12 py-10  md:py-16">
+        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10  md:py-16">
           <H1>Lifestyle</H1>
           <div className="py-6 flex flex-col md:flex-row gap-6">
             {featuredLifestyle && (
@@ -280,7 +280,7 @@ const Home = () => {
         <Community />
 
         {/* sellers */}
-        <div className="px-6  md:px-12 py-10 md:py-16">
+        <div className="px-6 max-w-6xl mx-auto  md:px-12 py-10 md:py-16">
           <H1>Best Sellers for a reason</H1>
           <p className="md:text-base text-sm py-3">
             Shop editor-approved picks and great beauty sales.

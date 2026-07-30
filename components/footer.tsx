@@ -7,6 +7,9 @@ import { LiaLinkedin } from "react-icons/lia";
 import { footerList, skincareList } from "./lib/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { api } from "./lib/api";
+import { useState } from "react";
+import { Check } from "lucide-react";
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -15,6 +18,35 @@ export const Footer = () => {
 
   if (isAdminRoute) return null;
 
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+  
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      if (!name.trim() || !email.trim()) {
+        return;
+      }
+  
+      try {
+        setLoading(true);
+  
+        await api.publicShop.createSubscriber({
+          name,
+          email,
+        });
+  
+        setName("");
+        setEmail("");
+        setShowSuccess(true);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
   return (
     <div className="md:px-12 px-6 md:text-lg text-base text-primaryText">
       <hr className="border w-full text-darkText" />
@@ -25,7 +57,7 @@ export const Footer = () => {
           <div className="hidden lg:block">
             <div className="pt-10 pb-6">
               <p className="pb-2">Stay up to date with our latest stories</p>
-              <form className="flex py-4">
+              {/* <form className="flex py-4">
                 <input
                   type="email"
                   placeholder="Enter your email address"
@@ -34,7 +66,41 @@ export const Footer = () => {
                 <button type="submit" className="text-white p-2 bg-primaryBg">
                   Sign Up
                 </button>
-              </form>
+              </form> */}
+               <form
+            onSubmit={handleSubmit}
+            className="mt-8 max-w-2xl"
+          >
+            <div className="flex flex-col gap-3">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                required
+                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+              />
+
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                required
+                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+              />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Joining..." : "Sign Up"}
+              </button>
+            </div>
+
+            
+          </form>
             </div>
 
             <div className="flex gap-3 text-sm pt-4 pb-10">
@@ -78,7 +144,7 @@ export const Footer = () => {
         <div className="block lg:hidden">
           <div className="pt-10 pb-6">
             <p>Stay up to date with our latest stories</p>
-            <form className="flex py-3">
+            {/* <form className="flex py-3">
               <input
                 type="email"
                 placeholder="Enter your email address"
@@ -87,7 +153,41 @@ export const Footer = () => {
               <button type="submit" className="bg-primaryBg text-white p-2">
                 Sign Up
               </button>
-            </form>
+            </form> */}
+            <form
+            onSubmit={handleSubmit}
+            className="mt-8 max-w-2xl"
+          >
+            <div className="flex flex-col gap-3">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                required
+                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+              />
+
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                required
+                className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+              />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Joining..." : "Sign Up"}
+              </button>
+            </div>
+
+            
+          </form>
           </div>
 
           <div className="flex gap-3  pt-4 pb-10">
@@ -114,6 +214,50 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+
+       {showSuccess && (
+        <div
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 px-6 backdrop-blur-sm"
+          onClick={() => setShowSuccess(false)}
+        >
+          <div
+            className="relative w-full max-w-md bg-white px-8 py-12 text-center shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Success Icon */}
+            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-50">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
+                <Check
+                  size={40}
+                  strokeWidth={3}
+                  className="text-white"
+                />
+              </div>
+            </div>
+
+            <p className="uppercase tracking-[0.25em] text-yellowText text-xs mb-3">
+              Welcome to Seraphé
+            </p>
+
+            <h2 className="font-serif text-3xl md:text-4xl text-black">
+              You&apos;re officially subscribed!
+            </h2>
+
+            <p className="mt-4 text-sm md:text-base text-gray-500 leading-relaxed">
+              Thank you for joining our community. We&apos;ll keep you
+              updated with the latest beauty stories, trends and insights.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => setShowSuccess(false)}
+              className="mt-8 bg-primaryBg px-8 py-3 text-sm uppercase tracking-wider text-white transition hover:opacity-90"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+       )}
     </div>
   );
 };

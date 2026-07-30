@@ -86,6 +86,7 @@ export default function AdminSubscribers() {
             <thead>
               <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                 <th className="p-4">Name</th>
+                <th className="p-4">Email</th>
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
@@ -96,6 +97,7 @@ export default function AdminSubscribers() {
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="p-4 font-medium text-gray-800">{cat.name}</td>
+                  <td className="p-4 font-medium text-gray-800">{cat.email}</td>
                   <td className="p-4 text-right space-x-2">
                     <button
                       onClick={() => {
