@@ -282,7 +282,7 @@ const Home = () => {
         <Community />
 
         {/* sellers */}
-        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10 md:py-16">
+        {/* <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10 md:py-16">
           <H1>Best Sellers for a reason</H1>
           <p className="md:text-base text-sm py-3">
             Shop editor-approved picks and great beauty sales.
@@ -293,7 +293,15 @@ const Home = () => {
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
-        </div>
+          
+        </div> */}
+        <Carousel
+          title="Best Sellers for a reason"
+          data={products}
+          getKey={(product) => product._id}
+          className="max-w-7xl mx-auto md:py-4 py-2 px-6 md:px-12"
+          renderItem={(product) => <ProductCard product={product} />}
+        />
         {/* skincare */}
 
         {/* <Carousel
