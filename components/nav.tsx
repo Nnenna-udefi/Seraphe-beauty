@@ -34,7 +34,7 @@ export const Nav = () => {
   const selectedMenu = navItems.find((item) => item.text === activeSubmenu);
 
   return (
-    <nav className="bg-secondary sticky text-secondaryText text-sm lg:text-base p-3 ">
+    <nav className="bg-secondary sticky top-0 z-50 text-secondaryText text-sm lg:text-base p-3 ">
       <div className="py-2 md:px-10 px-3 flex justify-between items-center">
         <Link href="/">
           <Image

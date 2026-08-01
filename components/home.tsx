@@ -109,7 +109,9 @@ const Home = () => {
                       {blog.category}
                     </h3>
 
-                    <h2 className={`my-2 ${isFirst ? "text-3xl" : "text-xl"}`}>
+                    <h2
+                      className={`my-2 ${isFirst ? "md:text-3xl text-xl" : "text-xl"}`}
+                    >
                       {blog.title}
                     </h2>
 
@@ -127,7 +129,7 @@ const Home = () => {
           title="Beauty Tips"
           data={tips}
           getKey={(tips) => tips.slug}
-          className="py-4 px-6 max-w-7xl mx-auto md:px-12"
+          className="md:py-4 py-2 px-6 max-w-7xl mx-auto md:px-12"
           renderItem={(item) => (
             <Link href={`/beauty-tips/${item.slug}`}>
               <div className="flex flex-col h-full">
@@ -162,7 +164,7 @@ const Home = () => {
             title="Latest Trends"
             data={trends}
             getKey={(trends) => trends.slug}
-            className="max-w-7xl mx-auto py-4 px-6 md:px-12"
+            className="max-w-7xl mx-auto md:py-4 py-2 px-6 md:px-12"
             renderItem={(item) => (
               <Link href={`/trends/${item.slug}`}>
                 <div className="flex flex-col h-full">
