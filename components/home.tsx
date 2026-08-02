@@ -109,7 +109,7 @@ const Home = () => {
 
                     <h2
                       className={`font-semibold my-1 text-gray-900 group-hover:text-primaryBg transition-colors ${
-                        isFirst ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
+                        isFirst ? "text-lg md:text-3xl" : "text-lg md:text-xl"
                       }`}
                     >
                       {blog.title}
