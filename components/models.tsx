@@ -25,30 +25,24 @@ const specialties = [
   "Beauty & Wellness",
 ];
 
+// {
+//   id: 4,
+//   name: "Maya Lin",
+//   category: "New Faces",
+//   rank: "Rising Star",
+//   stats: {
+//     height: "177 cm / 5'9.5\"",
+//     bust: "79 cm",
+//     waist: "58 cm",
+//     hips: "86 cm",
+//   },
+//   motherAgency: "Seraphé Tokyo",
+//   featuredIn: "Seraphé Cruise 2026, Dazed Magazine",
+//   imagePlaceholder:
+//     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=600&h=800",
+// },
 
-  // {
-  //   id: 4,
-  //   name: "Maya Lin",
-  //   category: "New Faces",
-  //   rank: "Rising Star",
-  //   stats: {
-  //     height: "177 cm / 5'9.5\"",
-  //     bust: "79 cm",
-  //     waist: "58 cm",
-  //     hips: "86 cm",
-  //   },
-  //   motherAgency: "Seraphé Tokyo",
-  //   featuredIn: "Seraphé Cruise 2026, Dazed Magazine",
-  //   imagePlaceholder:
-  //     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=600&h=800",
-  // },
-
-
-export default function Models({
-  models,
-}: {
-  models: Model[];}
-) {
+export default function Models({ models }: { models: Model[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredModels =
@@ -78,8 +72,8 @@ export default function Models({
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-2.5 text-xs font-semibold uppercase tracking-widest transition-all duration-300 border ${
                 activeCategory === category
-                  ? "bg-neutral-950 text-white border-neutral-950 shadow-sm"
-                  : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-900"
+                  ? "bg-primaryBg text-white border-primaryBg"
+                  : "border-stone-300 hover:border-black"
               }`}
             >
               {category}
@@ -100,6 +94,7 @@ export default function Models({
                   src={model.featureImage}
                   alt={model.name}
                   width={500}
+                  height={0}
                   className="w-full h-full object-cover object-top filter grayscale contrast-115 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500"
                   loading="lazy"
                 />
@@ -128,17 +123,14 @@ export default function Models({
                       </span>{" "}
                       {model.height}
                     </div>
-                  
                   </div>
-
-                 
                 </div>
 
                 <div className=" items-center  pt-3 border-t border-neutral-50">
-                  <Link href={`/seraphe-models/${model._id}`} >
-                  <button className="text-xs font-bold uppercase tracking-widest text-white p-2 bg-primaryBg hover:text-neutral-500 transition-colors duration-200">
-                    View Portfolio &rarr;
-                  </button>
+                  <Link href={`/seraphe-models/${model._id}`}>
+                    <button className="text-xs font-bold uppercase tracking-widest text-white p-2 bg-primaryBg hover:text-neutral-500 transition-colors duration-200">
+                      View Portfolio &rarr;
+                    </button>
                   </Link>
                 </div>
               </div>

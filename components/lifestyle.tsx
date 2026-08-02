@@ -41,7 +41,7 @@ export default function LifestyleAdmin({
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          <div className="flex overflow-y-auto justify-center gap-6 uppercase">
+          <div className="flex justify-center gap-6 uppercase">
             {lifestyleCategories.map((category, index) => (
               <button
                 key={index}
@@ -50,9 +50,9 @@ export default function LifestyleAdmin({
                     `/lifestyle?category=${encodeURIComponent(category)}`,
                   )
                 }
-                className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+                className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
                   activeCategory === category
-                    ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                    ? "bg-primaryBg text-white border-primaryBg"
                     : "border-stone-300 hover:border-black"
                 }`}
               >

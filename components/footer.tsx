@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import logo from "@/components/images/redbg.png";
-import { BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
-import { FaFacebook } from "react-icons/fa";
+import { BsInstagram } from "react-icons/bs";
+import { FaEnvelope, FaFacebook, FaPhone, FaTiktok } from "react-icons/fa";
 import { LiaLinkedin } from "react-icons/lia";
 import { footerList, skincareList } from "./lib/constants";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import { api } from "./lib/api";
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { H3 } from "./ui/heading";
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -48,25 +49,16 @@ export const Footer = () => {
     }
   };
   return (
-    <div className="md:px-12 px-6 md:text-lg text-base text-primaryText">
+    <div className="md:px-12 px-6 md:text-lg text-base text-primaryBg">
       <hr className="border w-full text-darkText" />
-      <div className="flex flex-col justify-between  lg:flex-row gap-12  py-6 md:py-12">
-        <div className="w-full">
+      <div className="flex flex-col justify-between  lg:flex-row gap-4  py-6 md:py-12">
+        <div className="lg:w-2xl w-full">
           <Image src={logo} alt="logo" width={100} height={0} />
 
           <div className="hidden lg:block">
             <div className="pt-10 pb-6">
               <p className="pb-2">Stay up to date with our latest stories</p>
-              {/* <form className="flex py-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="py-2 px-3 bg-gray-300 text-sm md:text-base text-[#525252] placeholder:text-[#525252]"
-                />
-                <button type="submit" className="text-white p-2 bg-primaryBg">
-                  Sign Up
-                </button>
-              </form> */}
+
               <form onSubmit={handleSubmit} className="mt-8">
                 <div className="flex flex-col gap-3">
                   <input
@@ -97,16 +89,6 @@ export const Footer = () => {
                 </div>
               </form>
             </div>
-
-            <div className="flex gap-3 text-sm pt-4 pb-10">
-              <BsYoutube />
-              <FaFacebook />
-              <LiaLinkedin />
-              <BsTwitterX />
-              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
-                <BsInstagram />
-              </Link>
-            </div>
           </div>
         </div>
 
@@ -116,7 +98,7 @@ export const Footer = () => {
               const isActive = pathname === item.link;
               return (
                 <Link href={item.link} key={item.id}>
-                  <li className={`${isActive ? "" : ""} font-medium`}>
+                  <li className={`${isActive ? "font-n" : ""} font-medium`}>
                     {item.text}
                   </li>
                 </Link>
@@ -129,27 +111,46 @@ export const Footer = () => {
               const isActive = pathname === item.link;
               return (
                 <Link href={item.link} key={item.id}>
-                  <li className={`${isActive ? "" : ""}`}>{item.text}</li>
+                  <li
+                    className={`${isActive ? "font-normal" : ""} font-medium`}
+                  >
+                    {item.text}
+                  </li>
                 </Link>
               );
             })}
           </ul>
+
+          <div className="hidden lg:block">
+            <div>
+              <h3 className="uppercase tracking-tighter">
+                Contact Information
+              </h3>
+              <p className="pt-4 flex gap-1 items-center text-base">
+                <FaPhone />
+                <span>+234-705-968-6654</span>
+              </p>
+              <p className="flex gap-1 items-center text-base">
+                <FaEnvelope />
+                <span>seraphebeauty.ng@gmail.com</span>
+              </p>
+            </div>
+
+            <div className="flex gap-3 text-sm pt-6">
+              <FaTiktok fontSize={20} />
+              <LiaLinkedin fontSize={20} />
+              <FaFacebook fontSize={20} />
+              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
+                <BsInstagram fontSize={20} />
+              </Link>
+            </div>
+          </div>
         </div>
 
         <div className="block lg:hidden">
           <div className="pt-10 pb-6">
             <p>Stay up to date with our latest stories</p>
-            {/* <form className="flex py-3">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="py-2 px-3 bg-gray-300 text-sm md:text-base max-w-full text-darkText placeholder:text-darkText"
-              />
-              <button type="submit" className="bg-primaryBg text-white p-2">
-                Sign Up
-              </button>
-            </form> */}
-            <form onSubmit={handleSubmit} className="mt-8 max-w-2xl">
+            <form onSubmit={handleSubmit} className="mt-8 ">
               <div className="flex flex-col gap-3">
                 <input
                   type="text"
@@ -157,7 +158,7 @@ export const Footer = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   required
-                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  className="flex-1 lg:w-[50%] w-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
                 />
 
                 <input
@@ -166,7 +167,7 @@ export const Footer = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
                   required
-                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  className="flex-1 lg:w-[50%] w-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
                 />
 
                 <button
@@ -180,14 +181,29 @@ export const Footer = () => {
             </form>
           </div>
 
-          <div className="flex gap-3  pt-4 pb-10">
-            <BsYoutube fontSize={24} />
-            <FaFacebook fontSize={24} />
-            <LiaLinkedin fontSize={24} />
-            <BsTwitterX fontSize={24} />
-            <Link href="https://instagram.com/seraphe_beauty" target="_blank">
-              <BsInstagram />
-            </Link>
+          <div>
+            <div>
+              <h3 className="uppercase tracking-tighter">
+                Contact Information
+              </h3>
+              <p className="pt-4 flex gap-1 items-center text-base">
+                <FaPhone />
+                <span>+234-705-968-6654</span>
+              </p>
+              <p className="flex gap-1 items-center text-base">
+                <FaEnvelope />
+                <span>seraphebeauty.ng@gmail.com</span>
+              </p>
+            </div>
+
+            <div className="flex gap-3 text-sm pt-6">
+              <FaTiktok fontSize={20} />
+              <LiaLinkedin fontSize={20} />
+              <FaFacebook fontSize={20} />
+              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
+                <BsInstagram fontSize={20} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

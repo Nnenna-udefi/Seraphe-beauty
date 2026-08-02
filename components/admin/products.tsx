@@ -32,6 +32,7 @@ export default function AdminProducts() {
   const [discountPrice, setDiscountPrice] = useState<number | undefined>(
     undefined,
   );
+  const [productLink, setProductLink] = useState("");
   const [sku, setSku] = useState("");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isActive, setIsActive] = useState(true);
@@ -98,6 +99,7 @@ export default function AdminProducts() {
       shortDescription,
       description,
       images,
+      productLink,
       stock: Number(stock),
       sku: sku || undefined,
       discountPrice: discountPrice ? Number(discountPrice) : undefined,
@@ -156,11 +158,12 @@ export default function AdminProducts() {
     setName(product.name);
     setSlug(product.slug);
     setPrice(product.price);
+    setProductLink(product.productLink);
     setCategory(product.category.name);
     setShortDescription(product.shortDescription);
     setDescription(product.description);
 
-    // FIXED: Support both single string formats or array formats if legacy data exists
+    // Support both single string formats or array formats if legacy data exists
     const existingImages = Array.isArray(product.images)
       ? product.images
       : product.images
@@ -193,6 +196,7 @@ export default function AdminProducts() {
     setIsActive(true);
     setTags("");
     setShowForm(false);
+    setProductLink("");
   };
 
   return (
@@ -320,6 +324,19 @@ export default function AdminProducts() {
                 type="number"
                 required
                 value={stock || ""}
+                onChange={(e) => setProductLink(e.target.value)}
+                className="border p-2 rounded text-sm bg-white"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs uppercase font-semibold text-gray-500">
+                Product Link
+              </label>
+              <input
+                type="text"
+                required
+                value={productLink}
                 onChange={(e) => setStock(Number(e.target.value))}
                 className="border p-2 rounded text-sm bg-white"
               />

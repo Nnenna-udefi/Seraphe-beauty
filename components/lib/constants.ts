@@ -89,7 +89,7 @@ export function useNavItems() {
       link: "/shop",
       children: [
         {
-          text: "All",
+          text: "All Products",
           link: "/shop",
         },
         ...categories.map((c) => ({
@@ -116,13 +116,15 @@ export function useNavItems() {
       link: "/beauty-tips",
       children: [
         {
-          text: "All",
+          text: "All Tips",
           link: "/beauty-tips",
         },
-        ...tipsCategories.map((c) => ({
-          text: c.name,
-          link: `/beauty-tips?category=${c.slug}`,
-        })),
+        ...tipsCategories
+          .filter((c) => c.slug !== "all")
+          .map((c) => ({
+            text: c.name,
+            link: `/beauty-tips?category=${c.slug}`,
+          })),
       ],
     },
     {
@@ -131,13 +133,15 @@ export function useNavItems() {
       link: "/trends",
       children: [
         {
-          text: "All",
+          text: "All Trends",
           link: "/trends",
         },
-        ...trendFocusAreas.map((c) => ({
-          text: c.name,
-          link: `/trends?category=${c.slug}`,
-        })),
+        ...trendFocusAreas
+          .filter((c) => c.slug !== "all")
+          .map((c) => ({
+            text: c.name,
+            link: `/trends?category=${c.slug}`,
+          })),
       ],
     },
     {

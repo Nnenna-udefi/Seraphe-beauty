@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./button";
+import { ArrowRight } from "lucide-react";
 
 interface BlogCardProps {
   title: string;
@@ -20,30 +20,35 @@ export default function BlogCard({
   buttonText = "Read More",
 }: BlogCardProps) {
   return (
-    <Link href={href}>
-      <div className="rounded-md ">
+    <Link href={href} className="group block h-full  flex-col">
+      <div className="overflow-hidden rounded-lg bg-stone-100  aspect-4/5 relative">
         <Image
           src={image}
           alt={title}
-          width={500}
-          height={0}
-          className="w-full h-75 aspect-4/6 object-cover rounded-md"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
+      </div>
 
-        <div className="mt-3">
-          <p className="uppercase text-yellowText text-sm">{category}</p>
+      <div className="mt-4 flex flex-col grow">
+        <span className="uppercase text-yellowText text-xs tracking-wider font-semibold">
+          {category}
+        </span>
 
-          <h2 className="line-clamp-3 leading-tight py-2 text-lg md:text-xl hover:underline">
-            {title}
-          </h2>
+        <h2 className="line-clamp-2 leading-snug font-medium my-2 text-base md:text-lg text-stone-900  group-hover:text-primaryBg transition-colors">
+          {title}
+        </h2>
 
-          <p className="uppercase text-darkText text-sm">{author}</p>
+        <p className="uppercase text-stone-500 text-xs tracking-wider mt-auto pt-1">
+          By {author}
+        </p>
+
+        {/* Visual action cue - replaces invalid nested button */}
+        <div className="mt-4 pt-3 border-t border-stone-200  flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-stone-900  group-hover:text-primaryBg transition-colors">
+          <span>{buttonText}</span>
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </div>
-
-        <Button className="mt-5 w-full">
-          {buttonText}
-          <span className="ml-2">&rarr;</span>
-        </Button>
       </div>
     </Link>
   );

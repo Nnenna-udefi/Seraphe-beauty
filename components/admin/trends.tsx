@@ -22,8 +22,7 @@ export default function AdminTrends() {
   const [focusArea, setFocusArea] = useState("");
   const [focusAreaSlug, setFocusAreaSlug] = useState("");
   const [label, setLabel] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
+  const [summary, setSummary] = useState("");
   const [author, setAuthor] = useState("");
   const [readTimeMinutes, setReadTimeMinutes] = useState(5);
   const [featureImage, setFeatureImage] = useState("");
@@ -73,8 +72,7 @@ export default function AdminTrends() {
       focusArea,
       focusAreaSlug,
       label,
-      subtitle,
-      excerpt,
+      summary,
       featureImage,
       content,
       author,
@@ -133,7 +131,7 @@ export default function AdminTrends() {
     setSlug(trend.slug);
     setFocusArea(trend.focusArea);
     setFocusAreaSlug(trend.focusAreaSlug);
-    setSubtitle(trend.subtitle);
+    setSummary(trend.summary);
     setLabel(trend.label);
     setContent(trend.content);
     setAuthor(trend.author);
@@ -152,7 +150,7 @@ export default function AdminTrends() {
     setSlug("");
     setFocusArea("");
     setFocusAreaSlug("");
-    setSubtitle("");
+    setSummary("");
     setLabel("");
     setContent("");
     setAuthor("");
@@ -262,19 +260,6 @@ export default function AdminTrends() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Sub title
-              </label>
-              <input
-                type="text"
-                value={subtitle}
-                onChange={(e) => setSubtitle(e.target.value)}
-                className="border p-2 rounded text-sm bg-white"
-                placeholder="subtitle"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs uppercase font-semibold text-gray-500">
                 Author
               </label>
               <input
@@ -301,13 +286,13 @@ export default function AdminTrends() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs uppercase font-semibold text-gray-500">
-                Excerpt
+                Summary
               </label>
               <input
                 type="text"
                 required
-                value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
                 className="border p-2 rounded text-sm bg-white"
                 placeholder="Explore how topicals formulated for skin-stress responses are changing beauty."
               />
@@ -405,7 +390,7 @@ export default function AdminTrends() {
                 <tr className="bg-gray-50 border-b text-xs text-gray-400 uppercase font-bold">
                   <th className="p-4">Title</th>
                   <th className="p-4">Focus Areas</th>
-                  <th className="p-4">Except</th>
+                  <th className="p-4">Summary</th>
                   <th className="p-4">Tags</th>
                   <th className="p-4 text-right">Actions</th>
                 </tr>

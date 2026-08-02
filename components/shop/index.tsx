@@ -12,10 +12,10 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const activeCategory = searchParams.get("category");
+  const activeCategory = searchParams.get("category") ?? "All Products";
 
   const filteredProducts =
-    activeCategory === "All Products"
+    !activeCategory || activeCategory === "All Products"
       ? products
       : products.filter((product) => product.category.slug === activeCategory);
   return (
@@ -26,7 +26,8 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
             {" "}
             {activeCategory === "All Products"
               ? "Shop"
-              : `${categories.find((c) => c.slug === activeCategory)?.name} Products`}
+              : (categories.find((c) => c.slug === activeCategory)?.name ??
+                "Products")}
           </H1>
 
           <p className="mt-4 md:text-lg text-base text-darkText max-w-2xl mx-auto">
@@ -40,9 +41,9 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                 `/shop?category=${encodeURIComponent("All Products")}`,
               )
             }
-            className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+            className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
               activeCategory === "All Products"
-                ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                ? "bg-primaryBg text-white border-primaryBg"
                 : "border-stone-300 hover:border-black"
             }`}
           >
@@ -57,9 +58,9 @@ const ShopSeraphe = ({ products }: { products: Product[] }) => {
                   `/shop?category=${encodeURIComponent(category.slug)}`,
                 )
               }
-              className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+              className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
                 activeCategory === category.slug
-                  ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                  ? "bg-primaryBg text-white border-primaryBg"
                   : "border-stone-300 hover:border-black"
               }`}
             >

@@ -83,7 +83,7 @@ export default function PredictiveSearch({
         title: trend.title,
         slug: trend.slug,
         category: "trends" as const,
-        keywords: [trend.title, trend.excerpt, trend.focusArea].join(" "),
+        keywords: [trend.title, trend.summary, trend.focusArea].join(" "),
       })),
     ],
     [products, collections, blogs, trends],

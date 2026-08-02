@@ -33,6 +33,9 @@ export interface Product {
   isActive?: boolean;
   stock: number;
   sku?: string;
+  productLink: string;
+  averageRating: number;
+  reviewCount: number;
 }
 
 export interface Lifestyle {
@@ -86,7 +89,7 @@ export interface Review {
   rating: number;
   email: string;
   name: string;
-  reviewText: string;
+  comment: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -162,8 +165,7 @@ export interface Trends {
   focusArea: string;
   focusAreaSlug: string;
   label: string;
-  subtitle: string;
-  excerpt: string;
+  summary: string;
   content: string;
   author: string;
   featureImage: string;
@@ -197,6 +199,7 @@ export interface ProductPayload {
   tags?: string[];
   isFeatured?: boolean;
   isActive?: boolean;
+  productLink: string;
   stock: number;
   sku?: string;
 }
@@ -233,7 +236,7 @@ export interface ReviewPayload {
   product: string;
   rating: number;
   email: string;
-  reviewText: string;
+  comment: string;
   name: string;
 }
 
@@ -264,8 +267,7 @@ export interface TrendsPayload {
   title: string;
   focusArea: string;
   label: string;
-  subtitle: string;
-  excerpt: string;
+  summary: string;
   content: string;
   author: string;
   featureImage: string;

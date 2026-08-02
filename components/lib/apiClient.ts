@@ -21,7 +21,7 @@ export async function apiRequest<T = unknown>(
   const response = await fetch(url, {
     ...options,
     headers,
-     cache: "no-store",
+    cache: "no-store",
   });
 
   const json = await response.json();

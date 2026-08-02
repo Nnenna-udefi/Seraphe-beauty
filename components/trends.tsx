@@ -18,7 +18,7 @@ export default function TrendsPage({
 }) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const activeFocus = searchParams.get("category");
+  const activeFocus = searchParams.get("category") ?? "All Trends";
 
   const filteredTrends = activeFocus
     ? trends
@@ -63,31 +63,33 @@ export default function TrendsPage({
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => router.push("/trends")}
-              className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+              className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
                 activeFocus === "All Trends"
-                  ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                  ? "bg-primaryBg text-white border-primaryBg"
                   : "border-stone-300 hover:border-black"
               }`}
             >
               All Trends
             </button>
-            {focusAreas.map((focusArea) => (
-              <button
-                key={focusArea.slug}
-                onClick={() =>
-                  router.push(
-                    `/trends?category=${encodeURIComponent(focusArea.slug)}`,
-                  )
-                }
-                className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
-                  activeFocus === focusArea.slug
-                    ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
-                    : "border-stone-300 hover:border-black"
-                }`}
-              >
-                {focusArea.name}
-              </button>
-            ))}
+            {focusAreas
+              .filter((focusArea) => focusArea.slug !== "all")
+              .map((focusArea) => (
+                <button
+                  key={focusArea.slug}
+                  onClick={() =>
+                    router.push(
+                      `/trends?category=${encodeURIComponent(focusArea.slug)}`,
+                    )
+                  }
+                  className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
+                    activeFocus === focusArea.slug
+                      ? "bg-primaryBg text-white border-primaryBg"
+                      : "border-stone-300 hover:border-black"
+                  }`}
+                >
+                  {focusArea.name}
+                </button>
+              ))}
           </div>
 
           {/* Sub-drawer for African Beauty Regional Hashtags
@@ -117,7 +119,7 @@ export default function TrendsPage({
           </AnimatePresence> */}
         </div>
 
-        <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-">
+        <div className="py-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {trends.map((trend) => (
             <BlogCard
               key={trend._id}

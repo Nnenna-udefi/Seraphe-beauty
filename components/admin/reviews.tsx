@@ -93,7 +93,7 @@ export default function AdminReviews() {
                     {review.email}
                   </td>
                   <td className="p-4 font-medium text-gray-800">
-                    {review.reviewText}
+                    {review.comment}
                   </td>
                 </tr>
               ))}

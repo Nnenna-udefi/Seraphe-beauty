@@ -43,31 +43,33 @@ export default function TipsPage({
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           <button
             onClick={() => router.push("/beauty-tips")}
-            className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
+            className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
               activeCategory === "All Tips"
-                ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
+                ? "bg-primaryBg text-white border-primaryBg"
                 : "border-stone-300 hover:border-black"
             }`}
           >
             All Tips
           </button>
-          {categories.map((category) => (
-            <button
-              key={category.slug}
-              onClick={() =>
-                router.push(
-                  `/beauty-tips?category=${encodeURIComponent(category.slug)}`,
-                )
-              }
-              className={`px-5 py-2.5 rounded-full border text-xs md:text-sm transition-all ${
-                activeCategory === category.slug
-                  ? "bg-[#2E0F0A] text-white border-[#2E0F0A]"
-                  : "border-stone-300 hover:border-black"
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
+          {categories
+            .filter((category) => category.slug !== "all")
+            .map((category) => (
+              <button
+                key={category.slug}
+                onClick={() =>
+                  router.push(
+                    `/beauty-tips?category=${encodeURIComponent(category.slug)}`,
+                  )
+                }
+                className={`px-5 py-2.5 border text-xs md:text-sm transition-all ${
+                  activeCategory === category.slug
+                    ? "bg-primaryBg text-white border-primaryBg"
+                    : "border-stone-300 hover:border-black"
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
         </div>
 
         {/* Directory Grid */}

@@ -1,13 +1,13 @@
 "use client";
+
 import React from "react";
 import Image from "next/image";
-import flower from "@/components/images/flower-girl.jpeg";
-import { H1 } from "./ui/heading";
+import Link from "next/link";
 import Carousel from "./ui/carousel";
 import Community from "./ui/community";
-import Link from "next/link";
-import { useSite } from "./helper/siteContext";
 import ProductCard from "./ui/productCard";
+import { H1 } from "./ui/heading";
+import { useSite } from "./helper/siteContext";
 import { HomeBlog } from "./types/api";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
   const sideLifestyle = lifestyle.slice(1, 3);
 
   const readersFavourite =
-    lifestyle.find((lifestyle) => lifestyle.isFeatured) ?? lifestyle[0];
+    lifestyle.find((post) => post.isFeatured) ?? lifestyle[0];
 
   const featuredBlogs: HomeBlog[] = [
     ...tips.map((tip) => ({
@@ -30,7 +30,6 @@ const Home = () => {
       category: tip.category,
       type: "tips" as const,
     })),
-
     ...trends.map((trend) => ({
       id: trend._id,
       slug: trend.slug,
@@ -41,7 +40,6 @@ const Home = () => {
       category: trend.focusArea,
       type: "trends" as const,
     })),
-
     ...lifestyle.map((post) => ({
       id: post._id,
       slug: post.slug,
@@ -63,18 +61,18 @@ const Home = () => {
     switch (blog.type) {
       case "tips":
         return `/beauty-tips/${blog.slug}`;
-
       case "trends":
         return `/trends/${blog.slug}`;
-
       case "lifestyle":
         return `/lifestyle/${blog.slug}`;
     }
   };
+
   return (
-    <div className="min-h-screen py-10 md:py-16">
-      <div className="">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="min-h-screen py-6 md:py-12 space-y-16">
+      {/* 1. Hero Grid (Featured Top Stories) */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index) => {
             const isFirst = index === 0;
 
@@ -83,73 +81,79 @@ const Home = () => {
                 key={blog.id}
                 className={
                   isFirst
-                    ? "md:col-span-2 md:row-span-2 flex flex-col"
+                    ? "md:col-span-2 md:row-span-2"
                     : "md:col-span-1 border-b border-gray-100 md:border-b-0 pb-6 md:pb-0"
                 }
               >
                 <Link
                   href={getBlogLink(blog)}
-                  className={`flex flex-col h-full ${isFirst ? "" : "gap-6"}`}
+                  className="group flex flex-col h-full gap-4"
                 >
                   <div
-                    className={`relative overflow-hidden ${
-                      isFirst ? "h-80 md:h-112.5" : "h-48 md:h-44"
+                    className={`relative overflow-hidden rounded-lg bg-gray-100 ${
+                      isFirst ? "h-72 md:h-105" : "h-48 md:h-44"
                     }`}
                   >
                     <Image
                       src={blog.image}
                       alt={blog.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 
-                  <div className={isFirst ? "pt-4" : "flex-1"}>
-                    <h3 className="text-yellowText uppercase text-sm">
+                  <div className="flex flex-col flex-1">
+                    <span className="text-yellowText uppercase text-xs font-semibold tracking-wider">
                       {blog.category}
-                    </h3>
+                    </span>
 
                     <h2
-                      className={`my-2 ${isFirst ? "md:text-3xl text-xl" : "text-xl"}`}
+                      className={`font-semibold my-1 text-gray-900 group-hover:text-primaryBg transition-colors ${
+                        isFirst ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
+                      }`}
                     >
                       {blog.title}
                     </h2>
 
-                    <p className="uppercase text-xs">By {blog.author}</p>
+                    <p className="uppercase text-xs text-gray-500 mt-auto">
+                      By {blog.author}
+                    </p>
                   </div>
                 </Link>
               </div>
             );
           })}
         </div>
+      </section>
 
-        {/* beauty tips */}
-
+      {/* 2. Beauty Tips Carousel */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12">
         <Carousel
           title="Beauty Tips"
           data={tips}
-          getKey={(tips) => tips.slug}
-          className="md:py-4 py-2 px-6 max-w-7xl mx-auto md:px-12"
+          getKey={(item) => item.slug}
           renderItem={(item) => (
-            <Link href={`/beauty-tips/${item.slug}`}>
+            <Link
+              href={`/beauty-tips/${item.slug}`}
+              className="group block h-full"
+            >
               <div className="flex flex-col h-full">
-                <div className="overflow-hidden bg-gray-100">
+                <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100">
                   <Image
                     src={item.images?.[0]}
                     alt={item.title}
-                    width={300}
-                    height={0}
-                    className="w-full h-75 object-cover"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="flex flex-col grow">
-                  <h3 className="uppercase text-yellowText text-sm pt-4">
+                <div className="flex flex-col grow pt-4">
+                  <span className="uppercase text-yellowText text-xs font-semibold tracking-wider">
                     {item.category}
-                  </h3>
-                  <h4 className="md:text-xl text-base py-2 font-normal text-black">
+                  </span>
+                  <h4 className="text-lg py-2 font-medium text-gray-900 group-hover:text-primaryBg transition-colors">
                     {item.title}
                   </h4>
-                  <p className="uppercase text-darkText text-sm mt-auto">
+                  <p className="uppercase text-gray-500 text-xs mt-auto">
                     By {item.author}
                   </p>
                 </div>
@@ -157,34 +161,37 @@ const Home = () => {
             </Link>
           )}
         />
+      </section>
 
-        {/* trends */}
-        <div className="bg-boxBg">
+      {/* 3. Trends Section (Full-width Tinted Background) */}
+      <section className="bg-boxBg py-12">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           <Carousel
             title="Latest Trends"
             data={trends}
-            getKey={(trends) => trends.slug}
-            className="max-w-7xl mx-auto md:py-4 py-2 px-6 md:px-12"
+            getKey={(item) => item.slug}
             renderItem={(item) => (
-              <Link href={`/trends/${item.slug}`}>
+              <Link
+                href={`/trends/${item.slug}`}
+                className="group block h-full"
+              >
                 <div className="flex flex-col h-full">
-                  <div className="overflow-hidden bg-gray-100">
+                  <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100">
                     <Image
                       src={item.images[0]}
                       alt={item.title}
-                      width={300}
-                      height={0}
-                      className="w-full h-75 object-cover"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="flex flex-col grow">
-                    <h3 className="uppercase text-yellowText text-sm pt-4">
+                  <div className="flex flex-col grow pt-4">
+                    <span className="uppercase text-yellowText text-xs font-semibold tracking-wider">
                       {item.focusArea}
-                    </h3>
-                    <h4 className="md:text-xl text-base py-2 font-normal text-black">
+                    </span>
+                    <h4 className="text-lg py-2 font-medium text-gray-900 group-hover:text-primaryBg transition-colors">
                       {item.title}
                     </h4>
-                    <p className="uppercase text-darkText text-sm mt-auto">
+                    <p className="uppercase text-gray-500 text-xs mt-auto">
                       By {item.author}
                     </p>
                   </div>
@@ -193,146 +200,115 @@ const Home = () => {
             )}
           />
         </div>
-        {/* readers favourite */}
+      </section>
 
-        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10  md:py-16">
-          <div>
-            <Image
-              src={flower}
-              alt="flower girl"
-              width={500}
-              height={0}
-              className="w-full md:h-100 h-auto object-cover"
-            />
-          </div>
-          <div className="flex flex-col items-center justify-center gap-2">
-            <h3 className="uppercase text-yellowText text-sm pt-2">
-              Reader&apos;s Favourite
-            </h3>
-            <h1 className="md:text-4xl text-center text-xl py-2 md:w-[80%] w-full">
-              {readersFavourite.title}
-            </h1>
-            <p className="uppercase text-darkText text-sm">
-              By {readersFavourite.author}
-            </p>
-          </div>
-        </div>
-
-        {/* md:w-125 md:h-125 */}
-        {/* lifestyle */}
-        <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10  md:py-16">
-          <H1>Lifestyle</H1>
-          <div className="py-6 flex flex-col md:flex-row gap-6">
-            {featuredLifestyle && (
-              <div className="flex-1">
-                <Link href={`/lifestyle/${featuredLifestyle.slug}`}>
-                  <Image
-                    src={featuredLifestyle.image}
-                    alt={featuredLifestyle.title}
-                    width={500}
-                    height={500}
-                    className="w-full h-96"
-                  />
-
-                  <h3 className="uppercase text-yellowText text-sm pt-2">
-                    {featuredLifestyle.category}
-                  </h3>
-
-                  <h1 className="text-2xl md:text-4xl py-2 hover:underline">
-                    {featuredLifestyle.title}
-                  </h1>
-
-                  <p className="uppercase text-darkText text-sm">
-                    By {featuredLifestyle.author}
-                  </p>
-                </Link>
-              </div>
-            )}
-
-            <div className="flex flex-col gap-4 md:w-[35%]">
-              {sideLifestyle.map((item) => (
-                <div key={item._id} className="flex gap-3">
-                  <Link href={`/lifestyle/${item.slug}`}>
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={120}
-                      height={120}
-                      className="object-cover"
-                    />
-
-                    <div>
-                      <h3 className="uppercase text-yellowText text-xs">
-                        {item.category}
-                      </h3>
-
-                      <h2 className="text-base py-1">{item.title}</h2>
-
-                      <p className="uppercase text-darkText text-xs">
-                        By {item.author}
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* Join our community */}
-        <Community />
-
-        {/* sellers */}
-        {/* <div className="px-6 max-w-7xl mx-auto  md:px-12 py-10 md:py-16">
-          <H1>Best Sellers for a reason</H1>
-          <p className="md:text-base text-sm py-3">
-            Shop editor-approved picks and great beauty sales.
-          </p>
-
-          <div className="py-6 grid grid-cols-1 gap-x-4 gap-y-6 md:grid-cols-2 lg:grid-cols-4">
-            {products.slice(0, 4).map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
-          
-        </div> */}
-        <Carousel
-          title="Best Sellers for a reason"
-          data={products}
-          getKey={(product) => product._id}
-          className="max-w-7xl mx-auto md:py-4 py-2 px-6 md:px-12"
-          renderItem={(product) => <ProductCard product={product} />}
-        />
-        {/* skincare */}
-
-        {/* <Carousel
-          title="Skincare"
-          data={blogDummy}
-          renderItem={(item) => (
-            <div className="flex flex-col h-full">
-              <div className="overflow-hidden bg-gray-100">
+      {/* 4. Reader's Favourite Banner */}
+      {readersFavourite && (
+        <section className="max-w-7xl mx-auto px-6 md:px-12">
+          <Link
+            href={`/lifestyle/${readersFavourite.slug}`}
+            className="group block"
+          >
+            <div className="relative rounded-xl overflow-hidden bg-gray-900 text-white">
+              <div className="relative h-80 md:h-112 opacity-75">
                 <Image
-                  src={item.img}
-                  alt={item.topic}
-                  width={300}
-                  height={0}
-                  className="w-full h-75 object-cover"
+                  src={readersFavourite.image}
+                  alt={readersFavourite.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="flex flex-col grow">
-                <h3 className="uppercase text-yellowText text-sm pt-4">
-                  {item.category}
-                </h3>
-                <h4 className="md:text-xl text-base py-2 font-normal text-black">
-                  {item.topic}
-                </h4>
-                <p className="uppercase text-darkText text-sm mt-auto">
-                  {item.author}
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent flex flex-col items-center justify-end p-6 md:p-12 text-center">
+                <span className="uppercase text-yellowText text-xs font-semibold tracking-widest mb-2">
+                  Reader&apos;s Favourite
+                </span>
+                <h1 className="text-2xl md:text-4xl font-bold max-w-3xl leading-tight mb-3">
+                  {readersFavourite.title}
+                </h1>
+                <p className="uppercase text-xs text-gray-300">
+                  By {readersFavourite.author}
                 </p>
               </div>
             </div>
+          </Link>
+        </section>
+      )}
+
+      {/* 5. Lifestyle Feature & Sidebar */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12">
+        <H1>Lifestyle</H1>
+        <div className="mt-6 flex flex-col md:flex-row gap-8">
+          {featuredLifestyle && (
+            <div className="flex-1">
+              <Link
+                href={`/lifestyle/${featuredLifestyle.slug}`}
+                className="group block"
+              >
+                <div className="relative h-80 md:h-96 rounded-lg overflow-hidden bg-gray-100">
+                  <Image
+                    src={featuredLifestyle.image}
+                    alt={featuredLifestyle.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <span className="uppercase text-yellowText text-xs font-semibold tracking-wider block mt-4">
+                  {featuredLifestyle.category}
+                </span>
+                <h2 className="text-xl md:text-3xl font-semibold py-2 group-hover:text-primaryBg transition-colors">
+                  {featuredLifestyle.title}
+                </h2>
+                <p className="uppercase text-gray-500 text-xs">
+                  By {featuredLifestyle.author}
+                </p>
+              </Link>
+            </div>
           )}
-        /> */}
-      </div>
+
+          <div className="flex flex-col gap-6 md:w-[38%]">
+            {sideLifestyle.map((item) => (
+              <Link
+                key={item._id}
+                href={`/lifestyle/${item.slug}`}
+                className="group flex gap-4 items-center"
+              >
+                <div className="relative w-28 h-28 shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <span className="uppercase text-yellowText text-xs font-semibold tracking-wider">
+                    {item.category}
+                  </span>
+                  <h3 className="text-base font-medium py-1 line-clamp-2 group-hover:text-primaryBg transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="uppercase text-gray-500 text-[10px]">
+                    By {item.author}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Community Banner */}
+      <Community />
+
+      {/* 7. Best Sellers Carousel */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12">
+        <Carousel
+          title="Best Sellers for a Reason"
+          data={products}
+          getKey={(product) => product._id}
+          renderItem={(product) => <ProductCard product={product} />}
+        />
+      </section>
     </div>
   );
 };
