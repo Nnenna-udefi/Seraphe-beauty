@@ -181,9 +181,9 @@ export const Footer = () => {
             </form>
           </div>
 
-          <div>
+          <div className="py-4">
             <div>
-              <h3 className="uppercase tracking-tighter">
+              <h3 className="uppercase tracking-tighter font-medium">
                 Contact Information
               </h3>
               <p className="pt-4 flex gap-1 items-center text-base">
