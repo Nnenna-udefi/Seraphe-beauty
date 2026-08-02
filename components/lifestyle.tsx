@@ -41,7 +41,7 @@ export default function LifestyleAdmin({
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          <div className="flex justify-center gap-6 uppercase">
+          <div className="flex flex-wrap justify-center gap-6 uppercase">
             {lifestyleCategories.map((category, index) => (
               <button
                 key={index}
