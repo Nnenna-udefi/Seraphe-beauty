@@ -66,12 +66,12 @@ export const Nav = () => {
                 width={190}
                 height={50}
                 priority
-                className="w-36 md:w-44 h-auto object-contain"
+                className="w-40 md:w-50 h-autoS object-contain"
               />
             </Link>
 
             {/* Desktop Search Trigger */}
-            <div className="flex-1 max-w-50 mx-6 hidden lg:block">
+            <div className="flex-1 mt-4 max-w-50 mx-6 hidden lg:block">
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
@@ -88,7 +88,7 @@ export const Nav = () => {
             </div>
 
             {/* Actions: Mobile Search + Mobile Menu Button */}
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center mt-4 gap-3 lg:hidden">
               <button
                 onClick={() => setIsSearchOpen(true)}
                 className="p-2 text-stone-300 hover:text-white rounded-full hover:bg-stone-800/50"
@@ -186,7 +186,7 @@ export const Nav = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
+            className="fixed inset-0 z-40 mt-6 bg-black/60 backdrop-blur-xs lg:hidden"
             onClick={closeMobileMenu}
           >
             <motion.div
@@ -218,7 +218,7 @@ export const Nav = () => {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
-                      className="py-6 mt-4 space-y-4 uppercase tracking-wider text-sm font-medium"
+                      className="py-6 space-y-4 uppercase tracking-wider text-sm font-medium"
                     >
                       {navItems.map((item) => (
                         <li key={item.id}>

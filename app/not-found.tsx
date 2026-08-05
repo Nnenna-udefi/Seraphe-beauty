@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-// import notFound from "@/components/images/404.png";
 
 export default function NotFound() {
   return (
@@ -18,7 +16,7 @@ export default function NotFound() {
           404 Error
         </p>
 
-        <h1 className="mt-3 text-4xl md:text-6xl font-cantataOne">
+        <h1 className="mt-3 text-3xl md:text-6xl font-cantataOne">
           Oops! This page doesn't exist.
         </h1>
 

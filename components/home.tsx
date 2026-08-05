@@ -69,7 +69,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen py-6 md:py-12 space-y-16">
+    <div className="min-h-screen py-16 md:py-20 space-y-16">
       {/* 1. Hero Grid (Featured Top Stories) */}
       <section className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -82,7 +82,7 @@ const Home = () => {
                 className={
                   isFirst
                     ? "md:col-span-2 md:row-span-2"
-                    : "md:col-span-1 border-b border-gray-100 md:border-b-0 pb-6 md:pb-0"
+                    : "md:col-span-1 border-b border-gray-100 md:border-b-0"
                 }
               >
                 <Link
@@ -115,7 +115,7 @@ const Home = () => {
                       {blog.title}
                     </h2>
 
-                    <p className="uppercase text-xs text-gray-500 mt-auto">
+                    <p className="uppercase text-xs text-gray-500 mt-2">
                       By {blog.author}
                     </p>
                   </div>
@@ -127,7 +127,7 @@ const Home = () => {
       </section>
 
       {/* 2. Beauty Tips Carousel */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12">
+      <section className="max-w-7xl mx-auto px-6 md:px-10">
         <Carousel
           title="Beauty Tips"
           data={tips}
@@ -164,7 +164,7 @@ const Home = () => {
       </section>
 
       {/* 3. Trends Section (Full-width Tinted Background) */}
-      <section className="bg-boxBg py-12">
+      <section className="bg-boxBg py-6 md:py-12">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <Carousel
             title="Latest Trends"

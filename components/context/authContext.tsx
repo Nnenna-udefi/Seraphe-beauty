@@ -4,9 +4,17 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { authManager } from "@/components/lib/auth";
 import { AuthResponse } from "@/components/types/api";
 
+// Infer or import your actual Admin type
+export type AdminUser = {
+  id?: string;
+  name?: string;
+  email?: string;
+  [key: string]: any;
+};
+
 type AuthContextType = {
   isAuthenticated: boolean;
-  admin: ReturnType<typeof authManager.getAdminUser>;
+  admin: AdminUser | null;
   login: (auth: AuthResponse) => void;
   logout: () => void;
   token: string | null;
@@ -17,16 +25,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-  const [admin, setAdmin] =
-    useState<ReturnType<typeof authManager.getAdminUser>>(null);
+  const [admin, setAdmin] = useState<AdminUser | null>(null);
 
   useEffect(() => {
-    setToken(authManager.getToken());
-    setAdmin(authManager.getAdminUser());
-    setIsAuthenticated(authManager.isAuthenticated());
+    // Hydrate state from storage on mount
+    const initialToken = authManager.getToken();
+    const initialAdmin = authManager.getAdminUser();
+    const authed = authManager.isAuthenticated();
+
+    setToken(initialToken);
+    setAdmin(initialAdmin);
+    setIsAuthenticated(authed);
     setLoading(false);
   }, []);
 

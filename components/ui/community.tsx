@@ -39,25 +39,20 @@ const Community = () => {
   return (
     <>
       {/* Community Section */}
-      <section className="px-6 md:px-12 py-16 md:py-24">
+      <section className="px-6 md:px-12 py-10 md:py-24">
         <div className="max-w-4xl mx-auto text-center">
           <p className="uppercase tracking-[0.25em] text-yellowText text-xs md:text-sm mb-3">
             Stay in the know
           </p>
 
-          <H1 className="text-center">
-            Join our Community
-          </H1>
+          <H1 className="text-center">Join our Community</H1>
 
           <p className="text-sm md:text-base text-[#484646] mt-3 max-w-xl mx-auto leading-relaxed">
             Be the first to discover our latest stories, beauty insights,
             skincare trends and exclusive updates from Seraphé.
           </p>
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 max-w-2xl mx-auto"
-          >
+          <form onSubmit={handleSubmit} className="mt-8 max-w-2xl mx-auto">
             <div className="flex flex-col md:flex-row gap-3">
               <input
                 type="text"
@@ -106,11 +101,7 @@ const Community = () => {
             {/* Success Icon */}
             <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-50">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
-                <Check
-                  size={40}
-                  strokeWidth={3}
-                  className="text-white"
-                />
+                <Check size={40} strokeWidth={3} className="text-white" />
               </div>
             </div>
 
@@ -123,8 +114,8 @@ const Community = () => {
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-gray-500 leading-relaxed">
-              Thank you for joining our community. We&apos;ll keep you
-              updated with the latest beauty stories, trends and insights.
+              Thank you for joining our community. We&apos;ll keep you updated
+              with the latest beauty stories, trends and insights.
             </p>
 
             <button
@@ -142,4 +133,3 @@ const Community = () => {
 };
 
 export default Community;
-

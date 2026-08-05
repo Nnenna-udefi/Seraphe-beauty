@@ -1,164 +1,207 @@
 "use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import logo from "@/components/images/redbg.png";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Check, X } from "lucide-react";
 import { BsInstagram } from "react-icons/bs";
 import { FaEnvelope, FaFacebook, FaPhone, FaTiktok } from "react-icons/fa";
 import { LiaLinkedin } from "react-icons/lia";
+
+import logo from "@/components/images/redbg.png";
 import { footerList, skincareList } from "./lib/constants";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { api } from "./lib/api";
-import { useState } from "react";
-import { Check } from "lucide-react";
-import { H3 } from "./ui/heading";
 
 export const Footer = () => {
   const pathname = usePathname();
-
-  const isAdminRoute = pathname?.startsWith("/admin");
-
-  if (isAdminRoute) return null;
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  if (pathname?.startsWith("/admin")) return null;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name.trim() || !email.trim()) {
-      return;
-    }
+    if (!name.trim() || !email.trim()) return;
 
     try {
       setLoading(true);
-
-      await api.publicShop.createSubscriber({
-        name,
-        email,
-      });
-
+      await api.publicShop.createSubscriber({ name, email });
       setName("");
       setEmail("");
       setShowSuccess(true);
     } catch (error) {
-      console.error(error);
+      console.error("Subscription failed:", error);
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <div className="md:px-12 px-6 md:text-lg text-base text-primaryBg">
-      <hr className="border w-full text-darkText" />
-      <div className="flex flex-col justify-between  lg:flex-row gap-4  py-6 md:py-12">
-        <div className="lg:w-2xl w-full">
-          <Image src={logo} alt="logo" width={100} height={0} />
+    <footer className="w-full text-primaryBg ">
+      <hr className="border w-full border-darkText" />
 
-          <div className="hidden lg:block">
-            <div className="pt-10 pb-6">
-              <p className="pb-2">Stay up to date with our latest stories</p>
-
-              <form onSubmit={handleSubmit} className="mt-8">
-                <div className="flex flex-col gap-3">
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    required
-                    className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-                  />
-
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    required
-                    className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    {loading ? "Joining..." : "Sign Up"}
-                  </button>
-                </div>
-              </form>
-            </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-16">
+        {/* Main Footer Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Column 1: Brand & Logo */}
+          <div className="flex flex-col space-y-4">
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="Seraphé Beauty Logo"
+                width={110}
+                height={40}
+                className="object-contain"
+              />
+            </Link>
+            <p className="text-sm  max-w-xs leading-relaxed">
+              Discover curated beauty insights, skincare trends, and premium
+              products tailored for you.
+            </p>
           </div>
-        </div>
 
-        <div className="flex w-full justify-between gap-6 px-2">
-          <ul className="flex flex-col gap-2">
-            {footerList.map((item) => {
-              const isActive = pathname === item.link;
-              return (
-                <Link href={item.link} key={item.id}>
-                  <li className={`${isActive ? "font-n" : ""} font-medium`}>
-                    {item.text}
+          {/* Column 2: Navigation Links */}
+          <div className="flex flex-col space-y-3">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-black">
+              Explore
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {footerList.map((item) => {
+                const isActive = pathname === item.link;
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.link}
+                      className={`transition-colors hover:text-black ${
+                        isActive ? "font-bold text-black" : "text-primaryBg"
+                      }`}
+                    >
+                      {item.text}
+                    </Link>
                   </li>
-                </Link>
-              );
-            })}
-          </ul>
+                );
+              })}
+            </ul>
+          </div>
 
-          <ul className="flex flex-col gap-2">
-            {skincareList.map((item) => {
-              const isActive = pathname === item.link;
-              return (
-                <Link href={item.link} key={item.id}>
-                  <li
-                    className={`${isActive ? "font-normal" : ""} font-medium`}
-                  >
-                    {item.text}
+          {/* Column 3: Skincare & Categories */}
+          <div className="flex flex-col space-y-3">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-black">
+              Categories
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {skincareList.map((item) => {
+                const isActive = pathname === item.link;
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.link}
+                      className={`transition-colors hover:text-black ${
+                        isActive ? "font-bold text-black" : "text-primaryBg"
+                      }`}
+                    >
+                      {item.text}
+                    </Link>
                   </li>
-                </Link>
-              );
-            })}
-          </ul>
+                );
+              })}
+            </ul>
+          </div>
 
-          <div className="hidden lg:block">
-            <div>
-              <h3 className="uppercase tracking-tighter">
-                Contact Information
-              </h3>
-              <p className="pt-4 flex gap-1 items-center text-base">
-                <FaPhone />
-                <span>+234-705-968-6654</span>
+          {/* Column 4: Contact & Socials */}
+          <div className="flex flex-col space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-black">
+              Contact Us
+            </h4>
+            <div className="space-y-2 text-sm ">
+              <p className="flex items-center gap-2">
+                <FaPhone className="text-primaryBg shrink-0" />
+                <a
+                  href="tel:+2347059686654"
+                  target="_blank"
+                  className="hover:underline"
+                >
+                  +234-705-968-6654
+                </a>
               </p>
-              <p className="flex gap-1 items-center text-base">
-                <FaEnvelope />
-                <span>seraphebeauty.ng@gmail.com</span>
+              <p className="flex items-center gap-2">
+                <FaEnvelope className="text-primaryBg shrink-0" />
+                <a
+                  href="mailto:seraphebeauty.ng@gmail.com"
+                  target="_blank"
+                  className="hover:underline truncate"
+                >
+                  seraphebeauty.ng@gmail.com
+                </a>
               </p>
             </div>
 
-            <div className="flex gap-3 text-sm pt-6">
-              <FaTiktok fontSize={20} />
-              <LiaLinkedin fontSize={20} />
-              <FaFacebook fontSize={20} />
-              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
-                <BsInstagram fontSize={20} />
+            {/* Social Links */}
+            <div className="pt-2 flex items-center gap-4 text-black">
+              <a
+                href="#"
+                aria-label="TikTok"
+                target="_blank"
+                className="hover:text-primaryText transition-colors"
+              >
+                <FaTiktok size={18} />
+              </a>
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primaryText transition-colors"
+              >
+                <LiaLinkedin size={22} />
+              </a>
+              <a
+                href="#"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primaryText transition-colors"
+              >
+                <FaFacebook size={18} />
+              </a>
+              <Link
+                href="https://instagram.com/seraphe_beauty"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-primaryText transition-colors"
+              >
+                <BsInstagram size={18} />
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="block lg:hidden">
-          <div className="pt-10 pb-6">
-            <p>Stay up to date with our latest stories</p>
-            <form onSubmit={handleSubmit} className="mt-8 ">
-              <div className="flex flex-col gap-3">
+        {/* Newsletter Section */}
+        <div className="mt-12 pt-8 border-t border-text-darkText">
+          <div className="max-w-xl">
+            <h4 className="text-base font-semibold text-black">
+              Stay connected
+            </h4>
+            <p className="text-sm  mt-1">
+              Subscribe to get notified about our latest stories, products, and
+              updates.
+            </p>
+
+            <form onSubmit={handleSubmit} className="mt-4">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   required
-                  className="flex-1 lg:w-[50%] w-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 outline-none transition focus:border-primaryBg focus:bg-white rounded-sm"
                 />
 
                 <input
@@ -167,99 +210,84 @@ export const Footer = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
                   required
-                  className="flex-1 lg:w-[50%] w-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-[#333] outline-none transition focus:border-primaryBg focus:bg-white"
+                  className="flex-1 border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 outline-none transition focus:border-primaryBg focus:bg-white rounded-sm"
                 />
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="md:w-32 bg-primaryBg text-white px-6 py-3.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="bg-primaryBg text-white px-6 py-2.5 text-sm uppercase tracking-wider font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 rounded-sm"
                 >
                   {loading ? "Joining..." : "Sign Up"}
                 </button>
               </div>
             </form>
           </div>
-
-          <div className="py-4">
-            <div>
-              <h3 className="uppercase tracking-tighter font-medium">
-                Contact Information
-              </h3>
-              <p className="pt-4 flex gap-1 items-center text-base">
-                <FaPhone />
-                <span>+234-705-968-6654</span>
-              </p>
-              <p className="flex gap-1 items-center text-base">
-                <FaEnvelope />
-                <span>seraphebeauty.ng@gmail.com</span>
-              </p>
-            </div>
-
-            <div className="flex gap-3 text-sm pt-6">
-              <FaTiktok fontSize={20} />
-              <LiaLinkedin fontSize={20} />
-              <FaFacebook fontSize={20} />
-              <Link href="https://instagram.com/seraphe_beauty" target="_blank">
-                <BsInstagram fontSize={20} />
-              </Link>
-            </div>
-          </div>
         </div>
-      </div>
-      <div className="text-darkText">
-        <hr className="border w-full" />
-        <div className="flex md:flex-row flex-col-reverse justify-between py-3 text-sm">
-          {" "}
-          <p className="text-center md:text-left">
-            Copyright&#169;2026 . SeraphéBeauty
-          </p>
-          <div className="flex gap-4 justify-between py-2">
-            <p>Privacy Policy</p>
-            <p>Terms of use</p>
+
+        {/* Bottom Copyright Bar */}
+        <div className="mt-12 pt-6 border-t border-gray-400 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+          <p>© 2026 SeraphéBeauty. All rights reserved.</p>
+          <div className="flex gap-6">
+            <Link
+              href="/privacy-policy"
+              className="hover:underline hover:text-black"
+            >
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:underline hover:text-black">
+              Terms of Use
+            </Link>
           </div>
         </div>
       </div>
 
+      {/* Success Modal */}
       {showSuccess && (
         <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 px-6 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6 backdrop-blur-sm"
           onClick={() => setShowSuccess(false)}
         >
           <div
-            className="relative w-full max-w-md bg-white px-8 py-12 text-center shadow-2xl"
+            className="relative w-full max-w-md bg-white p-8 md:p-10 text-center shadow-2xl rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Success Icon */}
-            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-50">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
-                <Check size={40} strokeWidth={3} className="text-white" />
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-black transition"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white">
+                <Check size={28} strokeWidth={3} />
               </div>
             </div>
 
-            <p className="uppercase tracking-[0.25em] text-yellowText text-xs mb-3">
+            <p className="uppercase tracking-[0.2em] text-yellow-600 text-xs font-semibold mb-2">
               Welcome to Seraphé
             </p>
 
-            <h2 className="font-serif text-3xl md:text-4xl text-black">
+            <h2 className="font-serif text-2xl md:text-3xl text-black font-medium">
               You&apos;re officially subscribed!
             </h2>
 
-            <p className="mt-4 text-sm md:text-base text-gray-500 leading-relaxed">
+            <p className="mt-3 text-sm text-gray-500 leading-relaxed">
               Thank you for joining our community. We&apos;ll keep you updated
-              with the latest beauty stories, trends and insights.
+              with the latest beauty insights and trends.
             </p>
 
             <button
               type="button"
               onClick={() => setShowSuccess(false)}
-              className="mt-8 bg-primaryBg px-8 py-3 text-sm uppercase tracking-wider text-white transition hover:opacity-90"
+              className="mt-6 w-full bg-primaryBg py-3 text-sm uppercase tracking-wider text-white transition hover:opacity-90 rounded-sm font-medium"
             >
               Continue
             </button>
           </div>
         </div>
       )}
-    </div>
+    </footer>
   );
 };

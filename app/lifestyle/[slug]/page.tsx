@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as cheerio from "cheerio";
 import { Clock, User, List } from "lucide-react";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{
@@ -23,6 +24,10 @@ export default async function LifestyleDetails({ params }: Props) {
     api.publicShop.getLifestyle(),
     api.publicShop.getProducts(),
   ]);
+
+  if (!lifestyle) {
+    notFound();
+  }
 
   const related = allLifestyles
     .filter((t) => t.slug !== slug && t.categorySlug === lifestyle.categorySlug)

@@ -4,6 +4,7 @@ import {
   Category,
   Lifestyle,
   Product,
+  Review,
   TeamGrouped,
   Tips,
   TipsCategory,

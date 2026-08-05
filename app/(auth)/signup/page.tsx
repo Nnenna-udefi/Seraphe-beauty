@@ -1,20 +1,20 @@
 "use client";
-import { useAuth } from "@/components/context/authContext";
-import { api } from "@/components/lib/api";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
-interface SignInProps {
+import { api } from "@/components/lib/api";
+
+import React, { useState } from "react";
+import { toast } from "sonner";
+
+interface SignUpProps {
   onAuthSuccess: () => void;
-  onSwitchToSignUp: () => void;
+  onSwitchToSignIn: () => void;
 }
 
-export default function AdminSignIn({
+export default function AdminSignUp({
   onAuthSuccess,
-  onSwitchToSignUp,
-}: SignInProps) {
-  const router = useRouter();
-  const { login } = useAuth();
+  onSwitchToSignIn,
+}: SignUpProps) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,35 +22,38 @@ export default function AdminSignIn({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setError("");
     setSubmitting(true);
 
     try {
-      const response = await api.auth.adminSignin({
+      await api.auth.adminSignup({
+        name,
         email,
         password,
       });
 
-      login(response);
+      toast.success("Account created successfully.");
 
-      onAuthSuccess();
+      onSwitchToSignIn();
 
-      router.replace("/admin");
+      if (onAuthSuccess) {
+        onAuthSuccess();
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || "Invalid email or secret credentials.");
+      setError(err.message || "Registration denied.");
     } finally {
       setSubmitting(false);
     }
   };
+
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
-      <div className="max-w-md w-full bg-boxBg p-8 rounded-xl shadow-md border border-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="max-w-md w-full p-8 rounded-xl shadow-md border border-gray-100">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-1">
-          Seraphé Beauty
+          Create Admin
         </h2>
-        <p className="text-center text-sm text-gray-500 mb-6">Admin Sign In</p>
+        <p className="text-center text-sm text-gray-500 mb-6">Register</p>
 
         {error && (
           <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md mb-4 font-medium">
@@ -59,6 +62,18 @@ export default function AdminSignIn({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
@@ -86,19 +101,19 @@ export default function AdminSignIn({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-primaryBg text-white py-2 rounded-md font-semibold hover:bg-primaryText transition disabled:opacity-50"
+            className="w-full bg-gray-800 text-white py-2 rounded-md font-semibold hover:bg-gray-900 transition disabled:opacity-50"
           >
-            {submitting ? "Verifying..." : "Sign In"}
+            {submitting ? "Registering..." : "Create Account"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-xs text-gray-500">
-          Need a profile setup?{" "}
+          Already have access?{" "}
           <button
-            onClick={onSwitchToSignUp}
-            className="text-primaryBg hover:underline font-semibold"
+            onClick={onSwitchToSignIn}
+            className="text-primaryText hover:underline font-semibold"
           >
-            Register Admin
+            Sign In
           </button>
         </p>
       </div>

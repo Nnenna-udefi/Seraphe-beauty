@@ -17,7 +17,6 @@ export async function apiRequest<T = unknown>(
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
-
   const response = await fetch(url, {
     ...options,
     headers,

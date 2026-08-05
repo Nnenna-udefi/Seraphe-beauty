@@ -41,7 +41,7 @@ export default function Carousel<T>({
   };
 
   return (
-    <div className={` px-6 py-16 ${className}`}>
+    <div className={` px-2 md:px-6 py-2 md:py-10 ${className}`}>
       <div className="flex justify-between items-center mb-6">
         <H1>{title}</H1>
 

@@ -9,6 +9,7 @@ import Link from "next/link";
 import * as cheerio from "cheerio";
 import { Clock, Dot, List, User } from "lucide-react";
 import BlogImageCarousel from "@/components/ui/blogImageCarousel";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{
@@ -25,6 +26,9 @@ export default async function TipDetails({ params }: Props) {
     api.publicShop.getProducts(),
   ]);
 
+  if (!tip) {
+    notFound();
+  }
   const related = allTips
     .filter((t) => t.slug !== slug && t.categorySlug === tip.categorySlug)
     .slice(0, 3);

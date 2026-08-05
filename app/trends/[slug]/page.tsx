@@ -9,6 +9,7 @@ import Link from "next/link";
 import * as cheerio from "cheerio";
 import { Clock, List, User } from "lucide-react";
 import BlogImageCarousel from "@/components/ui/blogImageCarousel";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{
@@ -24,6 +25,10 @@ export default async function TrendDetails({ params }: Props) {
     api.publicShop.getTrends(),
     api.publicShop.getProducts(),
   ]);
+
+  if (!trend) {
+    notFound();
+  }
 
   const related = allTrends
     .filter((t) => t.slug !== slug && t.focusAreaSlug === trend.focusAreaSlug)

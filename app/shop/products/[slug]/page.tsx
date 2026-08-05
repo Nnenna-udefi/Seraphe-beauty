@@ -18,6 +18,7 @@ export default async function ProductDetailsPage({
   const reviews = await api.publicShop.getProductReviewsBySlug(slug);
 
   let product;
+
   try {
     product = await api.publicShop.getProductBySlug(slug);
   } catch {
