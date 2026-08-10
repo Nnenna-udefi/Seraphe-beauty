@@ -32,7 +32,6 @@ const communityGallery = [
 export default function JoinCommunity() {
   return (
     <div className="text-darkText py-10 md:py-16 md:px-12 px-6">
-      {/* SECTION 1: THE CORE PERKS (The "What's in it for me?") */}
       <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 border-b border-darkText">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="font-cantataOne text-2xl md:text-5xl text-black font-normal mb-4">
@@ -94,10 +93,8 @@ export default function JoinCommunity() {
 
       <Community />
 
-      {/* SECTION 2: CHANNELS & SOCIAL HUB */}
       <section className="max-w-6xl mx-auto md:px-12 px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Direct Chat Invite Box */}
           <div className="lg:col-span-5 space-y-6">
             <span className="text-xs uppercase tracking-widest text-primaryBg font-bold">
               Connect In Real Time
@@ -111,9 +108,8 @@ export default function JoinCommunity() {
               real-time answers to your burning beauty questions.
             </p>
 
-            {/* Elegant Button Matching the Brand Palette */}
             <Link
-              href="https://whatsapp.com" /* Replace with actual community invite link */
+              href="https://whatsapp.com"
               target="_blank"
               className="inline-flex items-center gap-3 bg-primaryBg hover:bg-primaryText text-white font-medium py-3.5 px-6 transition-all uppercase tracking-wider text-xs md:text-sm shadow-md group"
             >
@@ -126,7 +122,6 @@ export default function JoinCommunity() {
             </Link>
           </div>
 
-          {/* Right Column: Curated Visual Social Hub Grid */}
           <div className="lg:col-span-7 space-y-4">
             <div className="flex md:flex-row flex-col justify-between items-end border-b border-gray-100 pb-3">
               <div>
@@ -160,7 +155,7 @@ export default function JoinCommunity() {
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
-                  {/* Subtle hover overlay to tie into community sharing concept */}
+
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               ))}

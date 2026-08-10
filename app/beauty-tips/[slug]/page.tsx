@@ -7,7 +7,7 @@ import ProductCard from "@/components/ui/productCard";
 import Image from "next/image";
 import Link from "next/link";
 import * as cheerio from "cheerio";
-import { Clock, Dot, List, User } from "lucide-react";
+import { Clock, Dot, List, Sparkles, User } from "lucide-react";
 import BlogImageCarousel from "@/components/ui/blogImageCarousel";
 import { notFound } from "next/navigation";
 
@@ -32,6 +32,39 @@ export default async function TipDetails({ params }: Props) {
   const related = allTips
     .filter((t) => t.slug !== slug && t.categorySlug === tip.categorySlug)
     .slice(0, 3);
+
+  // dynamically filter related products based on blog content
+  const relatedProducts = (() => {
+    if (!products || products.length === 0) return [];
+
+    // 2. Category Match - Matches product category or tags with tip category/tags
+    const categoryMatches = products.filter((product) => {
+      // Extract category name safely depending on whether product.category is an object or string
+      const categoryName =
+        typeof product.category === "object" && product.category !== null
+          ? (product.category as { name?: string }).name
+          : String(product.category);
+
+      const matchCategory =
+        categoryName?.toLowerCase() === tip.category?.toLowerCase() ||
+        product.category.slug === tip.categorySlug;
+
+      const matchTags = tip.tags?.some(
+        (tag: string) =>
+          product.tags?.includes(tag) ||
+          product.name.toLowerCase().includes(tag.toLowerCase()),
+      );
+
+      return matchCategory || matchTags;
+    });
+
+    if (categoryMatches.length > 0) {
+      return categoryMatches.slice(0, 4);
+    }
+
+    // Fallback: Return first 4 items if no direct category match
+    return products.slice(0, 4);
+  })();
 
   const $ = cheerio.load(tip.content);
 
@@ -109,14 +142,15 @@ export default async function TipDetails({ params }: Props) {
           </nav>
         )}
 
-        <div className="relative w-full aspect-21/9 my-8 rounded-xl overflow-hidden bg-stone-100">
+        <div className="relative w-full md:w-[80%] aspect-21/9 my-8 rounded-xl overflow-hidden bg-stone-100">
           <Image
             src={tip?.images?.[0]}
             alt={tip.title}
-            fill
+            width={500}
+            height={500}
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover w-full"
           />
         </div>
         <div className="flex flex-col lg:flex-row gap-12 mt-10">
@@ -149,16 +183,25 @@ export default async function TipDetails({ params }: Props) {
               )}
             </div>
 
-            {/* Recommended Products */}
-            {products?.length > 0 && (
-              <section className="mt-14 pt-8 border-t border-stone-200">
-                <H3>Recommended Products</H3>
-                <p className="text-stone-500 text-sm mt-1 mb-6">
+            {/* Related Products Section */}
+            {relatedProducts.length > 0 && (
+              <section className="pt-10 border-t border-stone-200">
+                <div className=" mb-1">
+                  <H3 className="text-xl font-bold font-serif">
+                    Recommended Products
+                  </H3>
+                </div>
+                <p className="text-stone-500 text-sm mb-2">
                   Shop editor-approved picks and beauty science innovations
                   featured in this story.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {products.slice(0, 2).map((product) => (
+                <p className="text-stone-500 text-sm mb-6">
+                  Recommended products designed for {tip.category.toLowerCase()}
+                  .
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                  {relatedProducts.map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))}
                 </div>

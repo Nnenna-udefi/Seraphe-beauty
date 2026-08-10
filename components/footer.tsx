@@ -114,7 +114,7 @@ export const Footer = () => {
           </div>
 
           {/* Column 4: Contact & Socials */}
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-4" id="contact">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-black">
               Contact Us
             </h4>
@@ -144,7 +144,7 @@ export const Footer = () => {
             {/* Social Links */}
             <div className="pt-2 flex items-center gap-4 text-black">
               <a
-                href="#"
+                href="https://www.tiktok.com/@seraphe_beauty?_r=1&_t=ZS-98gQMkgDp15"
                 aria-label="TikTok"
                 target="_blank"
                 className="hover:text-primaryText transition-colors"
@@ -231,6 +231,7 @@ export const Footer = () => {
           <div className="flex gap-6">
             <Link
               href="/privacy-policy"
+              target="_blank"
               className="hover:underline hover:text-black"
             >
               Privacy Policy

@@ -263,6 +263,18 @@ export interface TeamPayload {
   order: number;
 }
 
+export interface Story {
+  _id: string;
+  title: string;
+  slug: string;
+  category: string;
+  author: string;
+  images: string[];
+  type: "tips" | "trends" | "lifestyle";
+  views?: number;
+  isFeatured?: boolean;
+}
+
 export interface TrendsPayload {
   title: string;
   focusArea: string;

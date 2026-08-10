@@ -30,6 +30,11 @@ export const footerList = [
     text: "About",
     link: "/about",
   },
+  {
+    id: 7,
+    text: "Our Services",
+    link: "/services",
+  },
 ];
 
 export const skincareList = [
