@@ -12,6 +12,8 @@
   --primaryText: #802626;
   --darkText: #737373;
   --yellowText: #c69824;
+  --amberColor: #e4a885;
+  --mustard: #bf9a3e;
   --boxBg: #fdf3ed;
 }
 
@@ -25,6 +27,8 @@
   --color-secondaryText: var(--secondaryText);
   --color-primaryText: var(--primaryText);
   --color-boxBg: var(--boxBg);
+  --color-mustard: var(--mustard);
+  --color-amberColor: var(--amberColor);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -91,4 +95,3 @@ h6 {
 button {
   cursor: pointer;
 }
-
